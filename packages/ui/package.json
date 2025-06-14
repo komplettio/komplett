@@ -27,7 +27,6 @@
     "@radix-ui/react-slider": "catalog:frontend",
     "@radix-ui/react-toast": "catalog:frontend",
     "clsx": "catalog:frontend",
-    "dexie": "catalog:frontend",
     "include-media": "catalog:frontend",
     "lucide-react": "catalog:frontend",
     "react": "catalog:frontend",

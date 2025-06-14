@@ -1,0 +1,25 @@
+{
+  "name": "@komplett/core",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "imports": {
+    "#*": [
+      "./src/*.ts",
+      "./src/*.tsx",
+      "./src/*/index.ts",
+      "./src/*"
+    ]
+  },
+  "main": "src/index.ts",
+  "dependencies": {
+    "dexie": "catalog:core",
+    "emittery": "catalog:core",
+    "handlery": "catalog:core"
+  },
+  "devDependencies": {
+    "@komplett/linter-config": "workspace:*",
+    "@komplett/typescript-config": "workspace:*",
+    "typescript": "catalog:build"
+  }
+}

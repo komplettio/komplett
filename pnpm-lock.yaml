@@ -18,6 +18,16 @@ catalogs:
     vite:
       specifier: ^6.3.5
       version: 6.3.5
+  core:
+    dexie:
+      specifier: ^4.0.11
+      version: 4.0.11
+    emittery:
+      specifier: ^1.1.0
+      version: 1.1.0
+    handlery:
+      specifier: ^0.2.3
+      version: 0.2.3
   format:
     '@ianvs/prettier-plugin-sort-imports':
       specifier: ^4.4.2
@@ -53,9 +63,6 @@ catalogs:
     clsx:
       specifier: ^2.1.1
       version: 2.1.1
-    dexie:
-      specifier: ^4.0.11
-      version: 4.0.11
     include-media:
       specifier: ^2.0.0
       version: 2.0.0
@@ -162,6 +169,28 @@ importers:
         specifier: catalog:test
         version: 3.2.3(@types/node@22.15.31)(@vitest/browser@3.2.3)(jiti@2.4.2)(sass@1.89.2)(yaml@2.7.1)
 
+  packages/core:
+    dependencies:
+      dexie:
+        specifier: catalog:core
+        version: 4.0.11
+      emittery:
+        specifier: catalog:core
+        version: 1.1.0
+      handlery:
+        specifier: catalog:core
+        version: 0.2.3(emittery@1.1.0)
+    devDependencies:
+      '@komplett/linter-config':
+        specifier: workspace:*
+        version: link:../linter-config
+      '@komplett/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: catalog:build
+        version: 5.8.3
+
   packages/linter-config:
     devDependencies:
       '@eslint/js':
@@ -217,9 +246,6 @@ importers:
       clsx:
         specifier: catalog:frontend
         version: 2.1.1
-      dexie:
-        specifier: catalog:frontend
-        version: 4.0.11
       include-media:
         specifier: catalog:frontend
         version: 2.0.0
@@ -1599,6 +1625,10 @@ packages:
   electron-to-chromium@1.5.167:
     resolution: {integrity: sha512-LxcRvnYO5ez2bMOFpbuuVuAI5QNeY1ncVytE/KXaL6ZNfzX1yPlAO0nSOyIHx2fVAuUprMqPs/TdVhUFZy7SIQ==}
 
+  emittery@1.1.0:
+    resolution: {integrity: sha512-rsX7ktqARv/6UQDgMaLfIqUWAEzzbCQiVh7V9rhDXp6c37yoJcks12NVD+XPkgl4AEavmNhVfrhGoqYwIsMYYA==}
+    engines: {node: '>=14.16'}
+
   es-abstract@1.23.9:
     resolution: {integrity: sha512-py07lI0wjxAC/DcfK1S6G7iANonniZwTISvdPzk9hzeH0IZIshbuuFxLIU96OyF89Yb9hiqWn8M/bY83KY5vzA==}
     engines: {node: '>= 0.4'}
@@ -1835,6 +1865,14 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+
+  handlery@0.2.3:
+    resolution: {integrity: sha512-BE7C9AF54GslMKZ35t2qEfE8Kx0mVF1iY0tlQdgPGjrZQIZ4JD3k4j8k7VVnaz7w6qMg/OaZZxJKE9VaZGUTSA==}
+    peerDependencies:
+      emittery: ^1.1.0
+    peerDependenciesMeta:
+      emittery:
+        optional: true
 
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
@@ -2797,7 +2835,7 @@ snapshots:
       '@babel/traverse': 7.27.4
       '@babel/types': 7.27.6
       convert-source-map: 2.0.0
-      debug: 4.4.0
+      debug: 4.4.1
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -4057,6 +4095,8 @@ snapshots:
 
   electron-to-chromium@1.5.167: {}
 
+  emittery@1.1.0: {}
+
   es-abstract@1.23.9:
     dependencies:
       array-buffer-byte-length: 1.0.2
@@ -4411,6 +4451,10 @@ snapshots:
   gopd@1.2.0: {}
 
   graphemer@1.4.0: {}
+
+  handlery@0.2.3(emittery@1.1.0):
+    optionalDependencies:
+      emittery: 1.1.0
 
   has-bigints@1.1.0: {}
 
@@ -5276,7 +5320,7 @@ snapshots:
       picomatch: 4.0.2
       postcss: 8.5.3
       rollup: 4.40.1
-      tinyglobby: 0.2.13
+      tinyglobby: 0.2.14
     optionalDependencies:
       '@types/node': 22.15.31
       fsevents: 2.3.3
