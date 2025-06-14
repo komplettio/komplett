@@ -1,4 +1,5 @@
 import Dexie, { Table } from 'dexie';
+
 import { DatabaseSchema } from './types';
 
 /**
@@ -9,8 +10,8 @@ export class BaseDatabase extends Dexie {
   files!: Table<DatabaseSchema['files']>;
 
   constructor() {
-    super('ZeditProjectDB');
-    
+    super('komplett');
+
     this.defineSchema();
     this.setupHooks();
   }
@@ -19,7 +20,8 @@ export class BaseDatabase extends Dexie {
     // Version 1: Initial schema
     this.version(1).stores({
       projects: '++id, name, createdDate, lastModified, lastAccessed, category, tags',
-      files: '++id, projectId, name, originalName, category, mimeType, createdDate, lastModified, lastAccessed, tags, status, &[projectId+originalName]'
+      files:
+        '++id, projectId, name, originalName, category, mimeType, createdDate, lastModified, lastAccessed, tags, status, &[projectId+originalName]',
     });
   }
 
