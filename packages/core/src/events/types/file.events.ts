@@ -1,4 +1,5 @@
-import { FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#db/models/file.models';
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+import { FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#models/file.models';
 import { UUID } from '#types/db.types';
 import { ListEvent } from '#types/event.types';
 
@@ -40,20 +41,20 @@ export interface FileListResponse {
   payload: FileModel[];
 }
 
-export interface FileEvents {
-  'File.create': FileCreateEvent;
-  'File.update': FileUpdateEvent;
-  'File.delete': FileDeleteEvent;
-  'File.get': FileGetEvent;
-  'File.list': FileListEvent;
-  'File.pub': FilePubEvent;
-}
+export type FileEvents = {
+  'file.create': FileCreateEvent;
+  'file.update': FileUpdateEvent;
+  'file.delete': FileDeleteEvent;
+  'file.get': FileGetEvent;
+  'file.list': FileListEvent;
+  'file.pub': FilePubEvent;
+};
 
-export interface FileEventResponses {
-  'File.create.resp': FileCreateResponse;
-  'File.update.resp': never;
-  'File.delete.resp': never;
-  'File.get.resp': FileGetResponse;
-  'File.list.resp': FileListResponse;
-  'File.pub.resp': never;
-}
+export type FileEventResponses = {
+  'file.create.resp': FileCreateResponse;
+  'file.update.resp': null;
+  'file.delete.resp': null;
+  'file.get.resp': FileGetResponse;
+  'file.list.resp': FileListResponse;
+  'file.pub.resp': null;
+};

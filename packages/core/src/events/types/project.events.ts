@@ -1,4 +1,5 @@
-import { ProjectCreateModel, ProjectDeleteModel, ProjectModel, ProjectUpdateModel } from '#db/models/project.models';
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+import { ProjectCreateModel, ProjectDeleteModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
 import { UUID } from '#types/db.types';
 import { ListEvent } from '#types/event.types';
 
@@ -40,20 +41,20 @@ export interface ProjectListResponse {
   payload: ProjectModel[];
 }
 
-export interface ProjectEvents {
+export type ProjectEvents = {
   'project.create': ProjectCreateEvent;
   'project.update': ProjectUpdateEvent;
   'project.delete': ProjectDeleteEvent;
   'project.get': ProjectGetEvent;
   'project.list': ProjectListEvent;
   'project.pub': ProjectPubEvent;
-}
+};
 
-export interface ProjectEventResponses {
+export type ProjectEventResponses = {
   'project.create.resp': ProjectCreateResponse;
-  'project.update.resp': never;
-  'project.delete.resp': never;
+  'project.update.resp': null;
+  'project.delete.resp': null;
   'project.get.resp': ProjectGetResponse;
   'project.list.resp': ProjectListResponse;
-  'project.pub.resp': never;
-}
+  'project.pub.resp': null;
+};

@@ -1,4 +1,4 @@
-export type UUID = string;
+export type UUID = `${string}-${string}-${string}-${string}-${string}`;
 
 export interface HasId {
   id: UUID;

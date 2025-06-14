@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { MainLayout } from '#layout/main/main.layout.js';
-import ProjectLayout from '#layout/project/project.layout.js';
+import { MainLayout } from '#layout/main/main.layout';
+import ProjectLayout from '#layout/project/project.layout';
 import { HomeRoute, ProjectRoute } from '#routes';
 
 export default function Router() {

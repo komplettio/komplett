@@ -2,13 +2,9 @@ import { FileText, FolderOpen, Plus } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router';
 
-import { useProjectManager } from '../../contexts/ProjectManagerContext';
-
 import './header.scss';
 
 export const Header: React.FC = () => {
-  const { openProjectList } = useProjectManager();
-
   return (
     <header className="header">
       <div className="header-content">
@@ -21,7 +17,7 @@ export const Header: React.FC = () => {
           </Link>
         </div>
         <nav className="nav">
-          <button className="nav-button" onClick={openProjectList}>
+          <button className="nav-button">
             <FolderOpen size={20} />
             Projects
           </button>

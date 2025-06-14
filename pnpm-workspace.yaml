@@ -12,6 +12,7 @@ catalogs:
     '@radix-ui/react-select': '^2.2.5'
     '@radix-ui/react-slider': '^1.3.5'
     '@radix-ui/react-toast': '^1.2.14'
+    '@tanstack/react-query': '^5.80.7'
     'lucide-react': '^0.515.0'
     'react': '^19.1.0'
     'react-dom': '^19.1.0'
@@ -50,5 +51,5 @@ catalogs:
     'taze': '^19.1.0'
   core:
     'emittery': '^1.1.0'
-    'handlery': '^0.2.3'
+    'handlery': '^0.2.4'
     'dexie': '^4.0.11'

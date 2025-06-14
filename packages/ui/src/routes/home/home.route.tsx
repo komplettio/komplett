@@ -1,13 +1,13 @@
 import { FileDropZone } from '#components/file-manager/FileDropZone';
-import { useProjectManager } from '#contexts/ProjectManagerContext';
+import { useProjects } from '#state/queries';
 
 import './home.route.scss';
 
 export default function HomeRoute() {
-  const { uploadFile } = useProjectManager();
-
+  const { data: projects } = useProjects();
+  console.log(projects);
   const handleFileUpload = async (file: File) => {
-    await uploadFile(file);
+    console.log(file);
   };
 
   return <FileDropZone onFileUpload={handleFileUpload} />;

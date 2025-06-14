@@ -11,7 +11,11 @@
       "./src/*"
     ]
   },
-  "main": "src/index.ts",
+  "exports": {
+    "./events": "./src/events/index.ts",
+    "./types": "./src/types/index.ts",
+    "./models": "./src/models/index.ts"
+  },
   "dependencies": {
     "dexie": "catalog:core",
     "emittery": "catalog:core",

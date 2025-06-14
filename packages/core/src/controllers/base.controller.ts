@@ -1,6 +1,7 @@
-import Dexie, { Collection, EntityTable, IDType, InsertType, liveQuery, Observable } from 'dexie';
+import Dexie, { Collection, liveQuery, Observable, Table, UpdateSpec } from 'dexie';
 
-import { BaseCreateModel, BaseModel, BaseUpdateModel } from '#db/models/base.models';
+import { BaseCreateModel, BaseModel, BaseUpdateModel } from '#models/base.models';
+import { UUID } from '#types/db.types';
 import { Filter, ListQueryOptions } from '#types/event.types';
 
 const DEFAULT_LIMIT = 1000;
@@ -14,10 +15,10 @@ export abstract class BaseController<
   TCreate extends BaseCreateModel<TBase> = BaseCreateModel<TBase>,
   TUpdate extends BaseUpdateModel<TBase> = BaseUpdateModel<TBase>,
 > {
-  protected collection: EntityTable<TBase, 'id'>;
+  protected collection: Table<TBase, UUID, TCreate>;
   private static _instances = new Map<new () => BaseController, BaseController>();
 
-  constructor(collection: EntityTable<TBase, 'id'>) {
+  constructor(collection: Table<TBase, UUID, TCreate>) {
     this.collection = collection;
   }
 
@@ -31,12 +32,14 @@ export abstract class BaseController<
 
   protected abstract _serialize(item: TBase): Promise<TSer>;
 
-  // These two methods cannot be simply implemented in the base class,
-  // because we don't know how TCreate and TUpdate relate to TBase.
-  // They must be implemented in derived classes.
-  // All other CRUD methods have "default" implementations that can/should(?) be overwritten.
-  public abstract create(item: TCreate): Promise<TBase['id']>;
-  public abstract update(id: number, item: TUpdate): Promise<void>;
+  public create(item: TCreate): Promise<TBase['id']> {
+    return this.collection.add(item);
+  }
+
+  public async update(id: TBase['id'], item: TUpdate): Promise<void> {
+    // The casting is needed for some reason.
+    await this.collection.update(id, item as UpdateSpec<TCreate>);
+  }
 
   public getById(id: number): Promise<TSer | undefined> {
     return this.collection
@@ -71,7 +74,7 @@ export abstract class BaseController<
   }
 
   protected async filter(filters?: ListQueryOptions<TBase> | null) {
-    let result: Collection<TBase, IDType<TBase, 'id'>, InsertType<TBase, 'id'>> | undefined;
+    let result: Collection<TBase, UUID, TCreate> | undefined;
 
     if (filters?.where) {
       const filteredProp = Object.keys(filters.where)[0] as keyof TBase;
@@ -110,7 +113,7 @@ export abstract class BaseController<
       }
     }
 
-    result ??= this.collection.toCollection();
+    result = this.collection.toCollection();
 
     result = result.limit(filters?.limit ?? DEFAULT_LIMIT).offset(filters?.offset ?? DEFAULT_OFFSET);
 

@@ -26,6 +26,7 @@
     "@radix-ui/react-select": "catalog:frontend",
     "@radix-ui/react-slider": "catalog:frontend",
     "@radix-ui/react-toast": "catalog:frontend",
+    "@tanstack/react-query": "catalog:frontend",
     "clsx": "catalog:frontend",
     "include-media": "catalog:frontend",
     "lucide-react": "catalog:frontend",
@@ -36,6 +37,7 @@
     "zustand": "catalog:frontend"
   },
   "devDependencies": {
+    "@komplett/core": "workspace:*",
     "@komplett/linter-config": "workspace:*",
     "@komplett/typescript-config": "workspace:*",
     "@types/react": "catalog:types",

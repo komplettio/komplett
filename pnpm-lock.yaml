@@ -26,8 +26,8 @@ catalogs:
       specifier: ^1.1.0
       version: 1.1.0
     handlery:
-      specifier: ^0.2.3
-      version: 0.2.3
+      specifier: ^0.2.4
+      version: 0.2.4
   format:
     '@ianvs/prettier-plugin-sort-imports':
       specifier: ^4.4.2
@@ -60,6 +60,9 @@ catalogs:
     '@radix-ui/react-toast':
       specifier: ^1.2.14
       version: 1.2.14
+    '@tanstack/react-query':
+      specifier: ^5.80.7
+      version: 5.80.7
     clsx:
       specifier: ^2.1.1
       version: 2.1.1
@@ -179,7 +182,7 @@ importers:
         version: 1.1.0
       handlery:
         specifier: catalog:core
-        version: 0.2.3(emittery@1.1.0)
+        version: 0.2.4(emittery@1.1.0)
     devDependencies:
       '@komplett/linter-config':
         specifier: workspace:*
@@ -243,6 +246,9 @@ importers:
       '@radix-ui/react-toast':
         specifier: catalog:frontend
         version: 1.2.14(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@tanstack/react-query':
+        specifier: catalog:frontend
+        version: 5.80.7(react@19.1.0)
       clsx:
         specifier: catalog:frontend
         version: 2.1.1
@@ -268,6 +274,9 @@ importers:
         specifier: catalog:frontend
         version: 5.0.5(@types/react@19.1.8)(react@19.1.0)
     devDependencies:
+      '@komplett/core':
+        specifier: workspace:*
+        version: link:../core
       '@komplett/linter-config':
         specifier: workspace:*
         version: link:../linter-config
@@ -1216,6 +1225,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@tanstack/query-core@5.80.7':
+    resolution: {integrity: sha512-s09l5zeUKC8q7DCCCIkVSns8zZrK4ZDT6ryEjxNBFi68G4z2EBobBS7rdOY3r6W1WbUDpc1fe5oY+YO/+2UVUg==}
+
+  '@tanstack/react-query@5.80.7':
+    resolution: {integrity: sha512-u2F0VK6+anItoEvB3+rfvTO9GEh2vb00Je05OwlUe/A0lkJBgW1HckiY3f9YZa+jx6IOe4dHPh10dyp9aY3iRQ==}
+    peerDependencies:
+      react: ^18 || ^19
+
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
     engines: {node: '>=18'}
@@ -1866,8 +1883,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  handlery@0.2.3:
-    resolution: {integrity: sha512-BE7C9AF54GslMKZ35t2qEfE8Kx0mVF1iY0tlQdgPGjrZQIZ4JD3k4j8k7VVnaz7w6qMg/OaZZxJKE9VaZGUTSA==}
+  handlery@0.2.4:
+    resolution: {integrity: sha512-SEur2lXqxGwtrribJkIZVy/TPRafHIDu6kYdRmwbtkySHEOySfCc3Nhl4nzOnj7DWhXYGFGuv3szcXOxAFBzGw==}
     peerDependencies:
       emittery: ^1.1.0
     peerDependenciesMeta:
@@ -3615,6 +3632,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.40.1':
     optional: true
 
+  '@tanstack/query-core@5.80.7': {}
+
+  '@tanstack/react-query@5.80.7(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.80.7
+      react: 19.1.0
+
   '@testing-library/dom@10.4.0':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -4452,7 +4476,7 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  handlery@0.2.3(emittery@1.1.0):
+  handlery@0.2.4(emittery@1.1.0):
     optionalDependencies:
       emittery: 1.1.0
 
