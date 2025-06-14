@@ -1,0 +1,43 @@
+{
+  "name": "@komplett/ui",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "imports": {
+    "#*": [
+      "./src/*",
+      "./src/*.ts",
+      "./src/*.tsx",
+      "./src/*/index.ts"
+    ]
+  },
+  "main": "src/main.ts",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "catalog:frontend",
+    "@radix-ui/react-dropdown-menu": "catalog:frontend",
+    "@radix-ui/react-progress": "catalog:frontend",
+    "@radix-ui/react-select": "catalog:frontend",
+    "@radix-ui/react-slider": "catalog:frontend",
+    "@radix-ui/react-toast": "catalog:frontend",
+    "dexie": "catalog:frontend",
+    "lucide-react": "catalog:frontend",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@komplett/linter-config": "workspace:*",
+    "@komplett/typescript-config": "workspace:*",
+    "@types/react": "catalog:types",
+    "@types/react-dom": "catalog:types",
+    "@vitejs/plugin-react": "catalog:build",
+    "sass": "catalog:build",
+    "typescript": "catalog:build",
+    "vite": "catalog:build"
+  }
+}

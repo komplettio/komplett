@@ -1,0 +1,79 @@
+.audio-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.editor-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.adjustment-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.control-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+// Slider styles for AudioEditor
+.audio-editor {
+  .slider-root {
+    position: relative;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    touch-action: none;
+    width: 100%;
+    height: 20px;
+  }
+
+  .slider-track {
+    background: var(--color-gray-200);
+    position: relative;
+    flex-grow: 1;
+    border-radius: 9999px;
+    height: 4px;
+  }
+
+  .slider-range {
+    position: absolute;
+    background: var(--color-primary-500);
+    border-radius: 9999px;
+    height: 100%;
+  }
+
+  .slider-thumb {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border: 2px solid var(--color-primary-500);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-md);
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px var(--color-primary-100);
+    }
+  }
+}

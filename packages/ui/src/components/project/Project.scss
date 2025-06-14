@@ -1,0 +1,522 @@
+.project-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-gray-50);
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4);
+  background: white;
+  border-bottom: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+  
+  // Mobile: Stack vertically
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+  }
+  
+  // Tablet adjustments
+  @media (min-width: 769px) and (max-width: 1024px) {
+    padding: var(--spacing-5);
+  }
+  
+  // Desktop spacing
+  @media (min-width: 1025px) {
+    padding: var(--spacing-6);
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  
+  // Mobile: Full width
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: var(--spacing-2);
+  }
+  
+  @media (min-width: 1025px) {
+    gap: var(--spacing-4);
+  }
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  font-size: clamp(12px, 2.5vw, 14px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  white-space: nowrap;
+  
+  &:hover {
+    background: var(--color-gray-200);
+  }
+  
+  // Mobile touch improvements
+  @media (max-width: 768px) {
+    min-height: 44px;
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: 13px;
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: 14px;
+  }
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1;
+  min-width: 0; // Allow text truncation
+  
+  @media (max-width: 768px) {
+    gap: var(--spacing-1);
+  }
+  
+  @media (min-width: 1025px) {
+    gap: var(--spacing-1);
+  }
+}
+
+.project-title {
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 700;
+  color: var(--color-gray-900);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  // Mobile specific sizing
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  
+  @media (min-width: 1200px) {
+    font-size: 24px;
+  }
+}
+
+.project-description {
+  font-size: clamp(12px, 2.5vw, 14px);
+  color: var(--color-gray-600);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--spacing-2);
+  
+  // Mobile: Full width, stack if needed
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: var(--spacing-2);
+    flex-wrap: wrap;
+  }
+  
+  @media (min-width: 1025px) {
+    gap: var(--spacing-3);
+  }
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  font-size: clamp(12px, 2.5vw, 14px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  white-space: nowrap;
+  
+  &:hover {
+    background: var(--color-gray-200);
+  }
+  
+  &.danger {
+    background: var(--color-error-100);
+    color: var(--color-error-700);
+    
+    &:hover {
+      background: var(--color-error-200);
+    }
+  }
+  
+  // Mobile touch improvements
+  @media (max-width: 768px) {
+    min-height: 44px;
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: 13px;
+    flex: 1; // Equal width buttons on mobile
+    justify-content: center;
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: 14px;
+  }
+}
+
+.project-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.file-editor-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  
+  // Mobile: Single column
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+  }
+  
+  // Desktop spacing
+  @media (min-width: 1025px) {
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+  }
+}
+
+.preview-section {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 300px;
+  
+  // Mobile adjustments
+  @media (max-width: 1024px) {
+    min-height: 250px;
+    order: 1;
+  }
+  
+  @media (max-width: 768px) {
+    min-height: 200px;
+  }
+}
+
+.editor-section {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  // Mobile: Order after preview
+  @media (max-width: 1024px) {
+    order: 2;
+  }
+}
+
+.file-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  
+  // Mobile: Stack if needed
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-4) var(--spacing-6);
+  }
+}
+
+.file-name {
+  font-size: clamp(14px, 3vw, 16px);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.file-actions {
+  display: flex;
+  gap: var(--spacing-2);
+  
+  // Mobile: Full width
+  @media (max-width: 768px) {
+    width: 100%;
+    
+    .action-button {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+}
+
+.editor-content {
+  flex: 1;
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  
+  @media (max-width: 768px) {
+    padding: var(--spacing-3);
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-6);
+  }
+}
+
+.empty-project {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  
+  @media (max-width: 768px) {
+    padding: var(--spacing-4);
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-8);
+  }
+}
+
+.project-sidebar {
+  width: 300px;
+  background: white;
+  border-left: 1px solid var(--color-gray-200);
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  
+  // Hide on mobile and tablet
+  @media (max-width: 1024px) {
+    display: none;
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-6);
+  }
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.file-item {
+  padding: var(--spacing-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px; // Touch target
+  
+  &:hover {
+    background: var(--color-gray-50);
+    border-color: var(--color-gray-200);
+  }
+  
+  &.active {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+  }
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.file-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-gray-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  font-size: 12px;
+  color: var(--color-gray-500);
+}
+
+// Preview styles
+.file-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3);
+  
+  @media (max-width: 768px) {
+    padding: var(--spacing-2);
+  }
+  
+  @media (min-width: 1025px) {
+    padding: var(--spacing-4);
+  }
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.preview-video {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.audio-waveform {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+    gap: var(--spacing-2);
+  }
+  
+  @media (min-width: 1025px) {
+    gap: var(--spacing-4);
+  }
+}
+
+.waveform-placeholder {
+  height: 120px;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3);
+  
+  @media (max-width: 768px) {
+    height: 80px;
+    padding: var(--spacing-2);
+  }
+  
+  @media (min-width: 1025px) {
+    height: 120px;
+    padding: var(--spacing-4);
+  }
+}
+
+.waveform-bars {
+  display: flex;
+  align-items: end;
+  gap: 2px;
+  height: 80px;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    height: 60px;
+    gap: 1px;
+  }
+}
+
+.waveform-bar {
+  background: var(--color-primary-500);
+  width: 4px;
+  min-height: 4px;
+  border-radius: 2px;
+  opacity: 0.7;
+  animation: waveform 2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.1s);
+  
+  @media (max-width: 768px) {
+    width: 3px;
+    min-height: 3px;
+  }
+}
+
+.audio-controls {
+  width: 100%;
+  height: 40px;
+  
+  @media (max-width: 768px) {
+    height: 36px;
+  }
+}
+
+.file-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+  font-size: clamp(14px, 3vw, 16px);
+  text-align: center;
+  padding: var(--spacing-4);
+}
+
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}

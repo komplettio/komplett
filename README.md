@@ -1,4 +1,4 @@
-## `@janis.me/starter`
+## `@komplett/starter`
 
 Repo template for my repositories. Based on pnpm workspaces, and includes default setup for:
 
@@ -38,7 +38,7 @@ The linter config is defined in the `linter-config` package. This defines a `bas
 For example:
 
 ```ts
-import { reactConfig, tseslint, type ConfigArray } from '@janis.me/linter-config';
+import { reactConfig, tseslint, type ConfigArray } from '@komplett/linter-config';
 
 const customConfig: ConfigArray = tseslint.config(...reactConfig, {
   rules: {
@@ -55,7 +55,7 @@ export default customConfig;
 When running `pnpm lint`, it respects these overrides and will lint all packages using their own config. Thus, you should add a new `eslint.config.ts` file to each package. It can be as simple as
 
 ```ts
-import { baseConfig } from '@janis.me/linter-config';
+import { baseConfig } from '@komplett/linter-config';
 
 export default baseConfig;
 ```
@@ -68,7 +68,7 @@ In both cases, you can extend those by creating a tsconfig file in one of the su
 
 ```json
 {
-  "extends": "@janis.me/typescript-config/base.json",
+  "extends": "@komplett/typescript-config/base.json",
   "compilerOptions": {
     "types": ["node"]
   },
