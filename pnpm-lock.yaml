@@ -29,6 +29,9 @@ catalogs:
       specifier: ^2.5.15
       version: 2.5.15
   frontend:
+    '@janis.me/react-themed':
+      specifier: 0.2.0
+      version: 0.2.0
     '@radix-ui/react-dialog':
       specifier: ^1.1.14
       version: 1.1.14
@@ -47,9 +50,15 @@ catalogs:
     '@radix-ui/react-toast':
       specifier: ^1.2.14
       version: 1.2.14
+    clsx:
+      specifier: ^2.1.1
+      version: 2.1.1
     dexie:
       specifier: ^4.0.11
       version: 4.0.11
+    include-media:
+      specifier: ^2.0.0
+      version: 2.0.0
     lucide-react:
       specifier: ^0.515.0
       version: 0.515.0
@@ -59,6 +68,15 @@ catalogs:
     react-dom:
       specifier: ^19.1.0
       version: 19.1.0
+    react-router:
+      specifier: ^7.6.2
+      version: 7.6.2
+    sanitize.css:
+      specifier: ^13.0.0
+      version: 13.0.0
+    zustand:
+      specifier: ^5.0.5
+      version: 5.0.5
   lint:
     '@eslint/js':
       specifier: ^9.29.0
@@ -175,6 +193,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@janis.me/react-themed':
+        specifier: catalog:frontend
+        version: 0.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-dialog':
         specifier: catalog:frontend
         version: 1.1.14(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -193,9 +214,15 @@ importers:
       '@radix-ui/react-toast':
         specifier: catalog:frontend
         version: 1.2.14(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      clsx:
+        specifier: catalog:frontend
+        version: 2.1.1
       dexie:
         specifier: catalog:frontend
         version: 4.0.11
+      include-media:
+        specifier: catalog:frontend
+        version: 2.0.0
       lucide-react:
         specifier: catalog:frontend
         version: 0.515.0(react@19.1.0)
@@ -205,6 +232,15 @@ importers:
       react-dom:
         specifier: catalog:frontend
         version: 19.1.0(react@19.1.0)
+      react-router:
+        specifier: catalog:frontend
+        version: 7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      sanitize.css:
+        specifier: catalog:frontend
+        version: 13.0.0
+      zustand:
+        specifier: catalog:frontend
+        version: 5.0.5(@types/react@19.1.8)(react@19.1.0)
     devDependencies:
       '@komplett/linter-config':
         specifier: workspace:*
@@ -555,6 +591,17 @@ packages:
     peerDependenciesMeta:
       '@vue/compiler-sfc':
         optional: true
+
+  '@janis.me/react-themed@0.2.0':
+    resolution: {integrity: sha512-eN5beNdPzDfy7o95RqWZL7tePfB7K8wAAeMcyZT5m/egF4j8xlbK5pgvemmIJJMCO+IZEM56tnusBgyOvwMKEg==}
+    engines: {node: '>=22.11.0'}
+    peerDependencies:
+      react: ^19.1.0
+      react-dom: ^19.1.0
+
+  '@janis.me/themed@0.2.0':
+    resolution: {integrity: sha512-vtpZs7BAkvQWlwtZA2n7wfRdhV5KdM7jFxPucfKiG7Pdh8XGk+MSFJNanqqKZX33VXEsFrf3rFXtJ3uTt+0J9A==}
+    engines: {node: '>=22.11.0'}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -1436,6 +1483,10 @@ packages:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
 
+  clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
+
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
@@ -1448,6 +1499,10 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  cookie@1.0.2:
+    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
+    engines: {node: '>=18'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -1826,6 +1881,9 @@ packages:
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
+
+  include-media@2.0.0:
+    resolution: {integrity: sha512-LSJcffPYIZ/Kln0rIi5UhqQbZxElDCMYA4dPC5MI1rkwwjptgEiOicHnzB0MMhMNJver0+4zULb4MKlgDyapZg==}
 
   internal-slot@1.1.0:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
@@ -2238,6 +2296,16 @@ packages:
       '@types/react':
         optional: true
 
+  react-router@7.6.2:
+    resolution: {integrity: sha512-U7Nv3y+bMimgWjhlT5CRdzHPu2/KVmqPwKUCChW8en5P3znxUqwlYFlbmyj8Rgp1SF6zs5X4+77kBVknkg6a0w==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
     engines: {node: '>=10'}
@@ -2300,6 +2368,9 @@ packages:
     resolution: {integrity: sha512-x/+Cz4YrimQxQccJf5mKEbIa1NzeCRNI5Ecl/ekmlYaampdNLPalVyIcCZNNH3MvmqBugV5TMYZXv0ljslUlaw==}
     engines: {node: '>= 0.4'}
 
+  sanitize.css@13.0.0:
+    resolution: {integrity: sha512-ZRwKbh/eQ6w9vmTjkuG0Ioi3HBwPFce0O+v//ve+aOq1oeCy7jMV2qzzAlpsNuqpqCBjjriM1lbtZbF/Q8jVyA==}
+
   sass@1.89.2:
     resolution: {integrity: sha512-xCmtksBKd/jdJ9Bt9p7nPKiuqrlBMBuuGkQlkhZjjQk3Ty48lv93k5Dq6OPkKt4XwxDJ7tvlfrTa1MPA9bf+QA==}
     engines: {node: '>=14.0.0'}
@@ -2316,6 +2387,9 @@ packages:
     resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
     engines: {node: '>=10'}
     hasBin: true
+
+  set-cookie-parser@2.7.1:
+    resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
 
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
@@ -2670,6 +2744,24 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zustand@5.0.5:
+    resolution: {integrity: sha512-mILtRfKW9xM47hqxGIxCv12gXusoY/xTSHBYApXozR0HmQv299whhBeeAcRy+KrPPybzosvJBCOmVjq6x12fCg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -2955,6 +3047,14 @@ snapshots:
       semver: 7.7.1
     transitivePeerDependencies:
       - supports-color
+
+  '@janis.me/react-themed@0.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@janis.me/themed': 0.2.0
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
+  '@janis.me/themed@0.2.0': {}
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
@@ -3862,6 +3962,8 @@ snapshots:
     dependencies:
       readdirp: 4.1.2
 
+  clsx@2.1.1: {}
+
   color-convert@2.0.1:
     dependencies:
       color-name: 1.1.4
@@ -3871,6 +3973,8 @@ snapshots:
   concat-map@0.0.1: {}
 
   convert-source-map@2.0.0: {}
+
+  cookie@1.0.2: {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -4343,6 +4447,8 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
+  include-media@2.0.0: {}
+
   internal-slot@1.1.0:
     dependencies:
       es-errors: 1.3.0
@@ -4735,6 +4841,14 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.8
 
+  react-router@7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      cookie: 1.0.2
+      react: 19.1.0
+      set-cookie-parser: 2.7.1
+    optionalDependencies:
+      react-dom: 19.1.0(react@19.1.0)
+
   react-style-singleton@2.2.3(@types/react@19.1.8)(react@19.1.0):
     dependencies:
       get-nonce: 1.0.1
@@ -4831,6 +4945,8 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
+  sanitize.css@13.0.0: {}
+
   sass@1.89.2:
     dependencies:
       chokidar: 4.0.3
@@ -4844,6 +4960,8 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.7.1: {}
+
+  set-cookie-parser@2.7.1: {}
 
   set-function-length@1.2.2:
     dependencies:
@@ -5267,3 +5385,8 @@ snapshots:
   yaml@2.7.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zustand@5.0.5(@types/react@19.1.8)(react@19.1.0):
+    optionalDependencies:
+      '@types/react': 19.1.8
+      react: 19.1.0

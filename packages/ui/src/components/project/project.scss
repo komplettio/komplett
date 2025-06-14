@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100%;
   background: var(--color-gray-50);
 }
 
@@ -13,7 +14,7 @@
   background: white;
   border-bottom: 1px solid var(--color-gray-200);
   box-shadow: var(--shadow-sm);
-  
+
   // Mobile: Stack vertically
   @media (max-width: 768px) {
     flex-direction: column;
@@ -21,12 +22,12 @@
     gap: var(--spacing-3);
     padding: var(--spacing-3);
   }
-  
+
   // Tablet adjustments
   @media (min-width: 769px) and (max-width: 1024px) {
     padding: var(--spacing-5);
   }
-  
+
   // Desktop spacing
   @media (min-width: 1025px) {
     padding: var(--spacing-6);
@@ -37,13 +38,13 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
-  
+
   // Mobile: Full width
   @media (max-width: 768px) {
     width: 100%;
     gap: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-4);
   }
@@ -64,18 +65,18 @@
   transition: all 0.2s ease;
   min-height: 40px;
   white-space: nowrap;
-  
+
   &:hover {
     background: var(--color-gray-200);
   }
-  
+
   // Mobile touch improvements
   @media (max-width: 768px) {
     min-height: 44px;
     padding: var(--spacing-2) var(--spacing-3);
     font-size: 13px;
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-3) var(--spacing-4);
     font-size: 14px;
@@ -88,11 +89,11 @@
   gap: var(--spacing-1);
   flex: 1;
   min-width: 0; // Allow text truncation
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-1);
   }
@@ -106,12 +107,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   // Mobile specific sizing
   @media (max-width: 768px) {
     font-size: 20px;
   }
-  
+
   @media (min-width: 1200px) {
     font-size: 24px;
   }
@@ -129,14 +130,14 @@
 .header-actions {
   display: flex;
   gap: var(--spacing-2);
-  
+
   // Mobile: Full width, stack if needed
   @media (max-width: 768px) {
     width: 100%;
     gap: var(--spacing-2);
     flex-wrap: wrap;
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-3);
   }
@@ -157,20 +158,20 @@
   transition: all 0.2s ease;
   min-height: 40px;
   white-space: nowrap;
-  
+
   &:hover {
     background: var(--color-gray-200);
   }
-  
+
   &.danger {
     background: var(--color-error-100);
     color: var(--color-error-700);
-    
+
     &:hover {
       background: var(--color-error-200);
     }
   }
-  
+
   // Mobile touch improvements
   @media (max-width: 768px) {
     min-height: 44px;
@@ -179,7 +180,7 @@
     flex: 1; // Equal width buttons on mobile
     justify-content: center;
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-3) var(--spacing-4);
     font-size: 14px;
@@ -198,7 +199,7 @@
   grid-template-columns: 2fr 1fr;
   gap: var(--spacing-4);
   padding: var(--spacing-4);
-  
+
   // Mobile: Single column
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
@@ -206,7 +207,7 @@
     gap: var(--spacing-3);
     padding: var(--spacing-3);
   }
-  
+
   // Desktop spacing
   @media (min-width: 1025px) {
     gap: var(--spacing-6);
@@ -225,13 +226,13 @@
   overflow: hidden;
   position: relative;
   min-height: 300px;
-  
+
   // Mobile adjustments
   @media (max-width: 1024px) {
     min-height: 250px;
     order: 1;
   }
-  
+
   @media (max-width: 768px) {
     min-height: 200px;
   }
@@ -245,7 +246,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  
+
   // Mobile: Order after preview
   @media (max-width: 1024px) {
     order: 2;
@@ -259,7 +260,7 @@
   padding: var(--spacing-3) var(--spacing-4);
   border-bottom: 1px solid var(--color-gray-200);
   background: var(--color-gray-50);
-  
+
   // Mobile: Stack if needed
   @media (max-width: 768px) {
     flex-direction: column;
@@ -267,7 +268,7 @@
     gap: var(--spacing-2);
     padding: var(--spacing-3);
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-4) var(--spacing-6);
   }
@@ -288,11 +289,11 @@
 .file-actions {
   display: flex;
   gap: var(--spacing-2);
-  
+
   // Mobile: Full width
   @media (max-width: 768px) {
     width: 100%;
-    
+
     .action-button {
       flex: 1;
       justify-content: center;
@@ -304,11 +305,11 @@
   flex: 1;
   padding: var(--spacing-4);
   overflow-y: auto;
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-3);
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-6);
   }
@@ -320,11 +321,11 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-6);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-4);
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-8);
   }
@@ -336,12 +337,12 @@
   border-left: 1px solid var(--color-gray-200);
   padding: var(--spacing-4);
   overflow-y: auto;
-  
+
   // Hide on mobile and tablet
   @media (max-width: 1024px) {
     display: none;
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-6);
   }
@@ -367,12 +368,12 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 44px; // Touch target
-  
+
   &:hover {
     background: var(--color-gray-50);
     border-color: var(--color-gray-200);
   }
-  
+
   &.active {
     background: var(--color-primary-50);
     border-color: var(--color-primary-200);
@@ -407,11 +408,11 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-3);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-4);
   }
@@ -438,12 +439,12 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  
+
   @media (max-width: 768px) {
     max-width: 100%;
     gap: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-4);
   }
@@ -457,12 +458,12 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-3);
-  
+
   @media (max-width: 768px) {
     height: 80px;
     padding: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     height: 120px;
     padding: var(--spacing-4);
@@ -475,7 +476,7 @@
   gap: 2px;
   height: 80px;
   width: 100%;
-  
+
   @media (max-width: 768px) {
     height: 60px;
     gap: 1px;
@@ -490,7 +491,7 @@
   opacity: 0.7;
   animation: waveform 2s ease-in-out infinite;
   animation-delay: calc(var(--i) * 0.1s);
-  
+
   @media (max-width: 768px) {
     width: 3px;
     min-height: 3px;
@@ -500,7 +501,7 @@
 .audio-controls {
   width: 100%;
   height: 40px;
-  
+
   @media (max-width: 768px) {
     height: 36px;
   }
@@ -517,6 +518,11 @@
 }
 
 @keyframes waveform {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }

@@ -1,6 +1,6 @@
 import { BaseDatabase } from './base';
-import { ProjectRepository } from './project.repository';
 import { FileRepository } from './file.repository';
+import { ProjectRepository } from './project.repository';
 import { StorageStats } from './types';
 
 /**
@@ -38,7 +38,7 @@ export class DatabaseService {
     return projectId;
   }
 
-  async getProject(id: string): Promise<import('./types').Project | undefined> {
+  async getProject(id: number): Promise<import('./types').Project | undefined> {
     return await this.projectRepo.get(id);
   }
 
@@ -46,19 +46,19 @@ export class DatabaseService {
     return await this.projectRepo.getAll();
   }
 
-  async updateProject(id: string, updates: Partial<import('./types').Project>): Promise<void> {
+  async updateProject(id: number, updates: Partial<import('./types').Project>): Promise<void> {
     await this.projectRepo.update(id, updates);
   }
 
-  async deleteProject(id: string): Promise<void> {
+  async deleteProject(id: number): Promise<void> {
     await this.projectRepo.delete(id);
   }
 
   // File operations
   async saveFile(
-    projectId: string, 
-    file: File, 
-    options?: Partial<import('./types').FileTypeOptions>
+    projectId: number,
+    file: File,
+    options?: Partial<import('./types').FileTypeOptions>,
   ): Promise<import('./types').ProjectFile> {
     const projectFile = await this.fileRepo.saveFile(projectId, file, options);
     await this.projectRepo.updateStats(projectId);
@@ -75,7 +75,7 @@ export class DatabaseService {
 
   async updateFile(id: string, updates: Partial<import('./types').ProjectFile>): Promise<void> {
     await this.fileRepo.update(id, updates);
-    
+
     // Update project stats if file size changed
     if (updates.size !== undefined) {
       const file = await this.fileRepo.get(id);
@@ -98,11 +98,11 @@ export class DatabaseService {
     const projects = await this.database.projects.count();
     const files = await this.database.files.toArray();
     const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-    
+
     return {
       projectCount: projects,
       fileCount: files.length,
-      totalSize
+      totalSize,
     };
   }
 

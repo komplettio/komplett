@@ -1,9 +1,10 @@
 import { FileText, FolderOpen, Plus } from 'lucide-react';
 import React from 'react';
+import { Link } from 'react-router';
 
 import { useProjectManager } from '../../contexts/ProjectManagerContext';
 
-import './Header.scss';
+import './header.scss';
 
 export const Header: React.FC = () => {
   const { openProjectList } = useProjectManager();
@@ -13,9 +14,11 @@ export const Header: React.FC = () => {
       <div className="header-content">
         <div className="logo">
           <FileText className="logo-icon" />
-          <h1 className="logo-text">
-            komplett<span className="logo-secondary">.io</span>
-          </h1>
+          <Link to="/">
+            <h1 className="logo-text">
+              komplett<span className="logo-secondary">.io</span>
+            </h1>
+          </Link>
         </div>
         <nav className="nav">
           <button className="nav-button" onClick={openProjectList}>

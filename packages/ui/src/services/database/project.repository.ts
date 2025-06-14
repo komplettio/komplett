@@ -1,5 +1,5 @@
 import { BaseDatabase } from './base';
-import { Project, BaseRepository } from './types';
+import { BaseRepository, Project } from './types';
 
 /**
  * Repository for project-related database operations
@@ -10,7 +10,7 @@ export class ProjectRepository implements BaseRepository<Project> {
   /**
    * Create a new project
    */
-  async create(name: string, description?: string): Promise<string> {
+  async create(name: string, description?: string): Promise<number> {
     const project: Omit<Project, 'id'> = {
       name,
       description,
@@ -25,15 +25,15 @@ export class ProjectRepository implements BaseRepository<Project> {
         autoSave: true,
         compressionLevel: 80,
         maxVersions: 5,
-        autoCleanup: true
+        autoCleanup: true,
       },
       stats: {
         totalProcessingTime: 0,
         successfulExports: 0,
-        failedExports: 0
-      }
+        failedExports: 0,
+      },
     };
-    
+
     return await this.db.projects.add(project as Project);
   }
 
@@ -45,7 +45,7 @@ export class ProjectRepository implements BaseRepository<Project> {
     if (project) {
       // Update last accessed
       await this.db.projects.update(id, { lastAccessed: new Date() });
-      
+
       // Load associated files
       const files = await this.db.files.where('projectId').equals(id).toArray();
       project.files = files;
@@ -60,7 +60,7 @@ export class ProjectRepository implements BaseRepository<Project> {
    */
   async getAll(): Promise<Project[]> {
     const projects = await this.db.projects.orderBy('lastModified').reverse().toArray();
-    
+
     // Load file counts and sizes for each project
     for (const project of projects) {
       const files = await this.db.files.where('projectId').equals(project.id).toArray();
@@ -68,7 +68,7 @@ export class ProjectRepository implements BaseRepository<Project> {
       project.fileCount = files.length;
       project.totalSize = files.reduce((sum, file) => sum + file.size, 0);
     }
-    
+
     return projects;
   }
 
@@ -78,7 +78,7 @@ export class ProjectRepository implements BaseRepository<Project> {
   async update(id: string, updates: Partial<Project>): Promise<void> {
     await this.db.projects.update(id, {
       ...updates,
-      lastModified: new Date()
+      lastModified: new Date(),
     });
   }
 
@@ -92,7 +92,7 @@ export class ProjectRepository implements BaseRepository<Project> {
       for (const file of projectFiles) {
         await this.deleteFile(file.id);
       }
-      
+
       await this.db.projects.delete(id);
     });
   }
@@ -104,11 +104,11 @@ export class ProjectRepository implements BaseRepository<Project> {
     const files = await this.db.files.where('projectId').equals(projectId).toArray();
     const fileCount = files.length;
     const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-    
+
     await this.db.projects.update(projectId, {
       fileCount,
       totalSize,
-      lastModified: new Date()
+      lastModified: new Date(),
     });
   }
 

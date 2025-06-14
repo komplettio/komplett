@@ -12,17 +12,17 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--color-gray-200);
-  
+
   &.open {
     transform: translateX(0);
   }
-  
+
   // Mobile: Full screen width
   @media (max-width: 768px) {
     width: 100%;
     right: 0;
   }
-  
+
   // Tablet adjustments
   @media (min-width: 769px) and (max-width: 1024px) {
     width: 50%;
@@ -40,13 +40,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  
+
   // Mobile adjustments
   @media (max-width: 768px) {
     padding: var(--spacing-3);
     gap: var(--spacing-2);
   }
-  
+
   // Desktop spacing
   @media (min-width: 1025px) {
     padding: var(--spacing-6);
@@ -66,7 +66,7 @@
   font-weight: 700;
   color: var(--color-gray-900);
   margin: 0;
-  
+
   // Mobile specific
   @media (max-width: 768px) {
     font-size: 20px;
@@ -85,12 +85,12 @@
   color: var(--color-gray-400);
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   &:hover {
     background: var(--color-gray-200);
     color: var(--color-gray-600);
   }
-  
+
   // Mobile touch improvements
   @media (max-width: 768px) {
     min-width: 48px;
@@ -102,7 +102,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-2);
   }
@@ -129,17 +129,17 @@
   font-size: 14px;
   transition: all 0.2s ease;
   min-height: 44px; // Touch target
-  
+
   &:focus {
     outline: none;
     border-color: var(--color-primary-500);
     box-shadow: 0 0 0 2px var(--color-primary-100);
   }
-  
+
   &::placeholder {
     color: var(--color-gray-400);
   }
-  
+
   // Mobile adjustments
   @media (max-width: 768px) {
     font-size: 16px; // Prevent zoom on iOS
@@ -151,7 +151,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2);
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
   }
@@ -161,7 +161,7 @@
   display: flex;
   gap: var(--spacing-2);
   flex-wrap: wrap;
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
   }
@@ -182,18 +182,18 @@
   transition: all 0.2s ease;
   min-height: 36px; // Touch target
   white-space: nowrap;
-  
+
   &:hover {
     border-color: var(--color-primary-400);
     color: var(--color-primary-600);
   }
-  
+
   &.active {
     background: var(--color-primary-100);
     border-color: var(--color-primary-500);
     color: var(--color-primary-700);
   }
-  
+
   // Mobile touch improvements
   @media (max-width: 768px) {
     min-height: 44px;
@@ -206,7 +206,7 @@
   display: flex;
   gap: var(--spacing-2);
   flex-wrap: wrap;
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
   }
@@ -226,18 +226,18 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 36px;
-  
+
   &:hover {
     border-color: var(--color-primary-400);
     color: var(--color-primary-600);
   }
-  
+
   &.active {
     background: var(--color-primary-100);
     border-color: var(--color-primary-500);
     color: var(--color-primary-700);
   }
-  
+
   // Mobile adjustments
   @media (max-width: 768px) {
     min-height: 44px;
@@ -261,11 +261,11 @@
   transition: all 0.2s ease;
   align-self: flex-start;
   min-height: 44px;
-  
+
   &:hover {
     background: var(--color-primary-700);
   }
-  
+
   // Mobile full width
   @media (max-width: 768px) {
     align-self: stretch;
@@ -283,7 +283,7 @@
   background: white;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-lg);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-3);
     gap: var(--spacing-2);
@@ -299,17 +299,17 @@
   font-size: 14px;
   transition: all 0.2s ease;
   min-height: 44px;
-  
+
   &:focus {
     outline: none;
     border-color: var(--color-primary-500);
     box-shadow: 0 0 0 2px var(--color-primary-100);
   }
-  
+
   &::placeholder {
     color: var(--color-gray-400);
   }
-  
+
   // Mobile adjustments
   @media (max-width: 768px) {
     font-size: 16px; // Prevent zoom
@@ -321,7 +321,7 @@
   resize: vertical;
   min-height: 60px;
   font-family: inherit;
-  
+
   @media (max-width: 768px) {
     min-height: 80px;
   }
@@ -331,7 +331,7 @@
   display: flex;
   gap: var(--spacing-2);
   justify-content: flex-end;
-  
+
   // Mobile: Stack vertically
   @media (max-width: 768px) {
     flex-direction: column-reverse;
@@ -349,7 +349,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 44px;
-  
+
   // Mobile full width
   @media (max-width: 768px) {
     width: 100%;
@@ -361,7 +361,7 @@
 .cancel-button {
   background: var(--color-gray-100);
   color: var(--color-gray-700);
-  
+
   &:hover {
     background: var(--color-gray-200);
   }
@@ -370,11 +370,11 @@
 .create-button {
   background: var(--color-primary-600);
   color: white;
-  
+
   &:hover:not(:disabled) {
     background: var(--color-primary-700);
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -385,11 +385,11 @@
   flex: 1;
   overflow-y: auto;
   padding: var(--spacing-4);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-3);
   }
-  
+
   @media (min-width: 1025px) {
     padding: var(--spacing-6);
   }
@@ -403,7 +403,7 @@
   padding: var(--spacing-8);
   color: var(--color-gray-500);
   gap: var(--spacing-4);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-6);
   }
@@ -427,7 +427,7 @@
   text-align: center;
   color: var(--color-gray-500);
   gap: var(--spacing-4);
-  
+
   @media (max-width: 768px) {
     padding: var(--spacing-6);
   }
@@ -452,17 +452,22 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-4);
-  
+
   // Tablet: 2 columns if space allows
   @media (min-width: 769px) and (max-width: 1024px) {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-4);
   }
-  
+
   // Desktop: Multiple columns
   @media (min-width: 1025px) {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--spacing-6);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 }
 
@@ -475,19 +480,19 @@
   transition: all 0.2s ease;
   box-shadow: var(--shadow-sm);
   min-height: 44px; // Touch target
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
     border-color: var(--color-primary-300);
   }
-  
+
   // Mobile adjustments
   @media (max-width: 768px) {
     padding: var(--spacing-4);
     min-height: 60px;
   }
-  
+
   // Desktop spacing
   @media (min-width: 1025px) {
     padding: var(--spacing-6);
@@ -496,11 +501,11 @@
 
 .project-header {
   margin-bottom: var(--spacing-3);
-  
+
   @media (max-width: 768px) {
     margin-bottom: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     margin-bottom: var(--spacing-4);
   }
@@ -510,11 +515,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1);
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-2);
   }
@@ -548,12 +553,12 @@
   gap: var(--spacing-3);
   margin-bottom: var(--spacing-3);
   flex-wrap: wrap;
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-2);
     margin-bottom: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-4);
     margin-bottom: var(--spacing-4);
@@ -567,11 +572,11 @@
   font-size: clamp(11px, 2vw, 12px);
   color: var(--color-gray-600);
   white-space: nowrap;
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
   }
-  
+
   @media (min-width: 1025px) {
     gap: var(--spacing-2);
   }
@@ -586,12 +591,12 @@
   display: flex;
   gap: var(--spacing-2);
   margin-bottom: var(--spacing-3);
-  
+
   @media (max-width: 768px) {
     gap: var(--spacing-1);
     margin-bottom: var(--spacing-2);
   }
-  
+
   @media (min-width: 1025px) {
     margin-bottom: var(--spacing-4);
   }
@@ -610,13 +615,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   @media (min-width: 1025px) {
     padding-top: var(--spacing-3);
   }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -9,6 +9,7 @@
   "author": "Janis Jansen",
   "type": "module",
   "scripts": {
+    "build:ui": "pnpm --filter @komplett/ui build",
     "deps": "pnpm taze",
     "format": "prettier --write .",
     "lint": "eslint --flag unstable_config_lookup_from_file .",
