@@ -13,9 +13,9 @@ import {
   X,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { Link, redirect } from 'react-router';
+import { Link } from 'react-router';
 
-import { FileBaseModel, ProjectModel, UUID } from '@komplett/core';
+import { FileBaseModel, ProjectModel } from '@komplett/core';
 
 import { useCreateProject } from '#state/mutations';
 import { useProjects } from '#state/queries/project.queries.js';
@@ -126,15 +126,6 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
       setIsCreating(false);
     } catch (error) {
       console.error('Failed to create project:', error);
-    }
-  };
-
-  const handleLoadProject = (projectId: UUID) => {
-    try {
-      redirect(`/projects/${projectId}`);
-      onClose();
-    } catch (error) {
-      console.error('Failed to load project:', error);
     }
   };
 
@@ -325,7 +316,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
               const fileTypes = getProjectFileTypes(project.files);
 
               return (
-                <Link key={project.id} to={`/projects/${project.id}`}>
+                <Link key={project.id} to={`/projects/${project.id}`} onClick={onClose}>
                   <div className="project-card">
                     <div className="project-header">
                       <div className="project-info">

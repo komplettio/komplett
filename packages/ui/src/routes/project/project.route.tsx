@@ -1,9 +1,22 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
-export default function ProjectRoute() {
-  const params = useParams<{ id: string }>();
-  console.log(params);
+import { UUID } from '@komplett/core';
 
-  return 'hee';
+import { Project } from '#components/project/Project';
+import { useProject } from '#state/queries/project.queries.js';
+
+export default function ProjectRoute() {
+  const params = useParams<{ id: UUID }>();
+
+  if (!params.id) {
+    throw new Error('Project ID is not set or invalid');
+  }
+
+  const { data: project } = useProject(params.id);
+
+  if (!project) {
+    return <div>Loading...</div>;
+  }
+
+  return <Project project={project} />;
 }

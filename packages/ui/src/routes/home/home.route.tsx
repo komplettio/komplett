@@ -1,11 +1,13 @@
-import { redirect } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
+import RecentProjects from '#components/project/RecentProjects';
 import { useCreateProject, useImportFile } from '#state/mutations';
 
 import './home.route.scss';
 
 export default function HomeRoute() {
+  const navigate = useNavigate();
   const importFile = useImportFile();
   const createProject = useCreateProject();
 
@@ -20,8 +22,13 @@ export default function HomeRoute() {
       tags: [fileResponse.data.category],
     });
 
-    redirect(`/projects/${projectResponse.id}`);
+    await navigate(`/projects/${projectResponse.id}`);
   };
 
-  return <FileDropZone onFileUpload={handleFileUpload} />;
+  return (
+    <div className="home">
+      <FileDropZone onFileUpload={handleFileUpload} />
+      <RecentProjects />
+    </div>
+  );
 }

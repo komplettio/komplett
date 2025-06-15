@@ -1,0 +1,25 @@
+h2 {
+  margin-top: 8px;
+}
+
+.recent-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-2);
+  overflow-y: auto;
+  margin-top: var(--spacing-2);
+
+  .project-card {
+    padding: var(--spacing-2);
+  }
+
+  // Mobile adjustments
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  // Desktop adjustments
+  @media (min-width: 1025px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}

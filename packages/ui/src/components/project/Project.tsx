@@ -1,6 +1,6 @@
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
-import { redirect } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { FileBaseModel, ProjectModel } from '@komplett/core';
 
@@ -16,6 +16,7 @@ interface ProjectProps {
 }
 
 export const Project: React.FC<ProjectProps> = ({ project }) => {
+  const navigate = useNavigate();
   const importFile = useImportFile();
   const updateProject = useUpdateProject();
 
@@ -23,7 +24,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleBack = () => {
-    redirect('/');
+    void navigate('/');
   };
 
   const handleDeleteProject = () => {
