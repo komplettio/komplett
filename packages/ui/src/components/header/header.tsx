@@ -1,10 +1,14 @@
-import { FileText, FolderOpen, Plus } from 'lucide-react';
+import { FileText, FolderOpen } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router';
+
+import { useProjectListStore } from '#state/stores';
 
 import './header.scss';
 
 export const Header: React.FC = () => {
+  const [toggleProjectList] = useProjectListStore(s => [s.toggleOpen]);
+
   return (
     <header className="header">
       <div className="header-content">
@@ -17,7 +21,7 @@ export const Header: React.FC = () => {
           </Link>
         </div>
         <nav className="nav">
-          <button className="nav-button">
+          <button className="nav-button" onClick={toggleProjectList}>
             <FolderOpen size={20} />
             Projects
           </button>

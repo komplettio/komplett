@@ -5,16 +5,15 @@
   "type": "module",
   "imports": {
     "#*": [
+      "./src/*",
       "./src/*.ts",
       "./src/*.tsx",
       "./src/*/index.ts",
-      "./src/*"
+      "./src/*.js"
     ]
   },
   "exports": {
-    "./events": "./src/events/index.ts",
-    "./types": "./src/types/index.ts",
-    "./models": "./src/models/index.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "dexie": "catalog:core",

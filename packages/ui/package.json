@@ -28,12 +28,14 @@
     "@radix-ui/react-toast": "catalog:frontend",
     "@tanstack/react-query": "catalog:frontend",
     "clsx": "catalog:frontend",
+    "immer": "catalog:frontend",
     "include-media": "catalog:frontend",
     "lucide-react": "catalog:frontend",
     "react": "catalog:frontend",
     "react-dom": "catalog:frontend",
     "react-router": "catalog:frontend",
     "sanitize.css": "catalog:frontend",
+    "use-sync-external-store": "^1.5.0",
     "zustand": "catalog:frontend"
   },
   "devDependencies": {

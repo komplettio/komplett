@@ -3,58 +3,45 @@ import { ProjectCreateModel, ProjectDeleteModel, ProjectModel, ProjectUpdateMode
 import { UUID } from '#types/db.types';
 import { ListEvent } from '#types/event.types';
 
-export interface ProjectCreateEvent {
-  payload: ProjectCreateModel;
-}
+export type ProjectCreateEvent = ProjectCreateModel;
 
-export interface ProjectUpdateEvent {
-  payload: ProjectUpdateModel;
-}
+export type ProjectUpdateEvent = {
+  id: UUID;
+  data: ProjectUpdateModel;
+};
 
-export interface ProjectDeleteEvent {
-  payload: ProjectDeleteModel;
-}
+export type ProjectDeleteEvent = ProjectDeleteModel;
 
-export interface ProjectGetEvent {
-  payload: {
-    id: UUID;
-  };
-}
+export type ProjectGetEvent = {
+  id: UUID;
+};
 
 export type ProjectListEvent = ListEvent<ProjectModel>;
 
-export interface ProjectPubEvent {
-  payload: ProjectModel[];
-}
+export type ProjectPubEvent = ProjectModel[];
 
-export interface ProjectCreateResponse {
-  payload: {
-    id: UUID;
-  };
-}
+export type ProjectCreateResponse = {
+  id: UUID;
+};
 
-export interface ProjectGetResponse {
-  payload: ProjectModel;
-}
+export type ProjectGetResponse = ProjectModel;
 
-export interface ProjectListResponse {
-  payload: ProjectModel[];
-}
+export type ProjectListResponse = ProjectModel[];
 
 export type ProjectEvents = {
-  'project.create': ProjectCreateEvent;
-  'project.update': ProjectUpdateEvent;
-  'project.delete': ProjectDeleteEvent;
-  'project.get': ProjectGetEvent;
-  'project.list': ProjectListEvent;
-  'project.pub': ProjectPubEvent;
+  'projects.create': ProjectCreateEvent;
+  'projects.update': ProjectUpdateEvent;
+  'projects.delete': ProjectDeleteEvent;
+  'projects.get': ProjectGetEvent;
+  'projects.list': ProjectListEvent;
+  'projects.pub': ProjectPubEvent;
 };
 
 export type ProjectEventResponses = {
-  'project.create.resp': ProjectCreateResponse;
-  'project.update.resp': null;
-  'project.delete.resp': null;
-  'project.get.resp': ProjectGetResponse;
-  'project.list.resp': ProjectListResponse;
-  'project.pub.resp': null;
+  'projects.create.resp': ProjectCreateResponse;
+  'projects.update.resp': null;
+  'projects.delete.resp': null;
+  'projects.get.resp': ProjectGetResponse;
+  'projects.list.resp': ProjectListResponse;
+  'projects.pub.resp': null;
 };

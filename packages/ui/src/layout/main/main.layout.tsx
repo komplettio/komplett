@@ -1,18 +1,28 @@
 import React from 'react';
+import { Outlet } from 'react-router';
 
 import { Header } from '#components/header/header';
+import { ProjectList } from '#components/project/ProjectList';
+import { useProjectListStore } from '#state/stores';
 
 import './main.layout.scss';
 
-import { Outlet } from 'react-router';
-
 export const MainLayout: React.FC = () => {
+  const [isProjectListOpen, setIsProjectListOpen] = useProjectListStore(s => [s.open, s.setOpen]);
+
   return (
     <div className="main-layout">
       <Header />
       <main className="main-content">
         <Outlet />
       </main>
+
+      <ProjectList
+        isOpen={isProjectListOpen}
+        onClose={() => {
+          setIsProjectListOpen(false);
+        }}
+      />
     </div>
   );
 };

@@ -10,7 +10,7 @@ class Database extends Dexie {
   public files!: Table<FileBaseModel, UUID, FileCreateModel>;
 
   constructor() {
-    super('ZeditProjectDB');
+    super('komplett');
 
     this.defineSchema();
     this.setupHooks();
@@ -18,9 +18,8 @@ class Database extends Dexie {
 
   private defineSchema() {
     this.version(DB_VERSION).stores({
-      projects: 'id, name, createdDate, lastModified, lastAccessed, category, tags',
-      files:
-        'id, projectId, name, originalName, category, mimeType, createdDate, lastModified, lastAccessed, tags, status, &[projectId+originalName]',
+      projects: 'id, createdAt, updatedAt, name, description, fileIds, tags',
+      files: 'id, createdAt, updatedAt, name, originalName, category, blob, metadata',
     });
   }
 

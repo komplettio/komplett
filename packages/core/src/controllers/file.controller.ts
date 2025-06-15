@@ -1,14 +1,38 @@
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
+import { MetadataExtractor } from '#lib/files/metadata-extractor';
+import { determineFileCategory } from '#lib/files/utils';
 import { FileBaseModel, FileCreateModel, FileModel, FileUpdateModel } from '#models/file.models';
 
 class FileController extends BaseController<FileBaseModel, FileModel, FileCreateModel, FileUpdateModel> {
+  private metadataExtractor: MetadataExtractor;
+
   constructor() {
     super(db.files);
+    this.metadataExtractor = new MetadataExtractor();
   }
 
-  protected _serialize(file: FileBaseModel) {
-    return Promise.resolve(file);
+  protected async _serialize(file: FileBaseModel): Promise<FileModel> {
+    const assignedProject = await db.projects.where('fileIds').equals(file.id).first();
+
+    return Promise.resolve({
+      ...file,
+      projectId: assignedProject?.id,
+    });
+  }
+
+  public async import(file: File) {
+    const category = determineFileCategory(file.type);
+    const metadata = await this.metadataExtractor.extractMetadata(file, category);
+
+    return await this.create({
+      name: file.name,
+      originalName: file.name,
+      blob: file,
+      category,
+      metadata,
+      size: file.size,
+    });
   }
 }
 

@@ -1,5 +1,8 @@
 import Emittery, { UnsubscribeFunction } from 'emittery';
-import _handlery from 'handlery';
+import handlery, {
+  type Emitter as HandleryEmitter,
+  type EventHandlerContext as HandleryEventHandlerContext,
+} from 'handlery';
 
 import {
   BaseEmittableEvents,
@@ -17,7 +20,7 @@ const emittery = new Emittery<Events>({
   },
 });
 
-export class Emitter {
+export class Emitter implements HandleryEmitter<BaseEvents, Events> {
   private static _eventId = 0;
   private static _instance: Emitter | undefined;
 
@@ -149,4 +152,11 @@ export class Emitter {
 
 export const emitter = Emitter.getInstance();
 
-export const handlery = _handlery<keyof BaseEvents, 'record', BaseEvents>(emitter as never);
+export const { EventHandler, on, subscribe, register } = handlery<BaseEvents, Events, Emitter>(emitter);
+
+export type EventHandlerContext<TKey extends keyof BaseEvents = keyof BaseEvents> = HandleryEventHandlerContext<
+  BaseEvents,
+  Events,
+  Emitter,
+  TKey
+>;

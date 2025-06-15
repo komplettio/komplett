@@ -15,4 +15,5 @@ export type ProjectDeleteModel = BaseDeleteModel<ProjectBaseModel>;
 
 export interface ProjectModel extends ProjectBaseModel {
   files: FileBaseModel[];
+  size: number; // Total size of all files in the project
 }

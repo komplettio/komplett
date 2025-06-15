@@ -22,6 +22,7 @@ catalogs:
     'sanitize.css': '^13.0.0'
     'zustand': '^5.0.5'
     '@janis.me/react-themed': '0.2.0'
+    'immer': '^10.1.1'
   build:
     vite: ^6.3.5
     typescript: ^5.8.3
@@ -51,5 +52,5 @@ catalogs:
     'taze': '^19.1.0'
   core:
     'emittery': '^1.1.0'
-    'handlery': '^0.2.4'
+    'handlery': '^0.2.7'
     'dexie': '^4.0.11'

@@ -1,7 +1,6 @@
 import Dexie, { Collection, liveQuery, Observable, Table, UpdateSpec } from 'dexie';
 
 import { BaseCreateModel, BaseModel, BaseUpdateModel } from '#models/base.models';
-import { UUID } from '#types/db.types';
 import { Filter, ListQueryOptions } from '#types/event.types';
 
 const DEFAULT_LIMIT = 1000;
@@ -14,11 +13,12 @@ export abstract class BaseController<
   TSer extends TBase = TBase,
   TCreate extends BaseCreateModel<TBase> = BaseCreateModel<TBase>,
   TUpdate extends BaseUpdateModel<TBase> = BaseUpdateModel<TBase>,
+  TID extends TBase['id'] = TBase['id'],
 > {
-  protected collection: Table<TBase, UUID, TCreate>;
+  protected collection: Table<TBase, TID, TCreate>;
   private static _instances = new Map<new () => BaseController, BaseController>();
 
-  constructor(collection: Table<TBase, UUID, TCreate>) {
+  constructor(collection: Table<TBase, TID, TCreate>) {
     this.collection = collection;
   }
 
@@ -32,16 +32,25 @@ export abstract class BaseController<
 
   protected abstract _serialize(item: TBase): Promise<TSer>;
 
-  public create(item: TCreate): Promise<TBase['id']> {
-    return this.collection.add(item);
+  public async create(item: TCreate): Promise<{ id: TBase['id']; data: TSer }> {
+    return this.collection.add(item).then(async id => {
+      const data = await this.getById(id);
+      if (!data) {
+        throw new Error(`Item with ID ${id} not found after creation.`);
+      }
+      return {
+        id,
+        data,
+      };
+    });
   }
 
-  public async update(id: TBase['id'], item: TUpdate): Promise<void> {
+  public async update(id: TID, item: TUpdate): Promise<void> {
     // The casting is needed for some reason.
     await this.collection.update(id, item as UpdateSpec<TCreate>);
   }
 
-  public getById(id: number): Promise<TSer | undefined> {
+  public getById(id: TID): Promise<TSer | undefined> {
     return this.collection
       .where('id')
       .equals(id)
@@ -58,7 +67,7 @@ export abstract class BaseController<
     return this.filter(filters).then(items => this.serializeMany(items));
   }
 
-  public async delete(id: number): Promise<void> {
+  public async delete(id: TID): Promise<void> {
     await this.collection.where('id').equals(id).delete();
   }
 
@@ -74,7 +83,7 @@ export abstract class BaseController<
   }
 
   protected async filter(filters?: ListQueryOptions<TBase> | null) {
-    let result: Collection<TBase, UUID, TCreate> | undefined;
+    let result: Collection<TBase, TID, TCreate> | undefined;
 
     if (filters?.where) {
       const filteredProp = Object.keys(filters.where)[0] as keyof TBase;

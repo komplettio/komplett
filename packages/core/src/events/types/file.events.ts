@@ -3,58 +3,52 @@ import { FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#m
 import { UUID } from '#types/db.types';
 import { ListEvent } from '#types/event.types';
 
-export interface FileCreateEvent {
-  payload: FileCreateModel;
-}
+export type FileCreateEvent = FileCreateModel;
 
-export interface FileUpdateEvent {
-  payload: FileUpdateModel;
-}
+export type FileImportEvent = {
+  file: File;
+};
 
-export interface FileDeleteEvent {
-  payload: FileDeleteModel;
-}
+export type FileUpdateEvent = {
+  id: UUID;
+  data: FileUpdateModel;
+};
 
-export interface FileGetEvent {
-  payload: {
-    id: UUID;
-  };
-}
+export type FileDeleteEvent = FileDeleteModel;
+
+export type FileGetEvent = {
+  id: UUID;
+};
 
 export type FileListEvent = ListEvent<FileModel>;
 
-export interface FilePubEvent {
-  payload: FileModel[];
-}
+export type FilePubEvent = FileModel[];
 
-export interface FileCreateResponse {
-  payload: {
-    id: UUID;
-  };
-}
+export type FileCreateResponse = {
+  id: UUID;
+  data: FileModel;
+};
 
-export interface FileGetResponse {
-  payload: FileModel;
-}
+export type FileGetResponse = FileModel;
 
-export interface FileListResponse {
-  payload: FileModel[];
-}
+export type FileListResponse = FileModel[];
 
 export type FileEvents = {
-  'file.create': FileCreateEvent;
-  'file.update': FileUpdateEvent;
-  'file.delete': FileDeleteEvent;
-  'file.get': FileGetEvent;
-  'file.list': FileListEvent;
-  'file.pub': FilePubEvent;
+  'files.create': FileCreateEvent;
+  'files.import': FileImportEvent;
+  'files.update': FileUpdateEvent;
+  'files.delete': FileDeleteEvent;
+  'files.get': FileGetEvent;
+  'files.list': FileListEvent;
+  'files.pub': FilePubEvent;
 };
 
 export type FileEventResponses = {
-  'file.create.resp': FileCreateResponse;
-  'file.update.resp': null;
-  'file.delete.resp': null;
-  'file.get.resp': FileGetResponse;
-  'file.list.resp': FileListResponse;
-  'file.pub.resp': null;
+  'files.create.resp': FileCreateResponse;
+  'files.import.resp': FileCreateResponse;
+  'files.update.resp': null;
+  'files.delete.resp': null;
+  'files.get.resp': FileGetResponse;
+  'files.list.resp': FileListResponse;
+  'files.pub.resp': null;
 };

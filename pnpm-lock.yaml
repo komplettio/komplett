@@ -26,8 +26,8 @@ catalogs:
       specifier: ^1.1.0
       version: 1.1.0
     handlery:
-      specifier: ^0.2.4
-      version: 0.2.4
+      specifier: ^0.2.7
+      version: 0.2.7
   format:
     '@ianvs/prettier-plugin-sort-imports':
       specifier: ^4.4.2
@@ -66,6 +66,9 @@ catalogs:
     clsx:
       specifier: ^2.1.1
       version: 2.1.1
+    immer:
+      specifier: ^10.1.1
+      version: 10.1.1
     include-media:
       specifier: ^2.0.0
       version: 2.0.0
@@ -182,7 +185,7 @@ importers:
         version: 1.1.0
       handlery:
         specifier: catalog:core
-        version: 0.2.4(emittery@1.1.0)
+        version: 0.2.7(emittery@1.1.0)
     devDependencies:
       '@komplett/linter-config':
         specifier: workspace:*
@@ -252,6 +255,9 @@ importers:
       clsx:
         specifier: catalog:frontend
         version: 2.1.1
+      immer:
+        specifier: catalog:frontend
+        version: 10.1.1
       include-media:
         specifier: catalog:frontend
         version: 2.0.0
@@ -270,9 +276,12 @@ importers:
       sanitize.css:
         specifier: catalog:frontend
         version: 13.0.0
+      use-sync-external-store:
+        specifier: ^1.5.0
+        version: 1.5.0(react@19.1.0)
       zustand:
         specifier: catalog:frontend
-        version: 5.0.5(@types/react@19.1.8)(react@19.1.0)
+        version: 5.0.5(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
     devDependencies:
       '@komplett/core':
         specifier: workspace:*
@@ -1883,8 +1892,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  handlery@0.2.4:
-    resolution: {integrity: sha512-SEur2lXqxGwtrribJkIZVy/TPRafHIDu6kYdRmwbtkySHEOySfCc3Nhl4nzOnj7DWhXYGFGuv3szcXOxAFBzGw==}
+  handlery@0.2.7:
+    resolution: {integrity: sha512-ae1Cr3LRZmfNxmFdoAqeT+UD/eYz29ZhiIQApiiw8lbrH+iIltN7Akh048N24erDRZa06HUSDzcAD5BPt/ZNzA==}
     peerDependencies:
       emittery: ^1.1.0
     peerDependenciesMeta:
@@ -1925,6 +1934,9 @@ packages:
   ignore@7.0.4:
     resolution: {integrity: sha512-gJzzk+PQNznz8ysRrC0aOkBNVRBDtE1n53IqyqEf3PXrYwomFs5q4pGMizBMJF+ykh03insJ27hB8gSrD2Hn8A==}
     engines: {node: '>= 4'}
+
+  immer@10.1.1:
+    resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
 
   immutable@5.1.3:
     resolution: {integrity: sha512-+chQdDfvscSF1SJqv2gn4SRO2ZyS3xL3r7IW/wWEEzrzLisnOlKiQu5ytC/BVNcS15C39WT2Hg/bjKjDMcu+zg==}
@@ -2671,6 +2683,11 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  use-sync-external-store@1.5.0:
+    resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   vite-node@3.2.3:
     resolution: {integrity: sha512-gc8aAifGuDIpZHrPjuHyP4dpQmYXqWw7D1GmDnWeNWP654UEXzVfQ5IHPSK5HaHkwB/+p1atpYpSdw/2kOv8iQ==}
@@ -4476,7 +4493,7 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  handlery@0.2.4(emittery@1.1.0):
+  handlery@0.2.7(emittery@1.1.0):
     optionalDependencies:
       emittery: 1.1.0
 
@@ -4505,6 +4522,8 @@ snapshots:
   ignore@5.3.2: {}
 
   ignore@7.0.4: {}
+
+  immer@10.1.1: {}
 
   immutable@5.1.3: {}
 
@@ -5316,6 +5335,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.8
 
+  use-sync-external-store@1.5.0(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+
   vite-node@3.2.3(@types/node@22.15.31)(jiti@2.4.2)(sass@1.89.2)(yaml@2.7.1):
     dependencies:
       cac: 6.7.14
@@ -5454,7 +5477,9 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zustand@5.0.5(@types/react@19.1.8)(react@19.1.0):
+  zustand@5.0.5(@types/react@19.1.8)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
       '@types/react': 19.1.8
+      immer: 10.1.1
       react: 19.1.0
+      use-sync-external-store: 1.5.0(react@19.1.0)

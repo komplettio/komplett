@@ -1,6 +1,9 @@
 import { FileEventResponses, FileEvents } from './file.events';
 import { ProjectEventResponses, ProjectEvents } from './project.events';
 
+export * from './file.events';
+export * from './project.events';
+
 export type BaseEmittableEvents = ProjectEvents & FileEvents;
 export type BaseEventResponses = ProjectEventResponses & FileEventResponses;
 

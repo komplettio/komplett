@@ -1,21 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { emitter } from '@komplett/core/events';
-import type { ProjectBaseModel, ProjectModel } from '@komplett/core/models';
-import type { ListQueryOptions } from '@komplett/core/types';
+import { emitter, ProjectListResponse } from '@komplett/core';
+import type { ListQueryOptions, ProjectBaseModel } from '@komplett/core';
 
 import { useInvalidateOnEvent } from '#hooks/useInvalidateOnEvent';
 
 export function useProjects(filters?: ListQueryOptions<ProjectBaseModel>) {
-  useInvalidateOnEvent('project.pub', ['projects']);
+  useInvalidateOnEvent('projects.pub', ['projects']);
 
   return useQuery({
     queryKey: ['projects'],
     queryFn: async () => {
-      return await new Promise<ProjectModel[]>((resolve, reject) => {
+      return await new Promise<ProjectListResponse>((resolve, reject) => {
         emitter
-          .await('project.list', filters ?? null, data => {
-            resolve(data.payload);
+          .await('projects.list', filters ?? null, data => {
+            resolve(data);
           })
           .catch((err: unknown) => {
             reject(err as Error);
