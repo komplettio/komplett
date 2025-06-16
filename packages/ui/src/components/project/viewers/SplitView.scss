@@ -16,7 +16,17 @@
   }
 
   &__handle {
-    background-color: var(--color-gray-500);
+    $handle-grabber-height: 8px;
+
+    background-color: var(--color-primary-600);
+    clip-path: polygon(
+      25% 0%,
+      75% 0%,
+      75% calc(100% - $handle-grabber-height),
+      100% 100%,
+      0 100%,
+      25% calc(100% - $handle-grabber-height)
+    );
   }
 
   &__item:last-of-type {
