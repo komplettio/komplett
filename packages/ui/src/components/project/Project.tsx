@@ -2,6 +2,7 @@ import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import { greet } from '@komplett/codecs';
 import { FileBaseModel, ProjectModel } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
@@ -128,7 +129,15 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                 </div>
               </div>
 
-              <div className="editor-content">TBD...</div>
+              <div className="editor-content">
+                <button
+                  onClick={() => {
+                    greet();
+                  }}
+                >
+                  greet
+                </button>
+              </div>
             </div>
           </div>
         ) : (

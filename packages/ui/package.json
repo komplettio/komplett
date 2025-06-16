@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@janis.me/react-themed": "catalog:frontend",
+    "@komplett/codecs": "workspace:^",
+    "@komplett/core": "workspace:*",
     "@radix-ui/react-dialog": "catalog:frontend",
     "@radix-ui/react-dropdown-menu": "catalog:frontend",
     "@radix-ui/react-progress": "catalog:frontend",
@@ -41,7 +43,6 @@
     "zustand": "catalog:frontend"
   },
   "devDependencies": {
-    "@komplett/core": "workspace:*",
     "@komplett/linter-config": "workspace:*",
     "@komplett/typescript-config": "workspace:*",
     "@types/react": "catalog:types",
@@ -49,6 +50,7 @@
     "@vitejs/plugin-react": "catalog:build",
     "sass": "catalog:build",
     "typescript": "catalog:build",
-    "vite": "catalog:build"
+    "vite": "catalog:build",
+    "vite-plugin-wasm": "^3.4.1"
   }
 }
