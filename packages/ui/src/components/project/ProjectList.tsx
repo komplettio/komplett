@@ -64,7 +64,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
       );
     }
 
-    // Apply category filter
+    // Apply kind filter
     switch (filterBy) {
       case 'recent': {
         const weekAgo = new Date();
@@ -75,14 +75,8 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
       case 'large':
         filtered = filtered.filter(project => project.size > 10 * 1024 * 1024); // > 10MB
         break;
-      case 'images':
-        filtered = filtered.filter(project => project.files.some(file => file.category === 'image'));
-        break;
-      case 'videos':
-        filtered = filtered.filter(project => project.files.some(file => file.category === 'video'));
-        break;
-      case 'audio':
-        filtered = filtered.filter(project => project.files.some(file => file.category === 'audio'));
+      default:
+        filtered = filtered.filter(project => project.kind === filterBy);
         break;
     }
 
@@ -151,11 +145,11 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
   const getProjectFileTypes = (files: FileBaseModel[]) => {
     const types = new Set<string>();
     files.forEach(file => {
-      if (file.category === 'image') types.add('image');
-      if (file.category === 'video') types.add('video');
-      if (file.category === 'audio') types.add('audio');
-      if (file.category === 'document') types.add('document');
-      if (file.category === 'text') types.add('text');
+      if (file.kind === 'image') types.add('image');
+      if (file.kind === 'video') types.add('video');
+      if (file.kind === 'audio') types.add('audio');
+      if (file.kind === 'document') types.add('document');
+      if (file.kind === 'text') types.add('text');
     });
     return Array.from(types);
   };

@@ -1,4 +1,4 @@
-export type FileCategory = 'image' | 'video' | 'audio' | 'text' | 'document' | 'other';
+export type FileKind = 'image' | 'video' | 'audio' | 'text' | 'document' | 'other';
 
 export interface BaseFileMetadata {
   size: number;

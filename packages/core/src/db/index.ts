@@ -26,8 +26,8 @@ class Database extends Dexie {
 
   private defineSchema() {
     this.version(DB_VERSION).stores({
-      projects: 'id, createdAt, updatedAt, name, description, fileIds, tags',
-      files: 'id, createdAt, updatedAt, name, originalName, category, blob, metadata',
+      projects: 'id, createdAt, updatedAt, name, description, fileIds, kind, tags',
+      files: 'id, createdAt, updatedAt, name, originalName, kind, blob, metadata',
       transformers: 'id, projectId, kind',
     });
   }

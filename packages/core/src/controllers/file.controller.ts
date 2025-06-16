@@ -1,7 +1,7 @@
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
 import { MetadataExtractor } from '#lib/files/metadata-extractor';
-import { determineFileCategory } from '#lib/files/utils';
+import { determineFileKind } from '#lib/files/utils';
 import { FileBaseModel, FileCreateModel, FileModel, FileUpdateModel } from '#models/file.models';
 
 class FileController extends BaseController<FileBaseModel, FileModel, FileCreateModel, FileUpdateModel> {
@@ -24,14 +24,14 @@ class FileController extends BaseController<FileBaseModel, FileModel, FileCreate
   }
 
   public async import(file: File) {
-    const category = determineFileCategory(file.type);
-    const metadata = await this.metadataExtractor.extractMetadata(file, category);
+    const kind = determineFileKind(file.type);
+    const metadata = await this.metadataExtractor.extractMetadata(file, kind);
 
     return await this.create({
       name: file.name,
       originalName: file.name,
       blob: file,
-      category,
+      kind,
       metadata,
       size: file.size,
     });

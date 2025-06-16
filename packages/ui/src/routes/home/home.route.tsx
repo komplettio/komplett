@@ -19,7 +19,7 @@ export default function HomeRoute() {
       name: `Project for ${file.name}`,
       fileIds: [fileResponse.id],
       description: `Automatically created project for file: ${file.name}`,
-      tags: [fileResponse.data.category],
+      tags: [fileResponse.data.kind],
     });
 
     await navigate(`/projects/${projectResponse.id}`);

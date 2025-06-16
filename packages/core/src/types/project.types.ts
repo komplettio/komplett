@@ -1,3 +1,3 @@
-import { FileCategory } from './file.types';
+import { FileKind } from './file.types';
 
-export type ProjectKind = FileCategory;
+export type ProjectKind = FileKind;

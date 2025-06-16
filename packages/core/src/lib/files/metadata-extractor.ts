@@ -2,7 +2,7 @@ import {
   AudioMetadata,
   BaseFileMetadata,
   DocumentMetadata,
-  FileCategory,
+  FileKind,
   FileMetadata,
   ImageMetadata,
   VideoMetadata,
@@ -13,16 +13,16 @@ import {
  */
 export class MetadataExtractor {
   /**
-   * Extract metadata based on file category
+   * Extract metadata based on file kind
    */
-  async extractMetadata(file: File, category: FileCategory): Promise<FileMetadata> {
+  async extractMetadata(file: File, kind: FileKind): Promise<FileMetadata> {
     const baseMetadata: BaseFileMetadata = {
       size: file.size,
       mimeType: file.type,
     };
 
     try {
-      switch (category) {
+      switch (kind) {
         case 'image':
           return await this.extractImageMetadata(file, baseMetadata);
         case 'video':

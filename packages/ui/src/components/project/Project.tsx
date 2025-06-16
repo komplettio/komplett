@@ -1,14 +1,14 @@
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { FileBaseModel, ProjectModel } from '@komplett/core';
 
+import { FileDropZone } from '#components/file-manager/FileDropZone';
+import { ConfirmationModal } from '#components/ui/ConfirmationModal';
 import { useImportFile, useUpdateProject } from '#state/mutations';
 
-import { FileDropZone } from '../file-manager/FileDropZone';
-import { ConfirmationModal } from '../ui/ConfirmationModal';
+import BaseViewer from './viewers/BaseViewer';
 
 import './Project.scss';
 
@@ -63,26 +63,16 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   };
 
   const renderFilePreview = (file: FileBaseModel) => {
-    if (file.category === 'image') {
+    if (file.kind === 'image') {
       const imageUrl = URL.createObjectURL(file.blob);
       return (
         <div className="file-preview">
-          <TransformWrapper
-            limitToBounds={false}
-            centerOnInit={true}
-            panning={{
-              allowRightClickPan: false,
-            }}
-          >
-            <TransformComponent wrapperClass="preview-wrapper">
-              <img src={imageUrl} alt={file.name} className="preview-image" />
-            </TransformComponent>
-          </TransformWrapper>
+          <img src={imageUrl} alt={file.name} className="preview-image" />
         </div>
       );
     }
 
-    if (file.category === 'video') {
+    if (file.kind === 'video') {
       const videoUrl = URL.createObjectURL(file.blob);
       return (
         <div className="file-preview">
@@ -93,7 +83,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
       );
     }
 
-    if (file.category === 'audio') {
+    if (file.kind === 'audio') {
       const audioUrl = URL.createObjectURL(file.blob);
       return (
         <div className="file-preview">
@@ -119,8 +109,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   };
 
   const renderFileEditor = (file: FileBaseModel) => {
-    // TODO: render editor
-    return renderFilePreview(file);
+    return <BaseViewer originalFile={file} resultFile={file} mode="split" kind={file.kind} />;
   };
 
   return (

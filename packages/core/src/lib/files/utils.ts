@@ -1,6 +1,6 @@
-import { FileCategory } from '#types/file.types';
+import { FileKind } from '#types/file.types';
 
-export function determineFileCategory(mimeType: string): FileCategory {
+export function determineFileKind(mimeType: string): FileKind {
   if (mimeType.startsWith('image/')) return 'image';
   if (mimeType.startsWith('video/')) return 'video';
   if (mimeType.startsWith('audio/')) return 'audio';

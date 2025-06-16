@@ -6,7 +6,6 @@ import { ProjectKind } from '#types/project.types';
 
 export interface ProjectBaseModel extends BaseModel {
   name: string;
-  kind: ProjectKind;
   description: string;
   fileIds: UUID[];
   tags: string[];
@@ -19,5 +18,6 @@ export type ProjectDeleteModel = BaseDeleteModel<ProjectBaseModel>;
 export interface ProjectModel extends ProjectBaseModel {
   files: FileBaseModel[];
   size: number; // Total size of all files in the project
+  kind: ProjectKind;
   transformer: TransformerBaseModel | undefined;
 }

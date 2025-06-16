@@ -2,6 +2,7 @@ import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
 import { ProjectBaseModel, ProjectCreateModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
 import { UUID } from '#types/db.types';
+import { ProjectKind } from '#types/project.types.js';
 
 import { TransformerCtrl } from './transformer.controller';
 
@@ -15,17 +16,24 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
       const files = await db.files.where('id').anyOf(project.fileIds).toArray();
       const transformer = await db.transformers.where('projectId').equals(project.id).first();
 
+      const kind = files.reduce<ProjectKind>((acc, file) => {
+        if (acc === 'other' || file.kind === acc) {
+          return file.kind;
+        }
+        return 'other';
+      }, 'other');
+
       if (!transformer) {
         throw new Error(`Transformer for project ${project.id} not found`);
       }
 
       const totalSize = files.reduce((sum, file) => sum + (file.size || 0), 0);
 
-      return { ...project, files, size: totalSize, transformer };
+      return { ...project, files, size: totalSize, transformer, kind };
     });
   }
 
-  public async create(data: ProjectCreateModel): Promise<{ id: UUID; data: ProjectBaseModel }> {
+  public async create(data: ProjectCreateModel): Promise<{ id: UUID; data: ProjectModel }> {
     // TODO: Confirm that transactions behave as expected when calling `super` in them.
     return db.transaction('rw', [db.projects, db.transformers, db.files], async () => {
       const project = await super.create(data);
@@ -38,8 +46,6 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
           kind: project.data.kind,
         },
       });
-
-      console.log('transformer created for project:', project.id);
 
       return project;
     });

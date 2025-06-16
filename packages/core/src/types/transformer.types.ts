@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { FileCategory } from './file.types';
+import { FileKind } from './file.types';
 
-export type TransformerKind = FileCategory;
+export type TransformerKind = FileKind;
 
 export type TransformerResizeMethod = 'basic';
 export type TransformerResizeFillMethod = 'crop' | 'contain' | 'stretch';
