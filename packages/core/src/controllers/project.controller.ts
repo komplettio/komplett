@@ -3,16 +3,46 @@ import { db } from '#db';
 import { ProjectBaseModel, ProjectCreateModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
 import { UUID } from '#types/db.types';
 
+import { TransformerCtrl } from './transformer.controller';
+
 class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, ProjectCreateModel, ProjectUpdateModel> {
   constructor() {
     super(db.projects);
   }
 
   protected async _serialize(project: ProjectBaseModel): Promise<ProjectModel> {
-    const files = await db.files.where('id').anyOf(project.fileIds).toArray();
-    const totalSize = files.reduce((sum, file) => sum + (file.size || 0), 0);
+    return db.transaction('r', [db.files, db.transformers], async () => {
+      const files = await db.files.where('id').anyOf(project.fileIds).toArray();
+      const transformer = await db.transformers.where('projectId').equals(project.id).first();
 
-    return Promise.resolve({ ...project, files, size: totalSize });
+      if (!transformer) {
+        throw new Error(`Transformer for project ${project.id} not found`);
+      }
+
+      const totalSize = files.reduce((sum, file) => sum + (file.size || 0), 0);
+
+      return { ...project, files, size: totalSize, transformer };
+    });
+  }
+
+  public async create(data: ProjectCreateModel): Promise<{ id: UUID; data: ProjectBaseModel }> {
+    // TODO: Confirm that transactions behave as expected when calling `super` in them.
+    return db.transaction('rw', [db.projects, db.transformers, db.files], async () => {
+      const project = await super.create(data);
+
+      // create transformer
+      await TransformerCtrl.create({
+        projectId: project.id,
+        kind: project.data.kind,
+        settings: {
+          kind: project.data.kind,
+        },
+      });
+
+      console.log('transformer created for project:', project.id);
+
+      return project;
+    });
   }
 
   public async assignFiles(projectId: UUID, fileIds: UUID[]): Promise<void> {

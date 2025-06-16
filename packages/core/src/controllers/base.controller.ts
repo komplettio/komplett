@@ -32,9 +32,9 @@ export abstract class BaseController<
 
   protected abstract _serialize(item: TBase): Promise<TSer>;
 
-  public async create(item: TCreate): Promise<{ id: TBase['id']; data: TSer }> {
+  public async create(item: TCreate): Promise<{ id: TBase['id']; data: TBase }> {
     return this.collection.add(item).then(async id => {
-      const data = await this.getById(id);
+      const data = await this.getBaseById(id);
       if (!data) {
         throw new Error(`Item with ID ${id} not found after creation.`);
       }
@@ -48,6 +48,19 @@ export abstract class BaseController<
   public async update(id: TID, item: TUpdate): Promise<void> {
     // The casting is needed for some reason.
     await this.collection.update(id, item as UpdateSpec<TCreate>);
+  }
+
+  public getBaseById(id: TID): Promise<TBase | undefined> {
+    return this.collection
+      .where('id')
+      .equals(id)
+      .first()
+      .then(item => {
+        if (!item) {
+          return undefined;
+        }
+        return item;
+      });
   }
 
   public getById(id: TID): Promise<TSer | undefined> {

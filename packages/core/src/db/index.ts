@@ -1,6 +1,13 @@
 import Dexie, { Table } from 'dexie';
 
-import { FileBaseModel, FileCreateModel, ProjectBaseModel, ProjectCreateModel } from '#models/index';
+import {
+  FileBaseModel,
+  FileCreateModel,
+  ProjectBaseModel,
+  ProjectCreateModel,
+  TransformerBaseModel,
+  TransformerCreateModel,
+} from '#models';
 import { UUID } from '#types/db.types';
 
 const DB_VERSION = 1;
@@ -8,6 +15,7 @@ const DB_VERSION = 1;
 class Database extends Dexie {
   public projects!: Table<ProjectBaseModel, UUID, ProjectCreateModel>;
   public files!: Table<FileBaseModel, UUID, FileCreateModel>;
+  public transformers!: Table<TransformerBaseModel, UUID, TransformerCreateModel>;
 
   constructor() {
     super('komplett');
@@ -20,6 +28,7 @@ class Database extends Dexie {
     this.version(DB_VERSION).stores({
       projects: 'id, createdAt, updatedAt, name, description, fileIds, tags',
       files: 'id, createdAt, updatedAt, name, originalName, category, blob, metadata',
+      transformers: 'id, projectId, kind',
     });
   }
 
@@ -45,6 +54,17 @@ class Database extends Dexie {
     });
 
     this.files.hook('updating', (_, __, obj) => {
+      obj.updatedAt = new Date();
+    });
+
+    this.transformers.hook('creating', (_, obj) => {
+      const now = new Date();
+      obj.id = this.generateUUID();
+      obj.createdAt = now;
+      obj.updatedAt = now;
+    });
+
+    this.transformers.hook('updating', (_, __, obj) => {
       obj.updatedAt = new Date();
     });
   }

@@ -8,8 +8,8 @@
       "./src/*",
       "./src/*.ts",
       "./src/*.tsx",
-      "./src/*/index.ts",
-      "./src/*.js"
+      "./src/*.js",
+      "./src/*/index.ts"
     ]
   },
   "exports": {

@@ -1,11 +1,13 @@
 import { FileEventResponses, FileEvents } from './file.events';
 import { ProjectEventResponses, ProjectEvents } from './project.events';
+import { SystemEventResponses, SystemEvents } from './system.events';
 
 export * from './file.events';
 export * from './project.events';
+export * from './system.events';
 
-export type BaseEmittableEvents = ProjectEvents & FileEvents;
-export type BaseEventResponses = ProjectEventResponses & FileEventResponses;
+export type BaseEmittableEvents = ProjectEvents & FileEvents & SystemEvents;
+export type BaseEventResponses = ProjectEventResponses & FileEventResponses & SystemEventResponses;
 
 export type EventStatus = 'pending' | 'success' | 'error' | 'unknown';
 export type EventResponseKind<T extends keyof EmittableEvents> = `${T}.resp`;
