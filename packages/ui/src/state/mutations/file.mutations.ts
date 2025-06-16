@@ -21,7 +21,6 @@ export function useCreateFile() {
 export function useImportFile() {
   return useMutation({
     mutationFn: async (data: FileImportEvent) => {
-      console.log(data);
       return new Promise<FileCreateResponse>((resolve, reject) => {
         emitter
           .await('files.import', data, resp => {

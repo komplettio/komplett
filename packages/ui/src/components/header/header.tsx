@@ -1,4 +1,4 @@
-import { FileText, FolderOpen } from 'lucide-react';
+import { FileText, FolderOpen, Settings } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -25,6 +25,12 @@ export const Header: React.FC = () => {
             <FolderOpen size={20} />
             Projects
           </button>
+          <Link to="/settings">
+            <button className="nav-button">
+              <Settings size={20} />
+              Settings
+            </button>
+          </Link>
         </nav>
       </div>
     </header>

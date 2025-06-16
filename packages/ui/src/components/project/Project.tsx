@@ -1,6 +1,7 @@
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { FileBaseModel, ProjectModel } from '@komplett/core';
 
@@ -66,7 +67,17 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
       const imageUrl = URL.createObjectURL(file.blob);
       return (
         <div className="file-preview">
-          <img src={imageUrl} alt={file.name} className="preview-image" />
+          <TransformWrapper
+            limitToBounds={false}
+            centerOnInit={true}
+            panning={{
+              allowRightClickPan: false,
+            }}
+          >
+            <TransformComponent wrapperClass="preview-wrapper">
+              <img src={imageUrl} alt={file.name} className="preview-image" />
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       );
     }

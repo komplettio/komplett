@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 
 import { MainLayout } from '#layout/main/main.layout';
 import ProjectLayout from '#layout/project/project.layout';
-import { HomeRoute, ProjectRoute } from '#routes';
+import { HomeRoute, ProjectRoute, SettingsRoute } from '#routes';
 
 export default function Router() {
   return (
@@ -13,6 +13,7 @@ export default function Router() {
           <Route path="/projects" element={<ProjectLayout />}>
             <Route path=":id" element={<ProjectRoute />} />
           </Route>
+          <Route path="/settings" element={<SettingsRoute />} />
         </Route>
       </Routes>
     </BrowserRouter>
