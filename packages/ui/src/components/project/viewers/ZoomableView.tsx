@@ -30,7 +30,9 @@ export default function ZoomableView({ children, zoomEnabled }: ZoomableViewProp
       maxScale={20}
       onZoom={handleZoom}
     >
-      <TransformComponent wrapperClass="zoomable-view">{children}</TransformComponent>
+      <TransformComponent wrapperClass="zoomable-view">
+        <div className="view">{children}</div>
+      </TransformComponent>
     </TransformWrapper>
   );
 }
