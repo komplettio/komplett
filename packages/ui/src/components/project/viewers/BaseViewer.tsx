@@ -5,8 +5,8 @@ import { ViewerKind, ViewerMode } from '#types';
 import AudioViewer from './AudioViewer';
 import DocumentViewer from './DocumentViewer';
 import ImageViewer from './ImageViewer';
-import OtherViewer from './OtherViewer';
 import TextViewer from './TextViewer';
+import unknownViewer from './UnknownViewer';
 import VideoViewer from './VideoViewer';
 
 export const ViewerMap = {
@@ -15,18 +15,25 @@ export const ViewerMap = {
   audio: AudioViewer,
   document: DocumentViewer,
   text: TextViewer,
-  other: OtherViewer,
+  unknown: unknownViewer,
 } satisfies Record<ViewerKind, React.ComponentType<BaseViewerProps>>;
 
 export interface BaseViewerProps {
   originalFile: FileBaseModel;
-  resultFile?: FileBaseModel;
+  resultFile?: FileBaseModel | undefined;
   mode: ViewerMode;
   kind: ViewerKind;
   zoomEnabled?: boolean;
 }
 
-export default function BaseViewer({ originalFile, resultFile, mode }: BaseViewerProps) {
+export default function BaseViewer({ originalFile, resultFile, mode, kind, zoomEnabled = true }: BaseViewerProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- runtime safety check
+  if (!kind || !ViewerMap[kind]) {
+    throw new Error(`Viewer for kind "${kind}" is not defined.`);
+  }
+
+  const Viewer = ViewerMap[originalFile.kind];
+
   if (mode === 'split') {
     if (!resultFile) {
       throw new Error('Both original and result files are required for split mode.');
@@ -37,5 +44,9 @@ export default function BaseViewer({ originalFile, resultFile, mode }: BaseViewe
     }
   }
 
-  return <div className="file-preview"></div>;
+  return (
+    <div className="file-preview">
+      <Viewer originalFile={originalFile} resultFile={resultFile} mode={mode} kind={kind} zoomEnabled={zoomEnabled} />
+    </div>
+  );
 }

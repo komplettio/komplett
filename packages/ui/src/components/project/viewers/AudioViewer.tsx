@@ -1,6 +1,7 @@
 import { FileBaseModel } from '@komplett/core';
 
 import { BaseViewerProps } from './BaseViewer';
+import SplitView from './SplitView';
 
 export type AudioViewerProps = BaseViewerProps;
 
@@ -19,14 +20,14 @@ function SplitAudioView({ originalFile, resultFile }: { originalFile: FileBaseMo
   const resultUrl = URL.createObjectURL(resultFile.blob);
 
   return (
-    <>
+    <SplitView>
       <audio src={originalUrl} controls className="audio-controls">
         Your browser does not support the audio tag.
       </audio>
       <audio src={resultUrl} controls className="audio-controls">
         Your browser does not support the audio tag.
       </audio>
-    </>
+    </SplitView>
   );
 }
 

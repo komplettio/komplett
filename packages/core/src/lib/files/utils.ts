@@ -6,5 +6,5 @@ export function determineFileKind(mimeType: string): FileKind {
   if (mimeType.startsWith('audio/')) return 'audio';
   if (mimeType.includes('text') || mimeType.includes('markdown')) return 'text';
   if (mimeType.includes('pdf') || mimeType.includes('document')) return 'document';
-  return 'other';
+  return 'unknown';
 }

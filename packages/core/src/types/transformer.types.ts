@@ -54,8 +54,8 @@ export type TransformerSettingsText = {
   kind: 'text';
 };
 
-export type TransformerSettingsOther = {
-  kind: 'other';
+export type TransformerSettingsunknown = {
+  kind: 'unknown';
 };
 
 export type TransformerSettings =
@@ -64,7 +64,7 @@ export type TransformerSettings =
   | TransformerSettingsAudio
   | TransformerSettingsDocument
   | TransformerSettingsText
-  | TransformerSettingsOther;
+  | TransformerSettingsunknown;
 
 export type TransformerSettingsMap = {
   image: TransformerSettingsImage;
@@ -72,5 +72,5 @@ export type TransformerSettingsMap = {
   audio: TransformerSettingsAudio;
   document: TransformerSettingsDocument;
   text: TransformerSettingsText;
-  other: TransformerSettingsOther;
+  unknown: TransformerSettingsunknown;
 };

@@ -1,8 +1,8 @@
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
-
 import { FileBaseModel } from '@komplett/core';
 
 import { BaseViewerProps } from './BaseViewer';
+import SplitView from './SplitView';
+import ZoomableView from './ZoomableView';
 
 export type ImageViewerProps = BaseViewerProps;
 
@@ -17,31 +17,22 @@ function SplitImageView({ originalFile, resultFile }: { originalFile: FileBaseMo
   const resultUrl = URL.createObjectURL(resultFile.blob);
 
   return (
-    <>
+    <SplitView>
       <img src={originalUrl} alt={originalFile.name} className="preview-image" />
       <img src={resultUrl} alt={resultFile.name} className="preview-image" />
-    </>
+    </SplitView>
   );
 }
 
 export default function ImageViewer({ originalFile, resultFile, mode, zoomEnabled }: ImageViewerProps) {
   return (
-    <TransformWrapper
-      limitToBounds={false}
-      centerOnInit={true}
-      disabled={!zoomEnabled}
-      panning={{
-        allowRightClickPan: false,
-      }}
-    >
-      <TransformComponent wrapperClass="preview-wrapper">
-        {mode === 'split' ? (
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- In split mode, resultFile is checked to be defined in BaseViewer
-          <SplitImageView originalFile={originalFile} resultFile={resultFile!} />
-        ) : (
-          <SimpleImageView originalFile={originalFile} />
-        )}
-      </TransformComponent>
-    </TransformWrapper>
+    <ZoomableView zoomEnabled={zoomEnabled}>
+      {mode === 'split' ? (
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- In split mode, resultFile is checked to be defined in BaseViewer
+        <SplitImageView originalFile={originalFile} resultFile={resultFile!} />
+      ) : (
+        <SimpleImageView originalFile={originalFile} />
+      )}
+    </ZoomableView>
   );
 }

@@ -29,7 +29,7 @@ interface ProjectListProps {
 }
 
 type SortOption = 'name' | 'date' | 'size' | 'files';
-type FilterOption = 'all' | 'recent' | 'large' | 'images' | 'videos' | 'audio';
+type FilterOption = 'all' | 'recent' | 'large' | 'image' | 'video' | 'audio';
 
 export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => {
   const { data: projects, isLoading: isLoadingProjects } = useProjects();
@@ -74,6 +74,8 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
       }
       case 'large':
         filtered = filtered.filter(project => project.size > 10 * 1024 * 1024); // > 10MB
+        break;
+      case 'all':
         break;
       default:
         filtered = filtered.filter(project => project.kind === filterBy);
@@ -158,8 +160,8 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
     { key: 'all', label: 'All Projects', icon: FolderOpen },
     { key: 'recent', label: 'Recent', icon: Clock },
     { key: 'large', label: 'Large Files', icon: HardDrive },
-    { key: 'images', label: 'Images', icon: Image },
-    { key: 'videos', label: 'Videos', icon: Video },
+    { key: 'image', label: 'Images', icon: Image },
+    { key: 'video', label: 'Videos', icon: Video },
     { key: 'audio', label: 'Audio', icon: Music },
   ];
 

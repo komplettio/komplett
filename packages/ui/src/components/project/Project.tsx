@@ -62,56 +62,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     }
   };
 
-  const renderFilePreview = (file: FileBaseModel) => {
-    if (file.kind === 'image') {
-      const imageUrl = URL.createObjectURL(file.blob);
-      return (
-        <div className="file-preview">
-          <img src={imageUrl} alt={file.name} className="preview-image" />
-        </div>
-      );
-    }
-
-    if (file.kind === 'video') {
-      const videoUrl = URL.createObjectURL(file.blob);
-      return (
-        <div className="file-preview">
-          <video src={videoUrl} controls className="preview-video" preload="metadata">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      );
-    }
-
-    if (file.kind === 'audio') {
-      const audioUrl = URL.createObjectURL(file.blob);
-      return (
-        <div className="file-preview">
-          <div className="audio-waveform">
-            <div className="waveform-placeholder">
-              <div className="waveform-bars"></div>
-            </div>
-            <audio src={audioUrl} controls className="audio-controls">
-              Your browser does not support the audio tag.
-            </audio>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="file-preview">
-        <div className="file-placeholder">
-          <p>File preview not available</p>
-        </div>
-      </div>
-    );
-  };
-
-  const renderFileEditor = (file: FileBaseModel) => {
-    return <BaseViewer originalFile={file} resultFile={file} mode="split" kind={file.kind} />;
-  };
-
   return (
     <div className="project-view">
       <div className="project-header">
@@ -146,7 +96,14 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
       <div className="project-content">
         {project.files[0] ? (
           <div className="file-editor-layout">
-            <div className="preview-section">{renderFilePreview(project.files[0])}</div>
+            <div className="preview-section">
+              <BaseViewer
+                originalFile={project.files[0]}
+                resultFile={project.files[0]}
+                mode="split"
+                kind={project.files[0].kind}
+              />
+            </div>
 
             <div className="editor-section">
               <div className="file-header">
@@ -171,7 +128,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                 </div>
               </div>
 
-              <div className="editor-content">{renderFileEditor(project.files[0])}</div>
+              <div className="editor-content">TBD...</div>
             </div>
           </div>
         ) : (

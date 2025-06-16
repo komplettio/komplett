@@ -75,6 +75,9 @@ catalogs:
     lucide-react:
       specifier: ^0.515.0
       version: 0.515.0
+    re-resizable:
+      specifier: ^6.11.2
+      version: 6.11.2
     react:
       specifier: ^19.1.0
       version: 19.1.0
@@ -84,9 +87,15 @@ catalogs:
     react-router:
       specifier: ^7.6.2
       version: 7.6.2
+    react-zoom-pan-pinch:
+      specifier: ^3.7.0
+      version: 3.7.0
     sanitize.css:
       specifier: ^13.0.0
       version: 13.0.0
+    use-sync-external-store:
+      specifier: ^1.5.0
+      version: 1.5.0
     zustand:
       specifier: ^5.0.5
       version: 5.0.5
@@ -264,6 +273,9 @@ importers:
       lucide-react:
         specifier: catalog:frontend
         version: 0.515.0(react@19.1.0)
+      re-resizable:
+        specifier: catalog:frontend
+        version: 6.11.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: catalog:frontend
         version: 19.1.0
@@ -274,13 +286,13 @@ importers:
         specifier: catalog:frontend
         version: 7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-zoom-pan-pinch:
-        specifier: ^3.7.0
+        specifier: catalog:frontend
         version: 3.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sanitize.css:
         specifier: catalog:frontend
         version: 13.0.0
       use-sync-external-store:
-        specifier: ^1.5.0
+        specifier: catalog:frontend
         version: 1.5.0(react@19.1.0)
       zustand:
         specifier: catalog:frontend
@@ -2330,6 +2342,12 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  re-resizable@6.11.2:
+    resolution: {integrity: sha512-2xI2P3OHs5qw7K0Ud1aLILK6MQxW50TcO+DetD9eIV58j84TqYeHoZcL9H4GXFXXIh7afhH8mv5iUCXII7OW7A==}
+    peerDependencies:
+      react: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-dom@19.1.0:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
@@ -4907,6 +4925,11 @@ snapshots:
   quansync@0.2.10: {}
 
   queue-microtask@1.2.3: {}
+
+  re-resizable@6.11.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react-dom@19.1.0(react@19.1.0):
     dependencies:

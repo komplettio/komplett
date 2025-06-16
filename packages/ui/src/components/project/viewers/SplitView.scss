@@ -1,0 +1,25 @@
+.split-view {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+
+  &__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &:first-of-type {
+      z-index: 1;
+      overflow: hidden;
+    }
+  }
+
+  &__handle {
+    background-color: var(--color-gray-500);
+  }
+
+  &__item:last-of-type {
+    filter: grayscale(100%);
+  }
+}

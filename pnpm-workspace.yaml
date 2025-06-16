@@ -23,6 +23,9 @@ catalogs:
     'zustand': '^5.0.5'
     '@janis.me/react-themed': '0.2.0'
     'immer': '^10.1.1'
+    'react-zoom-pan-pinch': '^3.7.0'
+    'use-sync-external-store': '^1.5.0'
+    're-resizable': '^6.11.2'
   build:
     vite: ^6.3.5
     typescript: ^5.8.3

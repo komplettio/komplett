@@ -32,9 +32,9 @@ export abstract class BaseController<
 
   protected abstract _serialize(item: TBase): Promise<TSer>;
 
-  public async create(item: TCreate): Promise<{ id: TBase['id']; data: TSer }> {
+  public async create(item: TCreate): Promise<{ id: TBase['id']; data: TBase }> {
     return this.collection.add(item).then(async id => {
-      const data = await this.getById(id);
+      const data = await this.getBaseById(id);
       if (!data) {
         throw new Error(`Item with ID ${id} not found after creation.`);
       }

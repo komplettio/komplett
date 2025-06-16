@@ -31,12 +31,13 @@
     "immer": "catalog:frontend",
     "include-media": "catalog:frontend",
     "lucide-react": "catalog:frontend",
+    "re-resizable": "catalog:frontend",
     "react": "catalog:frontend",
     "react-dom": "catalog:frontend",
     "react-router": "catalog:frontend",
-    "react-zoom-pan-pinch": "^3.7.0",
+    "react-zoom-pan-pinch": "catalog:frontend",
     "sanitize.css": "catalog:frontend",
-    "use-sync-external-store": "^1.5.0",
+    "use-sync-external-store": "catalog:frontend",
     "zustand": "catalog:frontend"
   },
   "devDependencies": {

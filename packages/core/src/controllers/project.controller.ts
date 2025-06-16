@@ -17,11 +17,11 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
       const transformer = await db.transformers.where('projectId').equals(project.id).first();
 
       const kind = files.reduce<ProjectKind>((acc, file) => {
-        if (acc === 'other' || file.kind === acc) {
+        if (acc === 'unknown' || file.kind === acc) {
           return file.kind;
         }
-        return 'other';
-      }, 'other');
+        return 'unknown';
+      }, 'unknown');
 
       if (!transformer) {
         throw new Error(`Transformer for project ${project.id} not found`);
@@ -33,17 +33,24 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
     });
   }
 
-  public async create(data: ProjectCreateModel): Promise<{ id: UUID; data: ProjectModel }> {
+  public async create(data: ProjectCreateModel): Promise<{ id: UUID; data: ProjectBaseModel }> {
     // TODO: Confirm that transactions behave as expected when calling `super` in them.
     return db.transaction('rw', [db.projects, db.transformers, db.files], async () => {
       const project = await super.create(data);
+      const files = await db.files.where('id').anyOf(project.data.fileIds).toArray();
+      const kind = files.reduce<ProjectKind>((acc, file) => {
+        if (acc === 'unknown' || file.kind === acc) {
+          return file.kind;
+        }
+        return 'unknown';
+      }, 'unknown');
 
       // create transformer
       await TransformerCtrl.create({
         projectId: project.id,
-        kind: project.data.kind,
+        kind,
         settings: {
-          kind: project.data.kind,
+          kind,
         },
       });
 
