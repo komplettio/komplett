@@ -1,13 +1,9 @@
+mod png;
 mod utils;
 
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, codecs-rs!");
+pub fn optimise_png(data: &[u8], level: u8, interlace: bool, optimize_alpha: bool) -> Vec<u8> {
+    return png::optimise(data, level, interlace, optimize_alpha);
 }

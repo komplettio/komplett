@@ -1,5 +1,8 @@
 {
-  "extends": "@komplett/typescript-config/react.json",
+  "extends": "@komplett/typescript-config/base.json",
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
   "include": ["*.config.ts", "src"],
   "exclude": ["node_modules", "dist"]
 }

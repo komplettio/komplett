@@ -57,3 +57,4 @@ catalogs:
     'emittery': '^1.1.0'
     'handlery': '^0.2.7'
     'dexie': '^4.0.11'
+    'comlink': '^4.4.2'

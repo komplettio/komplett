@@ -19,6 +19,9 @@ catalogs:
       specifier: ^6.3.5
       version: 6.3.5
   core:
+    comlink:
+      specifier: ^4.4.2
+      version: 4.4.2
     dexie:
       specifier: ^4.0.11
       version: 4.0.11
@@ -188,6 +191,12 @@ importers:
 
   packages/core:
     dependencies:
+      '@komplett/codecs':
+        specifier: workspace:^
+        version: link:../codecs
+      comlink:
+        specifier: catalog:core
+        version: 4.4.2
       dexie:
         specifier: catalog:core
         version: 4.0.11
@@ -207,6 +216,9 @@ importers:
       typescript:
         specifier: catalog:build
         version: 5.8.3
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5(@types/node@22.15.31)(jiti@2.4.2)(sass@1.89.2)(yaml@2.7.1)
 
   packages/linter-config:
     devDependencies:
@@ -242,9 +254,6 @@ importers:
       '@janis.me/react-themed':
         specifier: catalog:frontend
         version: 0.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@komplett/codecs':
-        specifier: workspace:^
-        version: link:../codecs
       '@komplett/core':
         specifier: workspace:*
         version: link:../core
@@ -1568,6 +1577,9 @@ packages:
 
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+
+  comlink@4.4.2:
+    resolution: {integrity: sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==}
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
@@ -4089,6 +4101,8 @@ snapshots:
       color-name: 1.1.4
 
   color-name@1.1.4: {}
+
+  comlink@4.4.2: {}
 
   concat-map@0.0.1: {}
 

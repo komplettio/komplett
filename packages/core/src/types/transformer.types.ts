@@ -21,6 +21,14 @@ export interface TransformerCropSettings {
   height: number;
 }
 
+export interface TransformerImageOptimizeSettings {
+  level: number;
+  interlace?: boolean;
+  optimizeAlpha?: boolean;
+}
+
+export type TransformerOptimizeSettings = TransformerImageOptimizeSettings;
+
 export interface TransformerVideoTrimSettings {
   start: number;
   end: number;
@@ -30,6 +38,7 @@ export type TransformerAudioTrimSettings = TransformerVideoTrimSettings;
 
 export type TransformerSettingsImage = {
   kind: 'image';
+  optimize: TransformerImageOptimizeSettings | undefined;
   resize?: TransformerResizeSettings | undefined;
   crop?: TransformerCropSettings | undefined;
 };

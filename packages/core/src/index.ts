@@ -5,6 +5,7 @@ export * from '#events';
 export * from '#models';
 export * from '#types';
 export * from '#db';
+export * from '#lib/transformers';
 
 function start() {
   console.log('Starting event handlers and database observers...');

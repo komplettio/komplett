@@ -28,6 +28,7 @@ export default function ZoomableView({ children, zoomEnabled }: ZoomableViewProp
         allowRightClickPan: false,
       }}
       maxScale={20}
+      minScale={0.1}
       onZoom={handleZoom}
     >
       <TransformComponent wrapperClass="zoomable-view">

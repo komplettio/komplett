@@ -10,7 +10,7 @@ function SimpleVideoView({ originalFile }: { originalFile: FileBaseModel }) {
   const videoUrl = URL.createObjectURL(originalFile.blob);
 
   return (
-    <video src={videoUrl} controls className="preview-video" preload="metadata">
+    <video src={videoUrl} className="preview-video" preload="metadata">
       Your browser does not support the video tag.
     </video>
   );
@@ -22,10 +22,10 @@ function SplitVideoView({ originalFile, resultFile }: { originalFile: FileBaseMo
 
   return (
     <SplitView>
-      <video src={originalUrl} controls className="preview-video" preload="metadata">
+      <video src={originalUrl} className="preview-video" preload="metadata">
         Your browser does not support the video tag.
       </video>
-      <video src={resultUrl} controls className="preview-video" preload="metadata">
+      <video src={resultUrl} className="preview-video" preload="metadata">
         Your browser does not support the video tag.
       </video>
     </SplitView>

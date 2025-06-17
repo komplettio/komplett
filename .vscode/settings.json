@@ -10,5 +10,6 @@
   // Enable if you have issues with the eslint plugin
   "eslint.debug": false,
   "eslint.runtime": "node",
-  "eslint.run": "onType"
+  "eslint.run": "onType",
+  "rust-analyzer.linkedProjects": ["./packages/codecs/Cargo.toml"]
 }

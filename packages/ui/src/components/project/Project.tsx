@@ -2,8 +2,7 @@ import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { greet } from '@komplett/codecs';
-import { FileBaseModel, ProjectModel } from '@komplett/core';
+import { FileBaseModel, optimize, ProjectModel } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
 import { ConfirmationModal } from '#components/ui/ConfirmationModal';
@@ -132,7 +131,19 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
               <div className="editor-content">
                 <button
                   onClick={() => {
-                    greet();
+                    const file = project.files[0];
+                    if (!file) return;
+                    optimize(file, {
+                      level: 3,
+                      interlace: true,
+                      optimizeAlpha: true,
+                    })
+                      .then(result => {
+                        console.log('Optimized file:', result);
+                      })
+                      .catch((error: unknown) => {
+                        console.error('Error optimizing file:', error);
+                      });
                   }}
                 >
                   greet

@@ -16,6 +16,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@komplett/codecs": "workspace:^",
+    "comlink": "catalog:core",
     "dexie": "catalog:core",
     "emittery": "catalog:core",
     "handlery": "catalog:core"
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@komplett/linter-config": "workspace:*",
     "@komplett/typescript-config": "workspace:*",
-    "typescript": "catalog:build"
+    "typescript": "catalog:build",
+    "vite": "^6.3.5"
   }
 }
