@@ -21,4 +21,11 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@komplett/codecs'],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "/src/styles/globals.scss" as *;',
+      },
+    },
+  },
 });

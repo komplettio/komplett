@@ -1,0 +1,24 @@
+@forward 'include-media';
+@forward '@janis.me/react-themed';
+
+@use 'sass:meta';
+
+@use 'include-media' as *;
+@use '@janis.me/react-themed' as themed;
+@use '@janis.me/react-themed/generators';
+@use '@janis.me/react-themed/plugins';
+
+@use './themes.scss';
+
+$themes: meta.module-variables('themes');
+
+// The plugins are optional,
+// but that's what's used for this website.
+@include themed.configure($themes, plugins.prefers-color-scheme(), generators.size());
+
+$breakpoints: (
+  phone: 420px,
+  tablet: 768px,
+  desktop: 1024px,
+  ultrawide: 2000px,
+);

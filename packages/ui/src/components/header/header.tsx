@@ -1,4 +1,5 @@
-import { FileText, FolderOpen, Settings } from 'lucide-react';
+import { useTheme } from '@janis.me/react-themed/js';
+import { FileText, FolderOpen, Settings, Sun } from 'lucide-react';
 import type React from 'react';
 import { Link } from 'react-router';
 
@@ -8,6 +9,7 @@ import './header.scss';
 
 export const Header: React.FC = () => {
   const [toggleProjectList] = useProjectListStore(s => [s.toggleOpen]);
+  const { setTheme, theme, toggleTheme } = useTheme();
 
   return (
     <header className="header">
@@ -31,6 +33,15 @@ export const Header: React.FC = () => {
               Settings
             </button>
           </Link>
+          <button
+            className="nav-button"
+            onClick={() => {
+              setTheme(toggleTheme());
+            }}
+          >
+            <Sun size={20} />
+            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          </button>
         </nav>
       </div>
     </header>

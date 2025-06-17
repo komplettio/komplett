@@ -1,0 +1,98 @@
+@use '@fontsource-variable/jetbrains-mono';
+@use 'sanitize.css';
+
+@use './globals' as *;
+
+@include apply();
+
+:where(code) {
+  font-family: 'JetBrains Mono Variable', 'IBM Plex Mono', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'JetBrains Mono Variable', 'IBM Plex Mono', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: themed('color-gray-50');
+  color: themed('color-gray-900');
+  position: relative;
+}
+
+a {
+  color: themed('color-primary-600');
+  text-decoration: underline;
+
+  &:has(button),
+  &:has(h1) {
+    color: themed('color-gray-600');
+    text-decoration: none;
+  }
+}
+
+code {
+  padding: 0 themed('size-4');
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+input,
+button,
+select {
+  color: themed('color-gray-500');
+}
+
+p {
+  text-wrap: pretty;
+}
+
+hr {
+  margin: themed('size-16') themed('size-32');
+  border: none;
+  border-top: 1px solid themed('color-gray-300');
+}
+
+label {
+  color: themed('color-gray-400');
+}
+
+button {
+  background-color: themed('color-gray-300');
+  color: themed('color-gray-600');
+  border: none;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: themed('color-gray-200');
+  }
+}
+
+ul li {
+  padding: themed('size-4') 0;
+}
+
+@include media('<=tablet') {
+  html {
+    font-size: 14px;
+  }
+}
+
+@include media('<=phone') {
+  html {
+    font-size: 12px;
+  }
+}

@@ -19,6 +19,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "catalog:frontend",
     "@janis.me/react-themed": "catalog:frontend",
     "@komplett/core": "workspace:*",
     "@radix-ui/react-dialog": "catalog:frontend",
