@@ -11,6 +11,8 @@ import { Link } from 'react-router';
 
 import { useSystemReset } from '#state/mutations/system.mutations.js';
 
+// TODO: Replace all those nasty toggle divs. WTF is AI doing.
+
 export default function SettingsRoute() {
   const { addToast } = useToast();
 

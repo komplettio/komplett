@@ -28,8 +28,4 @@
       25% calc(100% - $handle-grabber-height)
     );
   }
-
-  &__item:last-of-type {
-    filter: grayscale(100%);
-  }
 }

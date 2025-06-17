@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router';
 import { type FileBaseModel, type ProjectModel } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
+import TransformerSettings from '#components/transformer/transformer-settings';
 import { ConfirmationModal } from '#components/ui/ConfirmationModal';
-import { useExecuteTransformer, useImportFile, useUpdateProject } from '#state/mutations';
+import { useImportFile, useUpdateProject } from '#state/mutations';
 
 import BaseViewer from './viewers/BaseViewer';
 
@@ -22,18 +23,12 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const importFile = useImportFile();
   const updateProject = useUpdateProject();
 
-  const executeTransformer = useExecuteTransformer();
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    if (!project.transformer) {
-      return;
-    }
-
-    console.log(project.transformer);
-  }, [project.transformer]);
+    console.log(project);
+  }, [project]);
 
   const handleBack = () => {
     void navigate('/');
@@ -73,14 +68,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     }
   };
 
-  const handleExportButtonClick = () => {
-    if (project.transformer?.id) {
-      executeTransformer.mutateAsync({ id: project.transformer.id }).catch((error: unknown) => {
-        console.error('Failed to execute transformer:', error);
-      });
-    }
-  };
-
   return (
     <div className="project-view">
       <div className="project-header">
@@ -116,12 +103,14 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         {project.files[0] ? (
           <div className="file-editor-layout">
             <div className="preview-section">
-              <BaseViewer
-                originalFile={project.files[0]}
-                resultFile={project.files[0]}
-                mode="split"
-                kind={project.files[0].kind}
-              />
+              {project.fileIds[0] && project.transformer?.resultFileIds[0] && (
+                <BaseViewer
+                  originalFileId={project.fileIds[0]}
+                  resultFileId={project.transformer.resultFileIds[0]}
+                  mode="split"
+                  kind={project.files[0].kind}
+                />
+              )}
             </div>
 
             <div className="editor-section">
@@ -148,7 +137,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
               </div>
 
               <div className="editor-content">
-                <button onClick={handleExportButtonClick}>greet</button>
+                {project.transformer?.id && <TransformerSettings id={project.transformer.id} />}
               </div>
             </div>
           </div>

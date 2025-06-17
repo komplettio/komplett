@@ -28,8 +28,7 @@ export default function ImageViewer({ originalFile, resultFile, mode, zoomEnable
   return (
     <ZoomableView zoomEnabled={zoomEnabled}>
       {mode === 'split' ? (
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- In split mode, resultFile is checked to be defined in BaseViewer
-        <SplitImageView originalFile={originalFile} resultFile={resultFile!} />
+        <SplitImageView originalFile={originalFile} resultFile={resultFile} />
       ) : (
         <SimpleImageView originalFile={originalFile} />
       )}
