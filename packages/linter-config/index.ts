@@ -27,6 +27,7 @@ export const baseConfig: ConfigArray = tseslint.config(
   },
   {
     rules: {
+      '@typescript-eslint/consistent-type-imports': 'error',
       // A good rule, but we sometimes want to include redundant types for documentation purposes
       '@typescript-eslint/no-redundant-type-constituents': 'warn',
       // Allow the `T[]` syntax for simple types, but require `Array<T>` for more complex types
