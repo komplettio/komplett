@@ -2,8 +2,8 @@ import * as Comlink from 'comlink';
 
 import { optimise_png } from '@komplett/codecs';
 
-import { FileBaseModel } from '#models/file.models.js';
-import { TransformerImageOptimizeSettings } from '#types';
+import type { FileBaseModel } from '#models/file.models.js';
+import type { TransformerImageOptimizeSettings } from '#types';
 
 export class PngWorker {
   public async optimize(file: FileBaseModel, options: TransformerImageOptimizeSettings) {

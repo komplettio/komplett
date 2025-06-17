@@ -1,6 +1,6 @@
-import { FileBaseModel } from '@komplett/core';
+import type { FileBaseModel } from '@komplett/core';
 
-import { ViewerKind, ViewerMode } from '#types';
+import type { ViewerKind, ViewerMode } from '#types';
 
 import AudioViewer from './AudioViewer';
 import DocumentViewer from './DocumentViewer';

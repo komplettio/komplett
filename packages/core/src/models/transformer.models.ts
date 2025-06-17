@@ -1,13 +1,11 @@
-import { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
-import { FileBaseModel } from '#models/file.models';
-import { UUID } from '#types/db.types';
-import { TransformerKind, TransformerSettingsMap } from '#types/transformer.types';
-
-import { ProjectBaseModel } from './project.models';
+import type { FileBaseModel, ProjectBaseModel } from '#models';
+import type { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
+import type { TransformerKind, TransformerSettingsMap, TransformerStatus, UUID } from '#types';
 
 export interface TransformerBaseModel<T extends TransformerKind = TransformerKind> extends BaseModel {
   projectId: UUID;
   kind: T;
+  status: TransformerStatus;
   settings: TransformerSettingsMap[T];
 }
 

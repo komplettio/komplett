@@ -1,6 +1,6 @@
-import { FileBaseModel } from '@komplett/core';
+import type { FileBaseModel } from '@komplett/core';
 
-import { BaseViewerProps } from './BaseViewer';
+import type { BaseViewerProps } from './BaseViewer';
 
 export type TextViewerProps = BaseViewerProps;
 

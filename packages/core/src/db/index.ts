@@ -1,6 +1,7 @@
-import Dexie, { Table } from 'dexie';
+import type { Table } from 'dexie';
+import Dexie from 'dexie';
 
-import {
+import type {
   FileBaseModel,
   FileCreateModel,
   ProjectBaseModel,
@@ -8,7 +9,7 @@ import {
   TransformerBaseModel,
   TransformerCreateModel,
 } from '#models';
-import { UUID } from '#types/db.types';
+import type { UUID } from '#types/db.types';
 
 const DB_VERSION = 1;
 

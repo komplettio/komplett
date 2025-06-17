@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { FileKind } from './file.types';
+import type { FileKind } from './file.types';
 
 export type TransformerKind = FileKind;
+export type TransformerStatus = 'idle' | 'pending' | 'completed' | 'failed' | 'canceled' | 'unknown';
 
 export type TransformerResizeMethod = 'basic';
 export type TransformerResizeFillMethod = 'crop' | 'contain' | 'stretch';

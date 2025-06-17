@@ -1,7 +1,8 @@
-import Dexie, { Collection, liveQuery, Observable, Table, UpdateSpec } from 'dexie';
+import type { Collection, Observable, Table, UpdateSpec } from 'dexie';
+import Dexie, { liveQuery } from 'dexie';
 
-import { BaseCreateModel, BaseModel, BaseUpdateModel } from '#models/base.models';
-import { Filter, ListQueryOptions } from '#types/event.types';
+import type { BaseCreateModel, BaseModel, BaseUpdateModel } from '#models/base.models';
+import type { Filter, ListQueryOptions } from '#types/event.types';
 
 const DEFAULT_LIMIT = 1000;
 const DEFAULT_OFFSET = 0;

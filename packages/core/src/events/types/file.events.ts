@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#models/file.models';
-import { UUID } from '#types/db.types';
-import { ListEvent } from '#types/event.types';
+import type { FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#models/file.models';
+import type { UUID } from '#types/db.types';
+import type { ListEvent } from '#types/event.types';
 
 export type FileCreateEvent = FileCreateModel;
 

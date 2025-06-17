@@ -1,4 +1,4 @@
-import { HasCreatedAt, HasId, HasUpdatedAt } from '#types/db.types';
+import type { HasCreatedAt, HasId, HasUpdatedAt } from '#types/db.types';
 
 export interface BaseModel extends HasId, HasCreatedAt, HasUpdatedAt {}
 

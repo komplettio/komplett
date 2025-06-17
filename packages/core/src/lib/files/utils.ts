@@ -1,4 +1,4 @@
-import { FileKind } from '#types/file.types';
+import type { FileKind } from '#types/file.types';
 
 export function determineFileKind(mimeType: string): FileKind {
   if (mimeType.startsWith('image/')) return 'image';

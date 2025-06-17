@@ -1,8 +1,8 @@
-import { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
-import { FileBaseModel } from '#models/file.models';
-import { TransformerBaseModel } from '#models/transformer.models';
-import { UUID } from '#types/db.types';
-import { ProjectKind } from '#types/project.types';
+import type { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
+import type { FileBaseModel } from '#models/file.models';
+import type { TransformerBaseModel } from '#models/transformer.models';
+import type { UUID } from '#types/db.types';
+import type { ProjectKind } from '#types/project.types';
 
 export interface ProjectBaseModel extends BaseModel {
   name: string;

@@ -1,8 +1,10 @@
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { FileBaseModel, optimize, ProjectModel } from '@komplett/core';
+import type { FileBaseModel, ProjectModel } from '@komplett/core';
+import { optimize } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
 import { ConfirmationModal } from '#components/ui/ConfirmationModal';

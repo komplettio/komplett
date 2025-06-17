@@ -1,5 +1,6 @@
 import { FileIcon, Image, Music, Upload, Video } from 'lucide-react';
-import React, { useCallback, useState } from 'react';
+import type React from 'react';
+import { useCallback, useState } from 'react';
 
 import './FileDropZone.scss';
 

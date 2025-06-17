@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { Resizable, ResizeCallback, ResizeStartCallback } from 're-resizable';
+import type { ResizeCallback, ResizeStartCallback } from 're-resizable';
+import { Resizable } from 're-resizable';
 
 import { useEditorStore } from '#state/stores';
 

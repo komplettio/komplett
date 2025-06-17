@@ -1,6 +1,6 @@
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
-import { TransformerBaseModel, TransformerCreateModel, TransformerModel, TransformerUpdateModel } from '#models';
+import type { TransformerBaseModel, TransformerCreateModel, TransformerModel, TransformerUpdateModel } from '#models';
 
 class TransformerController extends BaseController<
   TransformerBaseModel,

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 
-import { UUID } from '@komplett/core';
+import type { UUID } from '@komplett/core';
 
 import { Project } from '#components/project/Project';
 import { useProject } from '#state/queries/project.queries.js';

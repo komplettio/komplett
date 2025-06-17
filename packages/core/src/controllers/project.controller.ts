@@ -1,8 +1,8 @@
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
-import { ProjectBaseModel, ProjectCreateModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
-import { UUID } from '#types/db.types';
-import { ProjectKind } from '#types/project.types.js';
+import type { ProjectBaseModel, ProjectCreateModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
+import type { UUID } from '#types/db.types';
+import type { ProjectKind } from '#types/project.types.js';
 
 import { TransformerCtrl } from './transformer.controller';
 

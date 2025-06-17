@@ -1,10 +1,11 @@
-import Emittery, { UnsubscribeFunction } from 'emittery';
+import type { UnsubscribeFunction } from 'emittery';
+import Emittery from 'emittery';
 import handlery, {
   type Emitter as HandleryEmitter,
   type EventHandlerContext as HandleryEventHandlerContext,
 } from 'handlery';
 
-import {
+import type {
   BaseEmittableEvents,
   BaseEventResponses,
   BaseEvents,

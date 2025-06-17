@@ -1,4 +1,5 @@
-import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import type { ReactZoomPanPinchRef} from 'react-zoom-pan-pinch';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { useEditorStore } from '#state/stores';
 

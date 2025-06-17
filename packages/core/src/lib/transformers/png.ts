@@ -1,5 +1,5 @@
-import { FileBaseModel } from '#models';
-import { TransformerImageOptimizeSettings, TransformerOptimizeSettings } from '#types';
+import type { FileBaseModel } from '#models';
+import type { TransformerImageOptimizeSettings, TransformerOptimizeSettings } from '#types';
 
 import { getPngWorker } from '../workers';
 

@@ -1,6 +1,7 @@
 import { FileCtrl } from '#controllers/file.controller';
-import { EventHandler, EventHandlerContext, on, register } from '#events/emitter';
-import { Events } from '#events/index';
+import type { EventHandlerContext} from '#events/emitter';
+import { EventHandler, on, register } from '#events/emitter';
+import type { Events } from '#events/index';
 
 @register()
 export class FileHandler extends EventHandler {

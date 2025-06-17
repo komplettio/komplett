@@ -12,10 +12,11 @@ import {
   Video,
   X,
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 
-import { FileBaseModel, ProjectModel } from '@komplett/core';
+import type { FileBaseModel, ProjectModel } from '@komplett/core';
 
 import { useCreateProject } from '#state/mutations';
 import { useProjects } from '#state/queries/project.queries.js';

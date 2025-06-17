@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { emitter, ProjectCreateResponse, type ProjectCreateEvent, type ProjectUpdateEvent } from '@komplett/core';
+import type { ProjectCreateResponse} from '@komplett/core';
+import { emitter, type ProjectCreateEvent, type ProjectUpdateEvent } from '@komplett/core';
 
 export function useCreateProject() {
   return useMutation({

@@ -1,6 +1,6 @@
-import { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
-import { UUID } from '#types/db.types';
-import { FileKind, FileMetadata } from '#types/file.types';
+import type { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
+import type { UUID } from '#types/db.types';
+import type { FileKind, FileMetadata } from '#types/file.types';
 
 export interface FileBaseModel extends BaseModel {
   size: number;

@@ -1,4 +1,5 @@
-import { QueryKey, useQueryClient } from '@tanstack/react-query';
+import type { QueryKey} from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { emitter, type Events } from '@komplett/core';

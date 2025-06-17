@@ -2,7 +2,8 @@ import Dexie, { liveQuery } from 'dexie';
 
 import { FileCtrl } from '#controllers/file.controller';
 import { ProjectCtrl } from '#controllers/project.controller';
-import { BaseEvents, emitter } from '#events/index';
+import type { BaseEvents} from '#events/index';
+import { emitter } from '#events/index';
 
 function emitOnChange<TE extends keyof BaseEvents>(event: TE, queryFn: () => Promise<BaseEvents[TE]>) {
   // Note: According to the Dexie docs, you are not supposed to call non-dexie async APIs from within

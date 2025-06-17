@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import type React from 'react';
+import { createContext, useContext, useState } from 'react';
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import { X } from 'lucide-react';
 import './Toast.scss';

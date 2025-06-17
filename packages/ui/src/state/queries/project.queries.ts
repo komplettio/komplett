@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { emitter, ProjectListResponse } from '@komplett/core';
-import type { ListQueryOptions, ProjectBaseModel, ProjectModel, UUID } from '@komplett/core';
+import { emitter } from '@komplett/core';
+import type { ListQueryOptions, ProjectBaseModel, ProjectModel, UUID , ProjectListResponse } from '@komplett/core';
 
 import { useInvalidateOnEvent } from '#hooks/useInvalidateOnEvent';
 

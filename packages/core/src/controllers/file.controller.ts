@@ -2,7 +2,7 @@ import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
 import { MetadataExtractor } from '#lib/files/metadata-extractor';
 import { determineFileKind } from '#lib/files/utils';
-import { FileBaseModel, FileCreateModel, FileModel, FileUpdateModel } from '#models/file.models';
+import type { FileBaseModel, FileCreateModel, FileModel, FileUpdateModel } from '#models/file.models';
 
 class FileController extends BaseController<FileBaseModel, FileModel, FileCreateModel, FileUpdateModel> {
   private metadataExtractor: MetadataExtractor;

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { ProjectCreateModel, ProjectDeleteModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
-import { UUID } from '#types/db.types';
-import { ListEvent } from '#types/event.types';
+import type { ProjectCreateModel, ProjectDeleteModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
+import type { UUID } from '#types/db.types';
+import type { ListEvent } from '#types/event.types';
 
 export type ProjectCreateEvent = ProjectCreateModel;
 
