@@ -2,7 +2,7 @@ import { FileIcon, HardDrive } from 'lucide-react';
 import { Link } from 'react-router';
 
 import { useProjects } from '#state/queries';
-import { formatFileSize } from '#utils/fileUtils';
+import { formatFileSize } from '#utils/formatters';
 
 import './RecentProjects.scss';
 

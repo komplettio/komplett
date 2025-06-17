@@ -23,6 +23,10 @@ export type TransformerExecuteEvent = {
   id: UUID;
 };
 
+export type TransformerStopEvent = {
+  id: UUID;
+};
+
 export type TransformerCreateResponse = {
   id: UUID;
 };
@@ -36,6 +40,11 @@ export type TransformerExecuteResponse = {
   status: TransformerStatus;
 };
 
+export type TransformerStopResponse = {
+  id: UUID;
+  status: TransformerStatus;
+};
+
 export type TransformerEvents = {
   'transformers.create': TransformerCreateEvent;
   'transformers.update': TransformerUpdateEvent;
@@ -44,6 +53,7 @@ export type TransformerEvents = {
   'transformers.list': TransformerListEvent;
   'transformers.pub': TransformerPubEvent;
   'transformers.execute': TransformerExecuteEvent;
+  'transformers.stop': TransformerStopEvent;
 };
 
 export type TransformerEventResponses = {
@@ -54,4 +64,5 @@ export type TransformerEventResponses = {
   'transformers.list.resp': TransformerListResponse;
   'transformers.pub.resp': null;
   'transformers.execute.resp': TransformerExecuteResponse;
+  'transformers.stop.resp': TransformerStopResponse;
 };

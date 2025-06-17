@@ -2,7 +2,8 @@ import Dexie, { liveQuery } from 'dexie';
 
 import { FileCtrl } from '#controllers/file.controller';
 import { ProjectCtrl } from '#controllers/project.controller';
-import type { BaseEvents} from '#events/index';
+import { TransformerCtrl } from '#controllers/transformer.controller.js';
+import type { BaseEvents } from '#events/index';
 import { emitter } from '#events/index';
 
 function emitOnChange<TE extends keyof BaseEvents>(event: TE, queryFn: () => Promise<BaseEvents[TE]>) {
@@ -25,6 +26,7 @@ export function setupDbObservers() {
   const subscriptions = [
     emitOnChange('projects.pub', () => ProjectCtrl.getMany()),
     emitOnChange('files.pub', () => FileCtrl.getMany()),
+    emitOnChange('transformers.pub', () => TransformerCtrl.getMany()),
   ];
 
   return () => {

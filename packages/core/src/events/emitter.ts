@@ -89,28 +89,33 @@ export class Emitter implements HandleryEmitter<BaseEvents, Events> {
   async await<T extends keyof BaseEmittableEvents>(
     eventName: T,
     data: BaseEmittableEvents[T],
-    callback: (data: BaseEventResponses[EventResponseKind<T>]) => void,
-  ): Promise<void> {
-    Emitter._eventId++;
+    callback?: (data: BaseEventResponses[EventResponseKind<T>]) => void,
+  ): Promise<Array<BaseEventResponses[EventResponseKind<T>]>> {
+    return new Promise(resolve => {
+      Emitter._eventId++;
+      const responses: Array<BaseEventResponses[EventResponseKind<T>]> = [];
 
-    const msg = {
-      eventId: Emitter._eventId,
-      kind: eventName,
-      timestamp: Date.now(),
-      payload: data,
-    } as Events[T];
+      const msg = {
+        eventId: Emitter._eventId,
+        kind: eventName,
+        timestamp: Date.now(),
+        payload: data,
+      } as Events[T];
 
-    const unsubscribe = emittery.on(`${eventName}.resp`, res => {
-      if (res.original.eventId === msg.eventId) {
-        callback(res.payload as BaseEventResponses[EventResponseKind<T>]);
+      const unsubscribe = emittery.on(`${eventName}.resp`, res => {
+        if (res.original.eventId === msg.eventId) {
+          responses.push(res.payload as BaseEventResponses[EventResponseKind<T>]);
+          callback?.(res.payload as BaseEventResponses[EventResponseKind<T>]);
 
-        if (res.finalResponse) {
-          unsubscribe();
+          if (res.finalResponse) {
+            unsubscribe();
+            resolve(responses);
+          }
         }
-      }
-    });
+      });
 
-    await emittery.emit(eventName, msg);
+      void emittery.emit(eventName, msg);
+    });
   }
 
   /**

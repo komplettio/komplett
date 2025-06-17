@@ -2,6 +2,8 @@ import { TransformerCtrl } from '#controllers/transformer.controller';
 import type { EventHandlerContext } from '#events/emitter';
 import { EventHandler, on, register } from '#events/emitter';
 import type { Events } from '#events/index';
+import { executeTransformer } from '#lib/transformers';
+import { liveQuery } from 'dexie';
 
 @register()
 export class TransformerHandler extends EventHandler {
@@ -56,7 +58,74 @@ export class TransformerHandler extends EventHandler {
       throw new Error(`Transformer with ID ${data.payload.id} not found`);
     }
     console.log('Executing transformer:', data, transformer);
-    await ctx.emitter.respond('transformers.execute', data, {
+
+    let responseNr = 0;
+
+    const transformerObserver = liveQuery(() => TransformerCtrl.getById(data.payload.id));
+    const responderSubscription = transformerObserver.subscribe(updatedTransformer => {
+      if (!updatedTransformer) {
+        console.error(`Transformer with ID ${data.payload.id} not found during execution`);
+        return;
+      }
+
+      void ctx.emitter.respond(
+        'transformers.execute',
+        data,
+        {
+          id: updatedTransformer.id,
+          status: updatedTransformer.status,
+        },
+        responseNr++,
+        false,
+        'pending',
+      );
+    });
+
+    await TransformerCtrl.updateStatus(data.payload.id, 'running');
+
+    try {
+      await executeTransformer(transformer);
+      responderSubscription.unsubscribe();
+      await TransformerCtrl.updateStatus(data.payload.id, 'completed');
+
+      await ctx.emitter.respond(
+        'transformers.execute',
+        data,
+        {
+          id: transformer.id,
+          status: 'completed',
+        },
+        responseNr++,
+        true,
+        'success',
+      );
+    } catch (error) {
+      responderSubscription.unsubscribe();
+      await TransformerCtrl.updateStatus(data.payload.id, 'error');
+
+      await ctx.emitter.respond(
+        'transformers.execute',
+        data,
+        {
+          id: transformer.id,
+          status: 'error',
+        },
+        responseNr++,
+        true,
+        'error',
+      );
+      throw error;
+    }
+  }
+
+  @on('transformers.stop')
+  async stopTransformer(data: Events['transformers.stop'], ctx: EventHandlerContext<'transformers.stop'>) {
+    const transformer = await TransformerCtrl.getById(data.payload.id);
+    if (!transformer) {
+      throw new Error(`Transformer with ID ${data.payload.id} not found`);
+    }
+    console.log('Stopping transformer:', data, transformer);
+    await ctx.emitter.respond('transformers.stop', data, {
       id: transformer.id,
       status: transformer.status,
     });

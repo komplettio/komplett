@@ -1,6 +1,7 @@
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
 import type { TransformerBaseModel, TransformerCreateModel, TransformerModel, TransformerUpdateModel } from '#models';
+import type { UUID } from '#types';
 
 class TransformerController extends BaseController<
   TransformerBaseModel,
@@ -20,10 +21,15 @@ class TransformerController extends BaseController<
         throw new Error(`Failed to serialize transformer: project with ID ${transformer.projectId} not found`);
       }
 
-      const files = await db.files.where('id').anyOf(project.fileIds).toArray();
+      const inputFiles = await db.files.where('id').anyOf(project.fileIds).toArray();
+      const resultFiles = await db.files.where('id').anyOf(transformer.resultFileIds).toArray();
 
-      return { ...transformer, files, project };
+      return { ...transformer, inputFiles, resultFiles, project };
     });
+  }
+
+  public async updateStatus(id: UUID, status: TransformerBaseModel['status']): Promise<void> {
+    await this.update(id, { status });
   }
 }
 

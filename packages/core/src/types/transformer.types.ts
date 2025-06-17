@@ -2,7 +2,7 @@
 import type { FileKind } from './file.types';
 
 export type TransformerKind = FileKind;
-export type TransformerStatus = 'idle' | 'pending' | 'completed' | 'failed' | 'canceled' | 'unknown';
+export type TransformerStatus = 'idle' | 'running' | 'completed' | 'error' | 'canceled' | 'unknown';
 
 export type TransformerResizeMethod = 'basic';
 export type TransformerResizeFillMethod = 'crop' | 'contain' | 'stretch';
@@ -39,7 +39,7 @@ export type TransformerAudioTrimSettings = TransformerVideoTrimSettings;
 
 export type TransformerSettingsImage = {
   kind: 'image';
-  optimize: TransformerImageOptimizeSettings | undefined;
+  optimize?: TransformerImageOptimizeSettings | undefined;
   resize?: TransformerResizeSettings | undefined;
   crop?: TransformerCropSettings | undefined;
 };

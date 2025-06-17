@@ -7,8 +7,9 @@ export interface FileBaseModel extends BaseModel {
   name: string;
   originalName: string;
   kind: FileKind;
-  blob: Blob;
+  blob: File;
   metadata: FileMetadata;
+  originalFileId?: UUID | undefined;
 }
 
 export type FileCreateModel = BaseCreateModel<FileBaseModel>;

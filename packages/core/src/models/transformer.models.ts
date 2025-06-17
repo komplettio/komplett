@@ -7,6 +7,7 @@ export interface TransformerBaseModel<T extends TransformerKind = TransformerKin
   kind: T;
   status: TransformerStatus;
   settings: TransformerSettingsMap[T];
+  resultFileIds: UUID[];
 }
 
 export type TransformerCreateModel = BaseCreateModel<TransformerBaseModel>;
@@ -15,5 +16,6 @@ export type TransformerDeleteModel = BaseDeleteModel<TransformerBaseModel>;
 
 export interface TransformerModel extends TransformerBaseModel {
   project: ProjectBaseModel;
-  files: FileBaseModel[];
+  inputFiles: FileBaseModel[];
+  resultFiles: FileBaseModel[];
 }

@@ -1,14 +1,13 @@
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import type { FileBaseModel, ProjectModel } from '@komplett/core';
-import { optimize } from '@komplett/core';
+import { type FileBaseModel, type ProjectModel } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
 import { ConfirmationModal } from '#components/ui/ConfirmationModal';
-import { useImportFile, useUpdateProject } from '#state/mutations';
+import { useExecuteTransformer, useImportFile, useUpdateProject } from '#state/mutations';
 
 import BaseViewer from './viewers/BaseViewer';
 
@@ -23,8 +22,18 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const importFile = useImportFile();
   const updateProject = useUpdateProject();
 
+  const executeTransformer = useExecuteTransformer();
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (!project.transformer) {
+      return;
+    }
+
+    console.log(project.transformer);
+  }, [project.transformer]);
 
   const handleBack = () => {
     void navigate('/');
@@ -61,6 +70,14 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     // TODO: handle
     if (window.confirm('Are you sure you want to delete this file?')) {
       // await deleteFile(fileId);
+    }
+  };
+
+  const handleExportButtonClick = () => {
+    if (project.transformer?.id) {
+      executeTransformer.mutateAsync({ id: project.transformer.id }).catch((error: unknown) => {
+        console.error('Failed to execute transformer:', error);
+      });
     }
   };
 
@@ -131,25 +148,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
               </div>
 
               <div className="editor-content">
-                <button
-                  onClick={() => {
-                    const file = project.files[0];
-                    if (!file) return;
-                    optimize(file, {
-                      level: 3,
-                      interlace: true,
-                      optimizeAlpha: true,
-                    })
-                      .then(result => {
-                        console.log('Optimized file:', result);
-                      })
-                      .catch((error: unknown) => {
-                        console.error('Error optimizing file:', error);
-                      });
-                  }}
-                >
-                  greet
-                </button>
+                <button onClick={handleExportButtonClick}>greet</button>
               </div>
             </div>
           </div>

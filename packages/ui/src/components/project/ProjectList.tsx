@@ -20,7 +20,7 @@ import type { FileBaseModel, ProjectModel } from '@komplett/core';
 
 import { useCreateProject } from '#state/mutations';
 import { useProjects } from '#state/queries/project.queries.js';
-import { formatFileSize } from '#utils/fileUtils';
+import { formatFileSize } from '#utils/formatters';
 
 import './ProjectList.scss';
 
