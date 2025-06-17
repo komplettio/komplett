@@ -10,7 +10,7 @@
 }
 
 .modal-content {
-  background: themed('color-gray-100');
+  background: themed('color-gray-50');
   border-radius: themed('size-4');
   padding: themed('size-24');
   max-width: 400px;
@@ -113,7 +113,7 @@
     }
   }
 
-  &--delete {
+  &--danger {
     background: themed('color-error-600');
     color: white;
 

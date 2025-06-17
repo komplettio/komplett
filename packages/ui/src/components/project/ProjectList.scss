@@ -36,7 +36,7 @@
 .project-list-header {
   padding: themed('size-16');
   border-bottom: 1px solid themed('color-gray-200');
-  background: themed('color-gray-200');
+  background: themed('color-gray-50');
   display: flex;
   flex-direction: column;
   gap: themed('size-12');
@@ -465,7 +465,7 @@
 }
 
 .project-card {
-  background: themed('color-gray-100');
+  background: themed('color-gray-50');
   border: 1px solid themed('color-gray-200');
   border-radius: themed('size-4');
   padding: themed('size-16');

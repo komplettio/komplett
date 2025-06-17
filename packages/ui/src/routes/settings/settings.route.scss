@@ -2,13 +2,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: themed('color-gray-50');
+  background: themed('color-gray-100');
   min-height: calc(100vh - 64px);
   width: 100%;
 }
 
 .settings-header {
-  background: themed('color-gray-100');
+  background: themed('color-gray-50');
   border-bottom: 1px solid themed('color-gray-200');
   padding: themed('size-24');
 
@@ -43,7 +43,7 @@
 }
 
 .settings-section {
-  background: themed('color-gray-100');
+  background: themed('color-gray-50');
   border-radius: themed('size-4');
   border: 1px solid themed('color-gray-200');
   margin-bottom: themed('size-24');
@@ -57,7 +57,7 @@
 .section-header {
   padding: themed('size-24');
   border-bottom: 1px solid themed('color-gray-200');
-  background: themed('color-gray-50');
+  background: themed('color-gray-100');
 
   @media (max-width: 768px) {
     padding: themed('size-16');
