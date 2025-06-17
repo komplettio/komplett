@@ -52,6 +52,8 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
         settings: {
           kind,
         },
+        resultFileIds: [],
+        status: 'idle',
       });
 
       return project;

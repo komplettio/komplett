@@ -57,7 +57,24 @@ $light: (
   color-warning-600: #d97706,
   color-warning-700: #b45309,
   color-warning-800: #92400e,
-  color-warning-900: #78350f
+  color-warning-900: #78350f,
+
+  // Semantic colors
+  color-text-primary: #18181b,
+  color-text-secondary: #27272a,
+  color-text-tertiary: #3f3f46,
+  color-text-placeholder: #52525b,
+  color-text-link: #0ea5e9,
+  color-text-link-hover: #0284c7,
+  color-text-link-active: #0369a1,
+  color-text-link-visited: #075985,
+
+  color-background: #f4f4f5,
+  color-surface: #fafafa,
+  color-elevated: #ffffff,
+
+  color-border: #d4d4d8,
+  color-border-light: #e4e4e7
 );
 
 $dark: (
@@ -119,4 +136,22 @@ $dark: (
   color-warning-700: #fcd34d,
   color-warning-800: #fde68a,
   color-warning-900: #fef3c7,
+
+  // Semantic colors (adjusted for dark theme)
+  color-text-primary: #f4f4f5,
+  color-text-secondary: #e4e4e7,
+  color-text-tertiary: #d4d4d8,
+  color-text-placeholder: #a1a1aa,
+
+  color-text-link: #bdd9f5,
+  color-text-link-hover: #9cbae7,
+  color-text-link-active: #7b9bd9,
+  color-text-link-visited: #5a7ccb,
+
+  color-background: #111113,
+  color-surface: #18181b,
+  color-elevated: #27272a,
+
+  color-border: #27272a,
+  color-border-light: #3f3f46,
 );

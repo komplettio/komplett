@@ -23,8 +23,8 @@ body {
 
 body {
   font-family: 'JetBrains Mono Variable', 'IBM Plex Mono', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: themed('color-gray-100');
-  color: themed('color-gray-900');
+  background-color: themed('color-background');
+  color: themed('color-text-primary');
   position: relative;
 }
 

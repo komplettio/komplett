@@ -36,7 +36,7 @@
   transition: all 0.3s ease;
   position: relative;
   min-height: 400px;
-  background: themed('color-gray-50');
+  background: themed('color-surface');
 
   &:hover,
   .drag-over & {

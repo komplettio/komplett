@@ -4,14 +4,14 @@
   left: 0;
   width: 30%;
   height: calc(100vh - 64px);
-  background: themed('color-gray-100');
+  background: themed('color-background');
   z-index: 50;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid themed('color-gray-200');
+  border-right: 1px solid themed('color-border');
 
   &.open {
     transform: translateX(0);
@@ -35,8 +35,8 @@
 
 .project-list-header {
   padding: themed('size-16');
-  border-bottom: 1px solid themed('color-gray-200');
-  background: themed('color-gray-50');
+  border-bottom: 1px solid themed('color-border');
+  background: themed('color-surface');
   display: flex;
   flex-direction: column;
   gap: themed('size-12');
@@ -129,6 +129,7 @@
   font-size: 14px;
   transition: all 0.2s ease;
   min-height: 44px; // Touch target
+  background: themed('color-elevated');
 
   &:focus {
     outline: none;
@@ -465,8 +466,8 @@
 }
 
 .project-card {
-  background: themed('color-gray-50');
-  border: 1px solid themed('color-gray-200');
+  background: themed('color-surface');
+  border: 1px solid themed('color-border');
   border-radius: themed('size-4');
   padding: themed('size-16');
   cursor: pointer;
@@ -534,6 +535,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
