@@ -7,8 +7,8 @@ import { type FileBaseModel, type ProjectModel } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
 import TransformerSettings from '#components/transformer/transformer-settings';
-import { ConfirmationModal } from '#components/ui/ConfirmationModal';
 import { useImportFile, useUpdateProject } from '#state/mutations';
+import { ConfirmationModal } from '#ui/ConfirmationModal.js';
 
 import BaseViewer from './viewers/BaseViewer';
 

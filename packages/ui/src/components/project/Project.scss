@@ -300,16 +300,7 @@
 
 .editor-content {
   flex: 1;
-  padding: themed('size-5');
   overflow-y: auto;
-
-  @media (max-width: 768px) {
-    padding: themed('size-5');
-  }
-
-  @media (min-width: 1025px) {
-    padding: calc(themed('size-5') + themed('size-4'));
-  }
 }
 
 .empty-project {

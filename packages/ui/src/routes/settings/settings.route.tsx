@@ -2,8 +2,8 @@ import * as Select from '@radix-ui/react-select';
 import { AlertTriangle, ArrowLeft, Check, ChevronDown, Palette, Settings as SettingsIcon, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-import { ConfirmationModal } from '#components/ui/ConfirmationModal';
-import { useToast } from '#components/ui/Toast';
+import { ConfirmationModal } from '#ui/ConfirmationModal.js';
+import { useToast } from '#ui/Toast.js';
 
 import './settings.route.scss';
 

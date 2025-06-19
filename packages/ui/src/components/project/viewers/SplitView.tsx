@@ -31,9 +31,12 @@ export default function SplitView({ children, className }: SplitViewProps) {
         enable={{ right: true }}
         defaultSize={{ width: '50%', height: '100%' }}
         handleClasses={{ right: 'split-view__handle' }}
+        minWidth="5%"
+        maxWidth="95%"
         onResizeStart={handleResizeStart}
         onResizeStop={handleResizeStop}
         resizeRatio={1 / zoomFactor}
+        bounds="parent"
         handleStyles={{
           right: {
             width: '6px',

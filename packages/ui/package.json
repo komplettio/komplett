@@ -52,6 +52,6 @@
     "sass": "catalog:build",
     "typescript": "catalog:build",
     "vite": "catalog:build",
-    "vite-plugin-wasm": "^3.4.1"
+    "vite-plugin-wasm": "catalog:build"
   }
 }

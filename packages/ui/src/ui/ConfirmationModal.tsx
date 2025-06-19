@@ -1,6 +1,7 @@
+import { AlertTriangle } from 'lucide-react';
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import { AlertTriangle, X } from 'lucide-react';
+
 import './ConfirmationModal.scss';
 
 interface ConfirmationModalProps {
@@ -26,7 +27,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   cancelText = 'Cancel',
   variant = 'danger',
   projectName,
-  isLoading = false
+  isLoading = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
@@ -37,7 +38,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     if (isOpen) {
       // Focus the cancel button by default for safety
       cancelButtonRef.current?.focus();
-      
+
       // Prevent body scroll
       document.body.style.overflow = 'hidden';
     } else {
@@ -73,7 +74,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       if (!isOpen || event.key !== 'Tab') return;
 
       const focusableElements = modalRef.current?.querySelectorAll(
-        'button:not(:disabled), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        'button:not(:disabled), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       );
 
       if (!focusableElements || focusableElements.length === 0) return;
@@ -111,7 +112,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   const handleConfirm = async () => {
     if (isLoading) return;
-    
+
     try {
       await onConfirm();
     } catch (error) {
@@ -122,8 +123,8 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="modal-overlay" 
+    <div
+      className="modal-overlay"
       onClick={handleOverlayClick}
       role="dialog"
       aria-modal="true"
@@ -144,15 +145,11 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           <p id="modal-message" className="modal-message">
             {message}
           </p>
-          
+
           {projectName && (
             <>
-              <div className="project-name">
-                {projectName}
-              </div>
-              <p className="warning-text">
-                This action cannot be undone.
-              </p>
+              <div className="project-name">{projectName}</div>
+              <p className="warning-text">This action cannot be undone.</p>
             </>
           )}
         </div>

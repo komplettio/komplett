@@ -1,0 +1,15 @@
+.transformer-settings {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+
+  &__bottom {
+    display: flex;
+    justify-content: end;
+
+    margin-top: auto;
+    padding: themed('size-5');
+    background-color: themed('color-elevated');
+    border-top: 1px solid themed('color-border-light');
+  }
+}

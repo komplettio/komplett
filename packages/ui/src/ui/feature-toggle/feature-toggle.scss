@@ -1,0 +1,27 @@
+.komplett__feature-toggle {
+  width: 100%;
+
+  &__header {
+    color: themed('color-text-primary');
+    background-color: themed('color-elevated');
+    border-bottom: 1px solid themed('color-border-light');
+    width: 100%;
+    margin: 0;
+  }
+
+  &__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: themed('size-3');
+    padding: themed('size-5');
+  }
+
+  &__content {
+    padding: themed('size-5');
+    display: flex;
+    gap: themed('size-5');
+    flex-direction: column;
+  }
+}

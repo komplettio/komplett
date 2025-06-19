@@ -68,19 +68,6 @@ label {
   color: themed('color-text-tertiary');
 }
 
-button {
-  background-color: themed('color-border-light');
-  color: themed('color-text-primary');
-  border: none;
-  padding: 8px 16px;
-  border-radius: 3px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: themed('color-border-light');
-  }
-}
-
 ul li {
   padding: themed('size-4') 0;
 }
