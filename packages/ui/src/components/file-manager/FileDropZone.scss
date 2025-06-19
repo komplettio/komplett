@@ -2,18 +2,18 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 themed('size-16');
+  padding: 0 themed('size-5');
 
   // Mobile adjustments
   @media (max-width: 768px) {
     max-width: 100%;
-    padding: 0 themed('size-12');
+    padding: 0 themed('size-5');
   }
 
   // Tablet adjustments
   @media (min-width: 769px) and (max-width: 1024px) {
     max-width: 500px;
-    padding: 0 themed('size-16');
+    padding: 0 themed('size-5');
   }
 
   // Desktop
@@ -24,15 +24,15 @@
 }
 
 .drop-area {
-  border: 2px dashed themed('color-gray-300');
+  border: 2px dashed themed('color-border-light');
   border-radius: themed('size-4');
-  padding: themed('size-32');
+  padding: themed('size-6');
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: themed('size-24');
+  gap: calc(themed('size-5') + themed('size-4'));
   transition: all 0.3s ease;
   position: relative;
   min-height: 400px;
@@ -40,42 +40,42 @@
 
   &:hover,
   .drag-over & {
-    border-color: themed('color-primary-400');
-    background-color: themed('color-primary-50');
+    border-color: themed('color-interactive-hover');
+    background-color: themed('primary-1');
     transform: translateY(-4px);
   }
 
   // Mobile adjustments
   @media (max-width: 768px) {
     min-height: 300px;
-    padding: themed('size-32');
-    gap: themed('size-16');
+    padding: themed('size-6');
+    gap: themed('size-5');
     border-radius: themed('size-4');
   }
 
   // Tablet adjustments
   @media (min-width: 769px) and (max-width: 1024px) {
     min-height: 350px;
-    padding: themed('size-64');
-    gap: themed('size-24');
+    padding: themed('size-7');
+    gap: calc(themed('size-5') + themed('size-4'));
   }
 
   // Desktop
   @media (min-width: 1025px) {
     min-height: 400px;
-    padding: themed('size-64');
-    gap: themed('size-32');
+    padding: themed('size-7');
+    gap: themed('size-6');
   }
 }
 
 .drop-icon {
   width: clamp(60px, 15vw, 80px);
   height: clamp(60px, 15vw, 80px);
-  color: themed('color-gray-400');
+  color: themed('color-text-tertiary');
   flex-shrink: 0;
 
   .drag-over & {
-    color: themed('color-primary-500');
+    color: themed('color-interactive');
     animation: pulse 1s infinite;
   }
 
@@ -95,7 +95,7 @@
 .drop-title {
   font-size: clamp(24px, 6vw, 32px);
   font-weight: 700;
-  color: themed('color-gray-800');
+  color: themed('color-text-primary');
   margin: 0;
   line-height: 1.2;
 
@@ -112,7 +112,7 @@
 
 .drop-subtitle {
   font-size: clamp(14px, 3.5vw, 18px);
-  color: themed('color-gray-600');
+  color: themed('color-text-primary');
   margin: 0;
   line-height: 1.4;
 
@@ -137,20 +137,20 @@
 .file-input-label {
   display: inline-flex;
   align-items: center;
-  gap: themed('size-8');
-  padding: themed('size-16') themed('size-24');
+  gap: themed('size-4');
+  padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
   border: none;
   border-radius: themed('size-4');
   font-size: clamp(14px, 3.5vw, 18px);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: themed('color-primary-600');
+  background-color: themed('color-interactive');
   color: white;
   min-height: 48px; // Touch target
 
   &:hover:not(:disabled) {
-    background-color: themed('color-primary-700');
+    background-color: themed('color-interactive');
     transform: translateY(-2px);
   }
 
@@ -162,42 +162,42 @@
   // Mobile touch improvements
   @media (max-width: 768px) {
     min-height: 52px;
-    padding: themed('size-16') themed('size-24');
+    padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
     font-size: 16px;
-    gap: themed('size-8');
+    gap: themed('size-4');
   }
 
   // Tablet adjustments
   @media (min-width: 769px) and (max-width: 1024px) {
-    padding: themed('size-16') themed('size-32');
+    padding: themed('size-5') themed('size-6');
     font-size: 17px;
   }
 
   // Desktop
   @media (min-width: 1025px) {
-    padding: themed('size-24') themed('size-32');
+    padding: calc(themed('size-5') + themed('size-4')) themed('size-6');
     font-size: 18px;
-    gap: themed('size-12');
+    gap: themed('size-5');
   }
 }
 
 .supported-formats {
   display: flex;
-  gap: themed('size-12');
+  gap: themed('size-5');
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: themed('size-16');
+  margin-top: themed('size-5');
 
   // Mobile adjustments
   @media (max-width: 768px) {
-    gap: themed('size-8');
-    margin-top: themed('size-12');
+    gap: themed('size-4');
+    margin-top: themed('size-5');
   }
 
   // Desktop
   @media (min-width: 1025px) {
-    gap: themed('size-16');
-    margin-top: themed('size-24');
+    gap: themed('size-5');
+    margin-top: calc(themed('size-5') + themed('size-4'));
   }
 }
 
@@ -205,42 +205,42 @@
   display: flex;
   align-items: center;
   gap: themed('size-4');
-  padding: themed('size-8') themed('size-12');
-  background: themed('color-gray-100');
+  padding: themed('size-4') themed('size-5');
+  background: themed('color-background');
   border-radius: themed('size-4');
   font-size: clamp(12px, 2.5vw, 14px);
   font-weight: 500;
-  color: themed('color-gray-700');
+  color: themed('color-text-secondary');
   transition: all 0.2s ease;
   min-height: 36px; // Touch target
   white-space: nowrap;
 
   &:hover {
-    background: themed('color-primary-100');
-    color: themed('color-primary-700');
+    background: themed('color-interactive-disabled');
+    color: themed('color-interactive');
   }
 
   // Mobile touch improvements
   @media (max-width: 768px) {
     min-height: 40px;
-    padding: themed('size-8') themed('size-12');
+    padding: themed('size-4') themed('size-5');
     font-size: 13px;
     gap: themed('size-4');
   }
 
   // Desktop
   @media (min-width: 1025px) {
-    padding: themed('size-12') themed('size-16');
+    padding: themed('size-5') themed('size-5');
     font-size: 14px;
-    gap: themed('size-8');
+    gap: themed('size-4');
   }
 }
 
 .loading-spinner {
   width: clamp(60px, 15vw, 80px);
   height: clamp(60px, 15vw, 80px);
-  border: 6px solid themed('color-gray-200');
-  border-top: 6px solid themed('color-primary-500');
+  border: 6px solid themed('color-border-light');
+  border-top: 6px solid themed('color-interactive');
   border-radius: 50%;
   animation: spin 1s linear infinite;
 
@@ -283,13 +283,13 @@
 // Responsive breakpoint adjustments for very small screens
 @media (max-width: 480px) {
   .drop-zone {
-    padding: 0 themed('size-8');
+    padding: 0 themed('size-4');
   }
 
   .drop-area {
     min-height: 280px;
-    padding: themed('size-24');
-    gap: themed('size-12');
+    padding: calc(themed('size-5') + themed('size-4'));
+    gap: themed('size-5');
   }
 
   .drop-title {
@@ -301,7 +301,7 @@
   }
 
   .file-input-label {
-    padding: themed('size-12') themed('size-24');
+    padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
     font-size: 15px;
   }
 
@@ -310,7 +310,7 @@
   }
 
   .format-group {
-    padding: themed('size-8');
+    padding: themed('size-4');
     font-size: 12px;
   }
 }
@@ -323,6 +323,6 @@
 
   .drop-area {
     min-height: 450px;
-    padding: themed('size-56');
+    padding: themed('size-7');
   }
 }

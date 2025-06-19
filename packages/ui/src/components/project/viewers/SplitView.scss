@@ -16,8 +16,28 @@
   }
 
   &__handle {
-    $handle-grabber-height: 8px;
+    background-color: themed('color-border-light');
 
-    background-color: themed('color-gray-500');
+    &::before,
+    &::after {
+      position: fixed;
+      // 1px extra for the border
+      top: calc((themed('size-5') * -1) - 1px);
+      height: themed('size-5');
+      font-size: 0.5rem;
+      padding: 0 themed('size-4');
+    }
+
+    &::before {
+      content: 'input';
+      transform: translateX(-100%);
+      background-color: themed('color-error');
+    }
+
+    &::after {
+      content: 'result';
+      transform: translateX(3px);
+      background-color: themed('color-interactive');
+    }
   }
 }

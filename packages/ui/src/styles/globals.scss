@@ -1,24 +1,21 @@
 @forward 'include-media';
-@forward '@janis.me/react-themed';
+@forward '@janis.me/ui/styles';
 
 @use 'sass:meta';
 
 @use 'include-media' as *;
-@use '@janis.me/react-themed' as themed;
-@use '@janis.me/react-themed/generators';
-@use '@janis.me/react-themed/plugins';
 
-@use './themes.scss';
+@use '@janis.me/ui/styles' as ui;
+@use '@janis.me/ui/themes';
 
-$themes: meta.module-variables('themes');
-
-// The plugins are optional,
-// but that's what's used for this website.
-@include themed.configure($themes, plugins.prefers-color-scheme(), generators.size());
-
-$breakpoints: (
-  phone: 420px,
-  tablet: 768px,
-  desktop: 1024px,
-  ultrawide: 2000px,
+$colors: (
+  'primary': #3d63dd,
+  'gray': #37373b,
+  'info': #2563eb,
+  'success': #16a34a,
+  'warning': #d97706,
+  'error': #dc2626,
 );
+
+@include ui.themes(themes.default-light($colors...), themes.default-dark($colors...));
+@include ui.configure();

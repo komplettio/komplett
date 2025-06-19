@@ -5,12 +5,12 @@ h2 {
 .recent-projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: themed('size-8');
+  gap: themed('size-4');
   overflow-y: auto;
-  margin-top: themed('size-8');
+  margin-top: themed('size-4');
 
   .project-card {
-    padding: themed('size-8');
+    padding: themed('size-4');
   }
 
   // Mobile adjustments

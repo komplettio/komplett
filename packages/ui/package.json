@@ -21,6 +21,7 @@
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "catalog:frontend",
     "@janis.me/react-themed": "catalog:frontend",
+    "@janis.me/ui": "file:../../../ui/packages/ui",
     "@komplett/core": "workspace:*",
     "@radix-ui/react-dialog": "catalog:frontend",
     "@radix-ui/react-dropdown-menu": "catalog:frontend",
