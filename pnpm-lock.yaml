@@ -18,6 +18,9 @@ catalogs:
     vite:
       specifier: ^6.3.5
       version: 6.3.5
+    vite-plugin-wasm:
+      specifier: ^3.4.1
+      version: 3.4.1
   core:
     comlink:
       specifier: ^4.4.2
@@ -349,7 +352,7 @@ importers:
         specifier: catalog:build
         version: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(sass@1.89.2)(yaml@2.7.1)
       vite-plugin-wasm:
-        specifier: ^3.4.1
+        specifier: catalog:build
         version: 3.4.1(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(sass@1.89.2)(yaml@2.7.1))
 
 packages:

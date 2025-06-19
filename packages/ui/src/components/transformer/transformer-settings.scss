@@ -12,4 +12,14 @@
     background-color: themed('color-elevated');
     border-top: 1px solid themed('color-border-light');
   }
+
+  &__no-features {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: themed('size-5');
+    color: themed('color-text-secondary');
+  }
 }

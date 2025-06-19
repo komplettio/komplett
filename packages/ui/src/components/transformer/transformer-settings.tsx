@@ -1,5 +1,5 @@
 import type { TransformerSetting } from '@komplett/core';
-import { TRANSFORMER_DEFAULT_SETTINGS, transformerHasSetting, type UUID } from '@komplett/core';
+import { TRANSFORMER_DEFAULT_SETTINGS, TRANSFORMER_FEATURES, transformerHasSetting, type UUID } from '@komplett/core';
 
 import { useExecuteTransformer, useUpdateTransformer } from '#state/mutations';
 import { useTransformer } from '#state/queries';
@@ -83,6 +83,11 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
   };
 
   const renderSettings = () => {
+    // TODO: Remove the image check if video/audio etc. is supported.
+    if (TRANSFORMER_FEATURES[transformer.kind].length === 0 || transformer.kind !== 'image') {
+      return <div className="transformer-settings__no-features">No actions available for this file type.</div>;
+    }
+
     return (
       <UI.FeatureToggle.Root type="multiple">
         {resizeSettings()}

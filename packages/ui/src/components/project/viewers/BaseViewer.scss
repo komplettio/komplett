@@ -1,0 +1,25 @@
+.base-viewer {
+  width: 100%;
+  height: 100%;
+
+  &__overlay {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    background-color: transparent;
+    padding: themed('size-4');
+
+    display: flex;
+    justify-content: end;
+    z-index: 1;
+  }
+
+  &__mode-switch {
+    display: inline-flex;
+    pointer-events: all;
+    flex-direction: row;
+    height: min-content;
+    border: 1px solid themed('color-border');
+  }
+}

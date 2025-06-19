@@ -1,15 +1,16 @@
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { type FileBaseModel, type ProjectModel } from '@komplett/core';
+import type { FileBaseModel, ProjectModel, UUID } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
 import TransformerSettings from '#components/transformer/transformer-settings';
 import { useImportFile, useUpdateProject } from '#state/mutations';
-import { ConfirmationModal } from '#ui/ConfirmationModal.js';
+import { ConfirmationModal } from '#ui/ConfirmationModal';
 
+import ProjectFileList from './project-file-list/project-file-list';
 import BaseViewer from './viewers/BaseViewer';
 
 import './Project.scss';
@@ -23,12 +24,9 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const importFile = useImportFile();
   const updateProject = useUpdateProject();
 
+  const [selectedFileId, setSelectedFileId] = useState<UUID | null>(project.files[0]?.id ?? null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    console.log(project);
-  }, [project]);
 
   const handleBack = () => {
     void navigate('/');
@@ -69,7 +67,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   };
 
   return (
-    <div className="project-view">
+    <div className="project">
       <div className="project-header">
         <div className="header-left">
           <button className="back-button" onClick={handleBack}>
@@ -99,76 +97,50 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         </div>
       </div>
 
-      <div className="project-content">
-        {project.files[0] ? (
-          <div className="file-editor-layout">
-            <div className="preview-section">
-              {project.fileIds[0] && project.transformer?.resultFileIds[0] && (
-                <BaseViewer
-                  originalFileId={project.fileIds[0]}
-                  resultFileId={project.transformer.resultFileIds[0]}
-                  mode="split"
-                  kind={project.files[0].kind}
-                />
-              )}
-            </div>
-
-            <div className="editor-section">
-              <div className="file-header">
-                <h3 className="file-name">{project.files[0].name}</h3>
-                <div className="file-actions">
-                  {/* TODO */}
-                  <button className="action-button">
-                    <Download size={16} />
-                    Download
-                  </button>
-                  <button
-                    className="action-button danger"
-                    onClick={() => {
-                      if (project.files[0]) {
-                        handleDeleteFile(project.files[0]);
-                      }
-                    }}
-                  >
-                    <Trash2 size={16} />
-                    Delete
-                  </button>
-                </div>
-              </div>
-
-              <div className="editor-content">
-                {project.transformer?.id && <TransformerSettings id={project.transformer.id} />}
-              </div>
-            </div>
-          </div>
+      <div className="project-main">
+        {project.files.length > 0 ? (
+          <>
+            {project.files[0] && project.transformer?.resultFileIds[0] && (
+              <BaseViewer
+                originalFileId={project.files[0].id}
+                resultFileId={project.transformer.resultFileIds[0]}
+                kind={project.files[0].kind}
+              />
+            )}
+          </>
         ) : (
-          <div className="empty-project">
-            <FileDropZone onFileUpload={handleFileUpload} />
-          </div>
+          <FileDropZone onFileUpload={handleFileUpload} />
         )}
+        <ProjectFileList projectId={project.id} selectedFile={selectedFileId} onFileSelect={setSelectedFileId} />
       </div>
 
-      {project.files.length > 0 && (
-        <div className="project-sidebar">
-          <h4 className="sidebar-title">Project Files</h4>
-          <div className="file-list">
-            {project.files.map(file => (
-              <div
-                key={file.id}
-                className={`file-item`}
-                onClick={() => {
-                  /* Handle file selection */
-                }}
-              >
-                <div className="file-info">
-                  <span className="file-name">{file.name}</span>
-                  <span className="file-size">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
-                </div>
-              </div>
-            ))}
+      <div className="editor-section">
+        <div className="file-header">
+          <h3 className="file-name">File actions:</h3>
+          <div className="file-actions">
+            {/* TODO */}
+            <button className="action-button">
+              <Download size={16} />
+              Download
+            </button>
+            <button
+              className="action-button danger"
+              onClick={() => {
+                if (project.files[0]) {
+                  handleDeleteFile(project.files[0]);
+                }
+              }}
+            >
+              <Trash2 size={16} />
+              Delete
+            </button>
           </div>
         </div>
-      )}
+
+        <div className="editor-content">
+          {project.transformer?.id && <TransformerSettings id={project.transformer.id} />}
+        </div>
+      </div>
 
       <ConfirmationModal
         isOpen={isDeleteModalOpen}

@@ -1,0 +1,33 @@
+.project-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: themed('size-4');
+  padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
+  border-top: 1px solid themed('color-border-light');
+
+  $item-size: calc(themed('size-7') + themed('size-6'));
+
+  &__item {
+    width: $item-size;
+    height: $item-size;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    font-size: 0.8em;
+    text-align: center;
+    position: relative;
+
+    padding: themed('size-4');
+    background: themed('color-elevated');
+    border: 1px solid themed('color-border-light');
+
+    &--selected {
+      border: 1px solid themed('color-interactive');
+    }
+  }
+
+  &__name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+}

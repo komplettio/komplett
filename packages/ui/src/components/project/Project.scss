@@ -1,9 +1,13 @@
-.project-view {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+.project {
+  display: grid;
+  grid-template-rows: 120px 1fr;
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: 'header header' 'main sidebar';
+  height: 100%;
   width: 100%;
   background: themed('color-background');
+  padding-bottom: themed('size-7');
+  gap: themed('size-7');
 }
 
 .project-header {
@@ -13,6 +17,7 @@
   padding: themed('size-5');
   background: themed('color-surface');
   border-bottom: 1px solid themed('color-border-light');
+  grid-area: header;
 
   // Mobile: Stack vertically
   @media (max-width: 768px) {
@@ -186,12 +191,6 @@
   }
 }
 
-.project-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-
 .file-editor-layout {
   flex: 1;
   display: grid;
@@ -214,13 +213,14 @@
   }
 }
 
-.preview-section {
+.project-main {
+  grid-area: main;
+  margin-left: themed('size-7');
   background: themed('color-surface');
   border-radius: themed('size-4');
   border: 1px solid themed('color-border-light');
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: auto themed('size-8');
   overflow: hidden;
   position: relative;
   min-height: 300px;
@@ -237,6 +237,8 @@
 }
 
 .editor-section {
+  grid-area: sidebar;
+  margin-right: themed('size-7');
   background: themed('color-surface');
   border-radius: themed('size-4');
   border: 1px solid themed('color-border-light');
@@ -316,110 +318,5 @@
 
   @media (min-width: 1025px) {
     padding: themed('size-6');
-  }
-}
-
-.project-sidebar {
-  width: 300px;
-  background: themed('color-background');
-  border-left: 1px solid themed('color-border-light');
-  padding: themed('size-5');
-  overflow-y: auto;
-
-  // Hide on mobile and tablet
-  @media (max-width: 1024px) {
-    display: none;
-  }
-
-  @media (min-width: 1025px) {
-    padding: calc(themed('size-5') + themed('size-4'));
-  }
-}
-
-.sidebar-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: themed('color-text-primary');
-  margin: 0 0 themed('size-5') 0;
-}
-
-.file-list {
-  display: flex;
-  flex-direction: column;
-  gap: themed('size-4');
-}
-
-.file-item {
-  padding: themed('size-5');
-  border: 1px solid transparent;
-  border-radius: themed('size-4');
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 44px; // Touch target
-
-  &:hover {
-    background: themed('color-background');
-    border-color: themed('color-border-light');
-  }
-
-  &.active {
-    background: themed('primary-1');
-    border-color: themed('color-interactive-hover');
-  }
-}
-
-.file-info {
-  display: flex;
-  flex-direction: column;
-  gap: themed('size-4');
-}
-
-.file-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: themed('color-text-primary');
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.file-size {
-  font-size: 12px;
-  color: themed('color-border-light');
-}
-
-// Preview styles
-.file-preview {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: themed('size-5');
-
-  @media (max-width: 768px) {
-    padding: themed('size-4');
-  }
-
-  @media (min-width: 1025px) {
-    padding: themed('size-5');
-  }
-}
-
-.file-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: themed('color-border-light');
-  font-size: clamp(14px, 3vw, 16px);
-  text-align: center;
-  padding: themed('size-5');
-}
-
-@keyframes waveform {
-  0%,
-  100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(1);
   }
 }

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
-import RecentProjects from '#components/project/RecentProjects';
+import RecentProjects from '#components/project/recent-projects-list/RecentProjects';
 import { useCreateProject, useImportFile } from '#state/mutations';
 
 import './home.route.scss';

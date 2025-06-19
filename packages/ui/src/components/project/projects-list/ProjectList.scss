@@ -490,19 +490,6 @@
     padding: calc(themed('size-5') + themed('size-4'));
   }
 }
-
-.project-header {
-  margin-bottom: themed('size-5');
-
-  @media (max-width: 768px) {
-    margin-bottom: themed('size-4');
-  }
-
-  @media (min-width: 1025px) {
-    margin-bottom: themed('size-5');
-  }
-}
-
 .project-info {
   display: flex;
   flex-direction: column;

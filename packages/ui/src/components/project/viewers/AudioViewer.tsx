@@ -35,8 +35,7 @@ export default function AudioViewer({ originalFile, resultFile, mode }: AudioVie
   return (
     <div className="audio-viewer">
       {mode === 'split' ? (
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- In split mode, resultFile is checked to be defined in BaseViewer
-        <SplitAudioView originalFile={originalFile} resultFile={resultFile!} />
+        <SplitAudioView originalFile={originalFile} resultFile={resultFile} />
       ) : (
         <SimpleAudioView originalFile={originalFile} />
       )}
