@@ -11,33 +11,40 @@
 
     &:first-of-type {
       z-index: 1;
-      overflow: hidden;
+
+      .split-view__container {
+        overflow: hidden;
+      }
     }
   }
 
   &__handle {
     background-color: themed('color-border-light');
+    width: themed('size-2');
+    height: 100%;
+    transform: translateX(200%);
+  }
 
-    &::before,
-    &::after {
-      position: fixed;
-      // 1px extra for the border
-      top: calc((themed('size-5') * -1) - 1px);
-      height: themed('size-5');
-      font-size: 0.5rem;
-      padding: 0 themed('size-4');
+  .base-viewer__label {
+    position: absolute;
+    top: 0;
+    max-width: 200px;
+    padding: themed('size-3') themed('size-4');
+    font-size: 0.8em;
+
+    span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    &::before {
-      content: 'input';
-      transform: translateX(-100%);
-      background-color: themed('color-error');
+    &--input {
+      transform: translate(-100%, -100%);
     }
 
-    &::after {
-      content: 'result';
-      transform: translateX(3px);
-      background-color: themed('color-interactive');
+    &--result {
+      transform: translateY(-100%);
     }
   }
 }

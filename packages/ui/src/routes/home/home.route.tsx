@@ -11,15 +11,16 @@ export default function HomeRoute() {
   const importFile = useImportFile();
   const createProject = useCreateProject();
 
-  const handleFileUpload = async (file: File) => {
-    const fileResponse = await importFile.mutateAsync({
-      file,
-    });
+  const handleFileUpload = async (files: File[]) => {
+    const fileResponses = await Promise.all(files.map(file => importFile.mutateAsync({ file })));
+
+    const projectTag = fileResponses[0]?.data.kind;
+
     const projectResponse = await createProject.mutateAsync({
-      name: `Project for ${file.name}`,
-      fileIds: [fileResponse.id],
-      description: `Automatically created project for file: ${file.name}`,
-      tags: [fileResponse.data.kind],
+      name: `Project for ${files.map(file => file.name).join(', ')}`,
+      fileIds: fileResponses.map(response => response.id),
+      description: `Automatically created project for files: ${files.map(file => file.name).join(', ')}`,
+      tags: projectTag ? [projectTag] : [],
     });
 
     await navigate(`/projects/${projectResponse.id}`);

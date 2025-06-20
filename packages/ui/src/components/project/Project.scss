@@ -225,6 +225,14 @@
   position: relative;
   min-height: 300px;
 
+  &__file-preview-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    color: themed('color-text-tertiary');
+  }
+
   // Mobile adjustments
   @media (max-width: 1024px) {
     min-height: 250px;

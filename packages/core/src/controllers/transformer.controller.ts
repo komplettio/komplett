@@ -21,10 +21,10 @@ class TransformerController extends BaseController<
         throw new Error(`Failed to serialize transformer: project with ID ${transformer.projectId} not found`);
       }
 
-      const inputFiles = await db.files.where('id').anyOf(project.fileIds).toArray();
+      const originalFiles = await db.files.where('id').anyOf(project.fileIds).toArray();
       const resultFiles = await db.files.where('id').anyOf(transformer.resultFileIds).toArray();
 
-      return { ...transformer, inputFiles, resultFiles, project };
+      return { ...transformer, originalFiles, resultFiles, project };
     });
   }
 

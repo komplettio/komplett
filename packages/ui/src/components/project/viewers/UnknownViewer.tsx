@@ -1,17 +1,21 @@
 import type { FileBaseModel } from '@komplett/core';
 
-import type { BaseViewerProps } from './BaseViewer';
+import type { ViewerProps } from './BaseViewer';
 
-export type UnknownViewerProps = BaseViewerProps;
+export type UnknownViewerProps = ViewerProps;
 
-function SimpleUnknownView({ originalFile }: { originalFile: FileBaseModel }) {
+function UnknownViewInput({ originalFile }: { originalFile: FileBaseModel }) {
   return <pre>{JSON.stringify(originalFile, null, 4)}</pre>;
 }
 
-export default function unknownViewer({ originalFile }: UnknownViewerProps) {
+export default function UnknownViewer({ originalFile }: UnknownViewerProps) {
+  if (!originalFile) {
+    return <div className="base-viewer__loading">Loading...</div>;
+  }
+
   return (
     <div className="audio-viewer">
-      <SimpleUnknownView originalFile={originalFile} />
+      <UnknownViewInput originalFile={originalFile} />
     </div>
   );
 }

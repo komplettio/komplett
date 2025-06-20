@@ -1,6 +1,6 @@
 .project-file-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: themed('size-4');
   padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
   border-top: 1px solid themed('color-border-light');
@@ -15,10 +15,12 @@
     font-size: 0.8em;
     text-align: center;
     position: relative;
+    cursor: pointer;
 
     padding: themed('size-4');
     background: themed('color-elevated');
     border: 1px solid themed('color-border-light');
+    border-radius: themed('border-radius');
 
     &--selected {
       border: 1px solid themed('color-interactive');

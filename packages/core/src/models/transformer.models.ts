@@ -16,6 +16,6 @@ export type TransformerDeleteModel = BaseDeleteModel<TransformerBaseModel>;
 
 export interface TransformerModel extends TransformerBaseModel {
   project: ProjectBaseModel;
-  inputFiles: FileBaseModel[];
+  originalFiles: FileBaseModel[];
   resultFiles: FileBaseModel[];
 }

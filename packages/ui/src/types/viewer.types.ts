@@ -1,4 +1,4 @@
 import type { ProjectKind } from '@komplett/core';
 
-export type ViewerMode = 'simple' | 'split';
+export type ViewerMode = 'input' | 'split' | 'collage' | 'output';
 export type ViewerKind = ProjectKind;

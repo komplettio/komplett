@@ -1,17 +1,21 @@
 import type { FileBaseModel } from '@komplett/core';
 
-import type { BaseViewerProps } from './BaseViewer';
+import type { ViewerProps } from './BaseViewer';
 
-export type TextViewerProps = BaseViewerProps;
+export type TextViewerProps = ViewerProps;
 
-function SimpleTextView({ originalFile }: { originalFile: FileBaseModel }) {
+function TextViewInput({ originalFile }: { originalFile: FileBaseModel }) {
   return <pre>{JSON.stringify(originalFile, null, 4)}</pre>;
 }
 
 export default function TextViewer({ originalFile }: TextViewerProps) {
+  if (!originalFile) {
+    return <div className="base-viewer__loading">Loading...</div>;
+  }
+
   return (
     <div className="audio-viewer">
-      <SimpleTextView originalFile={originalFile} />
+      <TextViewInput originalFile={originalFile} />
     </div>
   );
 }

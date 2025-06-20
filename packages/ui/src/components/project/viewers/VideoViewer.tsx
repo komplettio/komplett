@@ -1,10 +1,10 @@
 import type { FileBaseModel } from '@komplett/core';
 
-import type { BaseViewerProps } from './BaseViewer';
+import type { ViewerProps } from './BaseViewer';
 import SplitView from './SplitView';
 import ZoomableView from './ZoomableView';
 
-export type VideoViewerProps = BaseViewerProps;
+export type VideoViewerProps = ViewerProps;
 
 function SimpleVideoView({ originalFile }: { originalFile: FileBaseModel }) {
   const videoUrl = URL.createObjectURL(originalFile.blob);

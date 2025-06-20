@@ -1,0 +1,13 @@
+.image-viewer {
+  .collage-view {
+    display: flex;
+    gap: themed('size-4');
+    flex-flow: column;
+    width: 100%;
+    overflow: hidden;
+
+    .base-viewer__label {
+      width: min-content;
+    }
+  }
+}

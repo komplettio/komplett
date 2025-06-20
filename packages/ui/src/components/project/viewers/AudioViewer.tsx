@@ -1,11 +1,11 @@
 import type { FileBaseModel } from '@komplett/core';
 
-import type { BaseViewerProps } from './BaseViewer';
+import type { ViewerProps } from './BaseViewer';
 import SplitView from './SplitView';
 
-export type AudioViewerProps = BaseViewerProps;
+export type AudioViewerProps = ViewerProps;
 
-function SimpleAudioView({ originalFile }: { originalFile: FileBaseModel }) {
+function AudioViewInput({ originalFile }: { originalFile: FileBaseModel }) {
   const audioUrl = URL.createObjectURL(originalFile.blob);
 
   return (
@@ -15,12 +15,12 @@ function SimpleAudioView({ originalFile }: { originalFile: FileBaseModel }) {
   );
 }
 
-function SplitAudioView({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
+function AudioViewSplit({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
   const originalUrl = URL.createObjectURL(originalFile.blob);
   const resultUrl = URL.createObjectURL(resultFile.blob);
 
   return (
-    <SplitView>
+    <SplitView originalFile={originalFile} resultFile={resultFile}>
       <audio src={originalUrl} controls className="audio-controls">
         Your browser does not support the audio tag.
       </audio>
@@ -32,12 +32,22 @@ function SplitAudioView({ originalFile, resultFile }: { originalFile: FileBaseMo
 }
 
 export default function AudioViewer({ originalFile, resultFile, mode }: AudioViewerProps) {
+  if (!originalFile) {
+    return <div className="base-viewer__loading">Loading...</div>;
+  }
+
   return (
     <div className="audio-viewer">
       {mode === 'split' ? (
-        <SplitAudioView originalFile={originalFile} resultFile={resultFile} />
+        <>
+          {resultFile ? (
+            <AudioViewSplit originalFile={originalFile} resultFile={resultFile} />
+          ) : (
+            <div className="base-viewer__loading">Loading result file...</div>
+          )}
+        </>
       ) : (
-        <SimpleAudioView originalFile={originalFile} />
+        <AudioViewInput originalFile={originalFile} />
       )}
     </div>
   );

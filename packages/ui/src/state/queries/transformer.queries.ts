@@ -30,12 +30,17 @@ export function useTransformers(filters?: ListQueryOptions<TransformerBaseModel>
   });
 }
 
-export function useTransformer(id: UUID) {
+export function useTransformer(id: UUID | null) {
   useInvalidateOnEvent('transformers.pub', ['transformers', id]);
 
   return useQuery({
     queryKey: ['transformers', id],
+    enabled: id !== null,
     queryFn: async () => {
+      if (id === null) {
+        return;
+      }
+
       return await new Promise<TransformerModel>((resolve, reject) => {
         emitter
           .await('transformers.get', { id }, data => {

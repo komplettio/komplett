@@ -1,4 +1,5 @@
-import type { ReactZoomPanPinchRef} from 'react-zoom-pan-pinch';
+import clsx from 'clsx';
+import type { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { useEditorStore } from '#state/stores';
@@ -8,9 +9,10 @@ import './ZoomableView.scss';
 export interface ZoomableViewProps {
   zoomEnabled?: boolean | undefined;
   children?: React.ReactNode;
+  className?: string;
 }
 
-export default function ZoomableView({ children, zoomEnabled }: ZoomableViewProps) {
+export default function ZoomableView({ children, zoomEnabled, className }: ZoomableViewProps) {
   const [isResizingSplitView, setZoomFactor] = useEditorStore(state => [
     state.isResizingSplitView,
     state.setZoomFactor,
@@ -33,7 +35,7 @@ export default function ZoomableView({ children, zoomEnabled }: ZoomableViewProp
       onZoom={handleZoom}
     >
       <TransformComponent wrapperClass="zoomable-view">
-        <div className="view">{children}</div>
+        <div className={clsx('view', className)}>{children}</div>
       </TransformComponent>
     </TransformWrapper>
   );

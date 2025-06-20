@@ -24,12 +24,15 @@ export function useFiles(filters?: ListQueryOptions<FileBaseModel>) {
   });
 }
 
-export function useFile(id: UUID) {
+export function useFile(id: UUID | null) {
   useInvalidateOnEvent('files.pub', ['files', id]);
 
   return useQuery({
     queryKey: ['files', id],
+    enabled: !!id,
     queryFn: async () => {
+      if (!id) return;
+
       return await new Promise<FileModel>((resolve, reject) => {
         emitter
           .await('files.get', { id }, data => {

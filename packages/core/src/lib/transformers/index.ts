@@ -22,10 +22,10 @@ async function executeImageTransformer(transformer: TransformerModel) {
 
   const resultFileIds: UUID[] = [];
 
-  for (const inputFile of transformer.inputFiles) {
+  for (const originalFile of transformer.originalFiles) {
     if (settings.optimize) {
-      const resultBlob = await optimize(inputFile.blob, inputFile.kind, settings.optimize);
-      const resultFile = await FileCtrl.import(resultBlob, inputFile.id);
+      const resultBlob = await optimize(originalFile.blob, originalFile.kind, settings.optimize);
+      const resultFile = await FileCtrl.import(resultBlob, originalFile.id);
       resultFileIds.push(resultFile.id);
     }
 
