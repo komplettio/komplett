@@ -13,5 +13,8 @@
   ],
   "scripts": {
     "build": "wasm-pack build --out-dir ./dist --scope komplett"
+  },
+  "devDependencies": {
+    "wasm-pack": "^0.13.1"
   }
 }
