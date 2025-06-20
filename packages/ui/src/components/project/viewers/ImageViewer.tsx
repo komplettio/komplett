@@ -35,13 +35,27 @@ function ImageViewCollage({ originalFile, resultFile }: { originalFile: FileBase
 function ImageViewInput({ originalFile }: { originalFile: FileBaseModel }) {
   const imageUrl = URL.createObjectURL(originalFile.blob);
 
-  return <img src={imageUrl} alt={originalFile.name} className="preview-image" />;
+  return (
+    <div>
+      <span className="base-viewer__label base-viewer__label--input">
+        {originalFile.name} - {formatFileSize(originalFile.size)}
+      </span>
+      <img src={imageUrl} alt={originalFile.name} className="preview-image" />
+    </div>
+  );
 }
 
 function ImageViewOutput({ resultFile }: { resultFile: FileBaseModel }) {
   const imageUrl = URL.createObjectURL(resultFile.blob);
 
-  return <img src={imageUrl} alt={resultFile.name} className="preview-image" />;
+  return (
+    <div>
+      <span className="base-viewer__label base-viewer__label--result">
+        {resultFile.name} - {formatFileSize(resultFile.size)}
+      </span>
+      <img src={imageUrl} alt={resultFile.name} className="preview-image" />
+    </div>
+  );
 }
 
 function ImageViewSplit({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
@@ -65,14 +79,23 @@ export default function ImageViewer({ originalFile, resultFile, mode, zoomEnable
 
   if (mode === 'input') {
     viewComponent = <ImageViewInput originalFile={originalFile} />;
-  } else if (mode === 'split' && resultFile) {
-    viewComponent = <ImageViewSplit originalFile={originalFile} resultFile={resultFile} />;
-  } else if (mode === 'collage' && resultFile) {
-    viewComponent = <ImageViewCollage originalFile={originalFile} resultFile={resultFile} />;
-  } else if (mode === 'output' && resultFile) {
-    viewComponent = <ImageViewOutput resultFile={resultFile} />;
   } else {
-    throw new Error(`Unsupported mode "${mode}" for ImageViewer.`);
+    if (!resultFile) {
+      return (
+        <div className="base-viewer__loading">
+          <p>No result file available (yet)</p>
+          <span>Hit the process button to get one!</span>
+        </div>
+      );
+    } else {
+      if (mode === 'split') {
+        viewComponent = <ImageViewSplit originalFile={originalFile} resultFile={resultFile} />;
+      } else if (mode === 'collage') {
+        viewComponent = <ImageViewCollage originalFile={originalFile} resultFile={resultFile} />;
+      } else {
+        viewComponent = <ImageViewOutput resultFile={resultFile} />;
+      }
+    }
   }
 
   return (

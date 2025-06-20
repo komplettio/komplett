@@ -6,21 +6,24 @@ import type { ViewerMode } from '#types';
 
 interface EditorState {
   viewerMode: ViewerMode;
-  isResizingSplitView: boolean;
   zoomFactor: number;
+  background: 'dark' | 'light' | 'pattern' | null;
+  isResizingSplitView: boolean;
 }
 
 interface EditorActions {
   setViewerMode: (mode: ViewerMode) => void;
-  setIsResizingSplitView: (isResizing: boolean) => void;
   setZoomFactor: (zoomFactor: number) => void;
+  setBackground: (background: 'dark' | 'light' | 'pattern') => void;
+  setIsResizingSplitView: (isResizing: boolean) => void;
 }
 
 export const useEditorStore = createWithEqualityFn<EditorState & EditorActions>()(
   immer(set => ({
-    viewerMode: 'simple' as ViewerMode,
+    viewerMode: 'split',
     isResizingSplitView: false,
     zoomFactor: 1,
+    background: null,
     setViewerMode(mode: ViewerMode) {
       set(state => {
         state.viewerMode = mode;
@@ -34,6 +37,11 @@ export const useEditorStore = createWithEqualityFn<EditorState & EditorActions>(
     setZoomFactor(zoomFactor: number) {
       set(state => {
         state.zoomFactor = zoomFactor;
+      });
+    },
+    setBackground(background: 'dark' | 'light' | 'pattern') {
+      set(state => {
+        state.background = background;
       });
     },
   })),

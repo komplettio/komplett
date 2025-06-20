@@ -13,7 +13,7 @@ export const TRANSFORMER_DEFAULT_SETTINGS = {
   optimize: {
     optimizeAlpha: true,
     interlace: false,
-    level: 5,
+    level: 3,
   },
   resize: {
     maintainAspectRatio: true,

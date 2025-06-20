@@ -1,9 +1,10 @@
-import { TransformerCtrl } from '#controllers/transformer.controller';
+import { FileCtrl, TransformerCtrl } from '#controllers';
 import type { EventHandlerContext } from '#events/emitter';
 import { EventHandler, on, register } from '#events/emitter';
 import type { Events } from '#events/index';
 import { executeTransformer } from '#lib/transformers';
-import { liveQuery } from 'dexie';
+import type { TransformerExecuteResponse } from '#events';
+import { db } from '#db';
 
 @register()
 export class TransformerHandler extends EventHandler {
@@ -57,64 +58,67 @@ export class TransformerHandler extends EventHandler {
     if (!transformer) {
       throw new Error(`Transformer with ID ${data.payload.id} not found`);
     }
-    console.log('Executing transformer:', data, transformer);
 
     let responseNr = 0;
 
-    const transformerObserver = liveQuery(() => TransformerCtrl.getById(data.payload.id));
-    const responderSubscription = transformerObserver.subscribe(updatedTransformer => {
-      if (!updatedTransformer) {
-        console.error(`Transformer with ID ${data.payload.id} not found during execution`);
-        return;
-      }
-
+    const sendUpdate = (res: TransformerExecuteResponse, final = false) => {
       void ctx.emitter.respond(
         'transformers.execute',
         data,
-        {
-          id: updatedTransformer.id,
-          status: updatedTransformer.status,
-        },
+        res,
         responseNr++,
-        false,
-        'pending',
+        final,
+        res.status === 'completed' ? 'success' : 'pending',
       );
+    };
+
+    const handleEventUpdate = ({ files, message }: TransformerExecuteResponse) => {
+      sendUpdate({
+        id: transformer.id,
+        status: transformer.status,
+        message,
+        files,
+      });
+    };
+
+    sendUpdate({
+      id: transformer.id,
+      status: transformer.status,
+      message: 'Removing old files...',
+      files: {},
     });
 
-    await TransformerCtrl.updateStatus(data.payload.id, 'running');
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    await sleep(1_000); // Simulate some initial delay
+
+    await db.transaction('rw', [db.files, db.transformers], async () => {
+      await FileCtrl.deleteMany(transformer.resultFileIds);
+      await TransformerCtrl.update(data.payload.id, { status: 'running', resultFileIds: [] });
+    });
 
     try {
-      await executeTransformer(transformer);
-      responderSubscription.unsubscribe();
+      await executeTransformer(transformer, handleEventUpdate);
       await TransformerCtrl.updateStatus(data.payload.id, 'completed');
 
-      await ctx.emitter.respond(
-        'transformers.execute',
-        data,
+      sendUpdate(
         {
           id: transformer.id,
-          status: 'completed',
+          status: transformer.status,
+          message: 'File(s) processed successfully!',
         },
-        responseNr++,
         true,
-        'success',
       );
     } catch (error) {
-      responderSubscription.unsubscribe();
       await TransformerCtrl.updateStatus(data.payload.id, 'error');
 
-      await ctx.emitter.respond(
-        'transformers.execute',
-        data,
+      sendUpdate(
         {
           id: transformer.id,
-          status: 'error',
+          status: transformer.status,
+          message: 'Processing file(s) failed: ' + (error instanceof Error ? `: ${error.message}` : ''),
         },
-        responseNr++,
         true,
-        'error',
       );
-      throw error;
     }
   }
 

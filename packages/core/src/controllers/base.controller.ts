@@ -85,6 +85,13 @@ export abstract class BaseController<
     await this.collection.where('id').equals(id).delete();
   }
 
+  public async deleteMany(ids: TID[]): Promise<void> {
+    if (ids.length === 0) {
+      return;
+    }
+    await this.collection.where('id').anyOf(ids).delete();
+  }
+
   // Misc methods
 
   protected async serialize(item: TBase): Promise<TSer> {

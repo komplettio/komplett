@@ -6,11 +6,28 @@
   &__bottom {
     display: flex;
     justify-content: end;
+    align-items: center;
+    gap: themed('size-5');
 
     margin-top: auto;
     padding: themed('size-5');
     background-color: themed('color-elevated');
     border-top: 1px solid themed('color-border-light');
+  }
+
+  &__process-button {
+    text-wrap: nowrap;
+  }
+
+  &__progress-label {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: themed('size-3');
+
+    color: themed('color-text-secondary');
+
+    transform: translateY(-6px);
   }
 
   &__no-features {

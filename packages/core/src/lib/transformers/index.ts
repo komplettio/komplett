@@ -1,14 +1,17 @@
-import { FileCtrl } from '#controllers/file.controller.js';
-import { TransformerCtrl } from '#controllers/transformer.controller.js';
+import { FileCtrl } from '#controllers/file.controller';
+import { TransformerCtrl } from '#controllers/transformer.controller';
 import type { TransformerModel } from '#models';
-import type { TransformerSettingsImage, UUID } from '#types';
+import type { TransformerExecuteCallback, TransformerSettingsImage, TransformerStatus, UUID } from '#types';
 
 import { optimize } from './optimize';
 
-export async function executeTransformer(transformer: TransformerModel) {
+export async function executeTransformer(
+  transformer: TransformerModel,
+  callback: TransformerExecuteCallback,
+): Promise<void> {
   switch (transformer.kind) {
     case 'image': {
-      return executeImageTransformer(transformer);
+      return executeImageTransformer(transformer, callback);
     }
     default: {
       throw new Error(`Unsupported transformer kind: ${transformer.kind}`);
@@ -16,17 +19,48 @@ export async function executeTransformer(transformer: TransformerModel) {
   }
 }
 
-async function executeImageTransformer(transformer: TransformerModel) {
-  console.log('Executing image transformer:', transformer);
+async function executeImageTransformer(
+  transformer: TransformerModel,
+  callback: TransformerExecuteCallback,
+): Promise<void> {
   const settings = transformer.settings as TransformerSettingsImage;
+
+  const getFileStates: (fileIds: UUID[]) => Record<UUID, TransformerStatus> = fileIds => {
+    const states: Record<UUID, TransformerStatus> = {};
+    for (const id of fileIds) {
+      states[id] = 'completed';
+    }
+    return states;
+  };
 
   const resultFileIds: UUID[] = [];
 
   for (const originalFile of transformer.originalFiles) {
     if (settings.optimize) {
-      const resultBlob = await optimize(originalFile.blob, originalFile.kind, settings.optimize);
-      const resultFile = await FileCtrl.import(resultBlob, originalFile.id);
-      resultFileIds.push(resultFile.id);
+      callback({
+        id: transformer.id,
+        status: transformer.status,
+        message: `Optimizing file ${originalFile.name}...`,
+        files: getFileStates(resultFileIds),
+      });
+      try {
+        const resultBlob = await optimize(originalFile.blob, originalFile.kind, settings.optimize);
+        const resultFile = await FileCtrl.import(resultBlob, originalFile.id);
+        resultFileIds.push(resultFile.id);
+        callback({
+          id: transformer.id,
+          status: transformer.status,
+          message: `File ${originalFile.name} optimized successfully!`,
+          files: getFileStates(resultFileIds),
+        });
+      } catch (error) {
+        callback({
+          id: transformer.id,
+          status: transformer.status,
+          message: `Error optimizing file ${originalFile.name}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          files: getFileStates(resultFileIds),
+        });
+      }
     }
 
     await TransformerCtrl.update(transformer.id, {

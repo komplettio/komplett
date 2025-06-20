@@ -1,4 +1,5 @@
 import { TRANSFORMER_FEATURES } from '#constants/transformer.constants.js';
+import type { TransformerExecuteResponse } from '#events/index.js';
 import type { TransformerModel } from '#models';
 
 import type { FileKind } from './file.types';
@@ -9,6 +10,7 @@ export type TransformerStatus = 'idle' | 'running' | 'completed' | 'error' | 'ca
 export type TransformerResizeMethod = 'basic';
 export type TransformerResizeFillMethod = 'crop' | 'contain' | 'stretch';
 
+// TODO: Remove the optional main key and instead add that to the TransformerSettings union
 export interface TransformerSettingsResize {
   resize?:
     | {
@@ -56,7 +58,14 @@ export type TransformerSettings = TransformerSettingsResize &
   TransformerSettingsOptimize &
   TransformerSettingsTrim;
 
+export type TransformerSettingsImage = TransformerSettingsResize &
+  TransformerSettingsCrop &
+  TransformerSettingsOptimize;
+export type TransformerSettingsVideo = TransformerSettingsResize & TransformerSettingsTrim;
+
 export type TransformerSetting = keyof TransformerSettings;
+
+export type TransformerExecuteCallback = (response: TransformerExecuteResponse) => void;
 
 export function transformerHasSetting<TTransformer extends TransformerModel, TSetting extends TransformerSetting>(
   transformer: TTransformer,

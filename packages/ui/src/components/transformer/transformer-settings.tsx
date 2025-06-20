@@ -1,4 +1,4 @@
-import type { TransformerSetting } from '@komplett/core';
+import type { TransformerExecuteResponse, TransformerSetting } from '@komplett/core';
 import { TRANSFORMER_DEFAULT_SETTINGS, TRANSFORMER_FEATURES, transformerHasSetting, type UUID } from '@komplett/core';
 
 import { useExecuteTransformer, useUpdateTransformer } from '#state/mutations';
@@ -9,6 +9,8 @@ import OptimizeSettings from './optimize-settings';
 
 import './transformer-settings.scss';
 
+import { useEffect, useState } from 'react';
+
 export interface TransformerSettingsProps {
   id: UUID;
 }
@@ -18,14 +20,38 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
   const executeTransformer = useExecuteTransformer();
   const updateTransformer = useUpdateTransformer();
 
+  const [transformerProgress, setTransformerProgress] = useState(0);
+  const [transformerProgressMessage, setTransformerProgressMessage] = useState('');
+
+  useEffect(() => {
+    if (transformer?.resultFileIds.length === 0 && executeTransformer.isIdle) {
+      executeTransformer.mutate({ data: { id: transformer.id }, callback: handleTransformerUpdate });
+    }
+  }, [transformer, executeTransformer]);
+
   if (!transformer) {
     return <div>Loading transformer settings...</div>;
   }
 
+  const handleTransformerUpdate = (resp: TransformerExecuteResponse) => {
+    if (resp.files) {
+      const completedFiles = Object.values(resp.files).filter(status => status === 'completed').length;
+      setTransformerProgress(Math.min(100, Math.round((completedFiles / transformer.originalFiles.length) * 100)));
+    }
+    setTransformerProgressMessage(resp.message);
+  };
+
   const transformerHasAnySetting = Object.entries(transformer.settings).some(([_, value]) => value !== undefined);
 
   const handleExportButtonClick = () => {
-    executeTransformer.mutate({ data: { id: transformer.id } });
+    executeTransformer.mutate(
+      { data: { id: transformer.id }, callback: handleTransformerUpdate },
+      {
+        onSuccess: () => {
+          setTransformerProgress(100);
+        },
+      },
+    );
   };
 
   const handleToggleFeature = (feature: TransformerSetting) => {
@@ -93,6 +119,7 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
         {resizeSettings()}
 
         <OptimizeSettings
+          busy={executeTransformer.isPending}
           transformer={transformer}
           onChange={handleTransformerSettingsChange}
           toggleFeature={handleToggleFeature}
@@ -106,12 +133,25 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
       {renderSettings()}
 
       <div className="transformer-settings__bottom">
+        <UI.Label.Root className="transformer-settings__progress-label">
+          <span>
+            {transformerProgressMessage
+              ? transformerProgressMessage
+              : !executeTransformer.isPending
+                ? 'No process running'
+                : 'Unknown progress'}
+          </span>
+          <UI.Progress.Root primary>
+            <UI.Progress.Indicator style={{ width: `${String(transformerProgress)}%` }} />
+          </UI.Progress.Root>
+        </UI.Label.Root>
         <UI.Button.Root
+          className="transformer-settings__process-button"
           primary
           onClick={handleExportButtonClick}
           disabled={executeTransformer.isPending || !transformerHasAnySetting}
         >
-          Export
+          Process files
         </UI.Button.Root>
       </div>
     </div>

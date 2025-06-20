@@ -24,7 +24,6 @@ export function useImportFile() {
       return new Promise<FileCreateResponse>((resolve, reject) => {
         emitter
           .await('files.import', data, resp => {
-            console.log(data);
             resolve(resp);
           })
           .catch((err: unknown) => {

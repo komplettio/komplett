@@ -27,6 +27,10 @@
     }
   }
 
+  &__icon {
+    color: themed('color-text-tertiary');
+  }
+
   &__name {
     text-overflow: ellipsis;
     white-space: nowrap;

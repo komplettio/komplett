@@ -1,8 +1,8 @@
-import type { FileKind, TransformerImageOptimizeSettings, TransformerOptimizeSettings } from '#types';
+import type { FileKind, TransformerSettingsOptimize } from '#types';
 
 import { getPngWorker } from '../workers';
 
-async function optimizeImage(file: File, options: TransformerImageOptimizeSettings) {
+async function optimizeImage(file: File, options: NonNullable<TransformerSettingsOptimize['optimize']>) {
   switch (file.type) {
     case 'image/png': {
       const worker = await getPngWorker();
@@ -14,12 +14,15 @@ async function optimizeImage(file: File, options: TransformerImageOptimizeSettin
   }
 }
 
-export async function optimize(file: File, fileKind: FileKind, options: TransformerOptimizeSettings | undefined) {
+export async function optimize(
+  file: File,
+  fileKind: FileKind,
+  options: TransformerSettingsOptimize['optimize'] | undefined,
+) {
   if (!options) {
     throw new Error('No optimization options provided');
   }
 
-  console.log('Optimizing file:', file, 'with options:', options);
   switch (fileKind) {
     case 'image': {
       const res = await optimizeImage(file, options);

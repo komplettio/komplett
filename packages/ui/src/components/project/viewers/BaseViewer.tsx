@@ -1,4 +1,4 @@
-import { Square, SquareSplitHorizontal, SquareStack } from 'lucide-react';
+import { FileInput, FileOutput, Grid3X3, Moon, SquareSplitHorizontal, SquareStack, Sun, SunMoon } from 'lucide-react';
 import { useEffect } from 'react';
 
 import type { FileBaseModel, UUID } from '@komplett/core';
@@ -18,6 +18,8 @@ import VideoViewer from './VideoViewer';
 
 import './BaseViewer.scss';
 
+import clsx from 'clsx';
+
 export const ViewerMap = {
   image: ImageViewer,
   video: VideoViewer,
@@ -29,11 +31,6 @@ export const ViewerMap = {
 
 const viewModeToggles = [
   {
-    value: 'input',
-    label: 'Input',
-    icon: <Square size={20} />,
-  },
-  {
     value: 'split',
     label: 'Split',
     icon: <SquareSplitHorizontal size={20} />,
@@ -44,9 +41,14 @@ const viewModeToggles = [
     icon: <SquareStack size={20} />,
   },
   {
+    value: 'input',
+    label: 'Input',
+    icon: <FileInput size={20} />,
+  },
+  {
     value: 'output',
     label: 'Output',
-    icon: <Square size={20} />,
+    icon: <FileOutput size={20} />,
   },
 ] as const;
 
@@ -68,7 +70,12 @@ export interface BaseViewerProps {
 export default function BaseViewer({ originalFileId, resultFileId, kind, zoomEnabled = true }: BaseViewerProps) {
   const { data: originalFile } = useFile(originalFileId);
   const { data: resultFile } = useFile(resultFileId);
-  const [viewerMode, setViewerMode] = useEditorStore(s => [s.viewerMode, s.setViewerMode]);
+  const [viewerMode, background, setViewerMode, setBackground] = useEditorStore(s => [
+    s.viewerMode,
+    s.background,
+    s.setViewerMode,
+    s.setBackground,
+  ]);
 
   const supportedModes = SUPPORTED_VIEWER_MODE[kind];
 
@@ -87,7 +94,7 @@ export default function BaseViewer({ originalFileId, resultFileId, kind, zoomEna
   const Viewer = originalFile ? ViewerMap[originalFile.kind] : UnknownViewer;
 
   return (
-    <div className="base-viewer">
+    <div className={clsx('base-viewer', `base-viewer--${background ?? 'default'}`)}>
       <div className="base-viewer__overlay">
         <UI.ToggleGroup.Root
           className="base-viewer__mode-switch"
@@ -105,6 +112,28 @@ export default function BaseViewer({ originalFileId, resultFileId, kind, zoomEna
                 </UI.ToggleGroup.Item>
               ),
           )}
+        </UI.ToggleGroup.Root>
+
+        <UI.ToggleGroup.Root
+          className="base-viewer__background-switch"
+          type="single"
+          value={background ?? 'default'}
+          onValueChange={v => {
+            if (v) setBackground(v as 'dark' | 'light' | 'pattern');
+          }}
+        >
+          <UI.ToggleGroup.Item value="default">
+            <SunMoon />
+          </UI.ToggleGroup.Item>
+          <UI.ToggleGroup.Item value="dark">
+            <Moon />
+          </UI.ToggleGroup.Item>
+          <UI.ToggleGroup.Item value="light">
+            <Sun />
+          </UI.ToggleGroup.Item>
+          <UI.ToggleGroup.Item value="pattern">
+            <Grid3X3 />
+          </UI.ToggleGroup.Item>
         </UI.ToggleGroup.Root>
       </div>
       <Viewer

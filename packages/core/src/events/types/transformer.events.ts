@@ -38,6 +38,8 @@ export type TransformerListResponse = TransformerModel[];
 export type TransformerExecuteResponse = {
   id: UUID;
   status: TransformerStatus;
+  message: string;
+  files?: Record<UUID, TransformerStatus> | undefined;
 };
 
 export type TransformerStopResponse = {

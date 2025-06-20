@@ -3,10 +3,53 @@
   height: 100%;
   overflow: hidden;
 
+  &--dark {
+    background-color: unthemed('color-surface', 'dark');
+  }
+
+  &--light {
+    background-color: unthemed('color-surface', 'light');
+  }
+
+  &--pattern {
+    $pattern-color: themed('color-border-light');
+
+    background-color: themed('color-surface');
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        $pattern-color 25%,
+        transparent 25%,
+        transparent 75%,
+        $pattern-color 75%,
+        $pattern-color
+      ),
+      repeating-linear-gradient(
+        45deg,
+        $pattern-color 25%,
+        themed('color-surface') 25%,
+        themed('color-surface') 75%,
+        $pattern-color 75%,
+        $pattern-color
+      );
+    background-position:
+      0 0,
+      10px 10px;
+    background-size: 20px 20px;
+    background-repeat: repeat;
+  }
+
   &__loading {
     display: flex;
     justify-content: center;
     flex-flow: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    span {
+      color: themed('color-text-secondary');
+    }
   }
 
   &__overlay {
@@ -15,19 +58,22 @@
     pointer-events: none;
     position: absolute;
     background-color: transparent;
-    padding: themed('size-4');
+    padding: themed('size-5');
 
     display: flex;
     justify-content: end;
+    gap: themed('size-5');
     z-index: 1;
   }
 
-  &__mode-switch {
+  &__mode-switch,
+  &__background-switch {
     display: inline-flex;
     pointer-events: all;
     flex-direction: row;
     height: min-content;
     border: 1px solid themed('color-border');
+    border-radius: themed('border-radius');
   }
 
   &__label {
@@ -38,6 +84,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    width: min-content;
 
     span {
       display: block;

@@ -2,19 +2,22 @@ import { CheckIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import type { TransformerModel, TransformerSetting } from '@komplett/core';
-import { transformerHasSetting } from '@komplett/core';
+import { TRANSFORMER_DEFAULT_SETTINGS, transformerHasSetting } from '@komplett/core';
 
 import { useDebounce } from '#hooks/useDebounce';
 import * as UI from '#ui';
 
 export interface OptimizeSettingsProps {
   transformer: TransformerModel;
+  busy: boolean;
   onChange: (feature: TransformerSetting, setting: string) => (value: unknown) => void;
   toggleFeature: (feature: TransformerSetting) => void;
 }
 
-export default function OptimizeSettings({ transformer, onChange, toggleFeature }: OptimizeSettingsProps) {
-  const [level, setLevel] = useState([transformer.settings.optimize?.level ?? 5]);
+export default function OptimizeSettings({ transformer, busy, onChange, toggleFeature }: OptimizeSettingsProps) {
+  const [level, setLevel] = useState([
+    transformer.settings.optimize?.level ?? TRANSFORMER_DEFAULT_SETTINGS.optimize.level,
+  ]);
   const debouncedLevel = useDebounce(level);
 
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function OptimizeSettings({ transformer, onChange, toggleFeature 
             <UI.Slider.Root
               value={level}
               onValueChange={setLevel}
-              disabled={!transformer.settings.optimize}
+              disabled={!transformer.settings.optimize || busy}
               min={1}
               max={10}
               step={1}
@@ -61,7 +64,7 @@ export default function OptimizeSettings({ transformer, onChange, toggleFeature 
               id="optimize-alpha-checkbox"
               checked={transformer.settings.optimize?.optimizeAlpha ?? false}
               onCheckedChange={onChange('optimize', 'optimizeAlpha')}
-              disabled={!transformer.settings.optimize}
+              disabled={!transformer.settings.optimize || busy}
             >
               <UI.Checkbox.Indicator>
                 <CheckIcon size={16} />

@@ -2,10 +2,10 @@ import * as Comlink from 'comlink';
 
 import { optimise_png } from '@komplett/codecs';
 
-import type { TransformerImageOptimizeSettings } from '#types';
+import type { TransformerSettingsOptimize } from '#types';
 
 export class PngWorker {
-  public async optimize(file: File, options: TransformerImageOptimizeSettings) {
+  public async optimize(file: File, options: NonNullable<TransformerSettingsOptimize['optimize']>) {
     const ab = await file.arrayBuffer();
     const result = optimise_png(
       new Uint8Array(ab),
@@ -14,6 +14,7 @@ export class PngWorker {
       options.optimizeAlpha ?? false,
     );
     const resImg = new File([result], file.name, { type: 'image/png' });
+    // TODO: Figure out if we should transfer the file array buffer instead?
     return resImg;
   }
 }
