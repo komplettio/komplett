@@ -193,7 +193,7 @@ importers:
         specifier: catalog:test
         version: 3.2.3(@types/node@22.15.32)(@vitest/browser@3.2.3)(jiti@2.4.2)(sass@1.89.2)(yaml@2.7.1)
 
-  packages/codecs:
+  packages/transformers:
     devDependencies:
       wasm-pack:
         specifier: ^0.13.1
@@ -201,9 +201,9 @@ importers:
 
   packages/core:
     dependencies:
-      '@komplett/codecs':
+      '@komplett/transformers':
         specifier: workspace:^
-        version: link:../codecs
+        version: link:../transformers
       comlink:
         specifier: catalog:core
         version: 4.4.2

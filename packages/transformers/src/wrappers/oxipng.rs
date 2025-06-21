@@ -3,13 +3,11 @@ use oxipng::Interlacing;
 use std::panic;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 }
 
-#[wasm_bindgen]
 pub fn optimise(data: &[u8], level: u8, interlace: bool, optimize_alpha: bool) -> Vec<u8> {
     utils::set_panic_hook();
 

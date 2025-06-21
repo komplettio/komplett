@@ -11,5 +11,5 @@
   "eslint.debug": false,
   "eslint.runtime": "node",
   "eslint.run": "onType",
-  "rust-analyzer.linkedProjects": ["./packages/codecs/Cargo.toml"]
+  "rust-analyzer.linkedProjects": ["./packages/transformers/Cargo.toml"]
 }

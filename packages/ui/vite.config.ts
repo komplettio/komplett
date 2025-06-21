@@ -7,6 +7,31 @@ export default defineConfig({
   plugins: [react(), wasm()],
   build: {
     target: 'es2022',
+    rollupOptions: {
+      output: {
+        manualChunks: id => {
+          if (id.includes('react') || id.includes('react-dom')) {
+            return 'react';
+          }
+
+          if (id.includes('lucide')) {
+            return 'icons';
+          }
+
+          if (id.includes('worker')) {
+            return 'worker';
+          }
+
+          if (id.includes('@komplett')) {
+            return 'komplett';
+          }
+
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
+      },
+    },
   },
   worker: {
     format: 'es',
@@ -19,7 +44,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['@komplett/codecs'],
+    exclude: ['@komplett/transformers'],
   },
   css: {
     preprocessorOptions: {

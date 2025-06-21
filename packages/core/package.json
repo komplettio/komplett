@@ -16,7 +16,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@komplett/codecs": "workspace:^",
+    "@komplett/transformers": "workspace:^",
     "comlink": "catalog:core",
     "dexie": "catalog:core",
     "emittery": "catalog:core",

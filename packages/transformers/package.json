@@ -1,0 +1,20 @@
+{
+  "name": "@komplett/transformers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/transformers.js",
+  "types": "dist/transformers.d.ts",
+  "files": [
+    "dist/transformers_bg.wasm",
+    "dist/transformers.js",
+    "dist/transformers_bg.js",
+    "dist/transformers.d.ts"
+  ],
+  "scripts": {
+    "build": "wasm-pack build --out-dir ./dist --scope komplett"
+  },
+  "devDependencies": {
+    "wasm-pack": "^0.13.1"
+  }
+}

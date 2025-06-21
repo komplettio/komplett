@@ -1,5 +1,5 @@
 [package]
-name = "codecs"
+name = "transformers"
 version = "0.1.0"
 authors = ["Janis Jansen <oss@janis.me>"]
 edition = "2018"

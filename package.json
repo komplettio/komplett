@@ -9,8 +9,8 @@
   "author": "Janis Jansen",
   "type": "module",
   "scripts": {
-    "build": "pnpm build:codecs && pnpm build:ui",
-    "build:codecs": "pnpm --filter @komplett/codecs build",
+    "build": "pnpm build:transformers && pnpm build:ui",
+    "build:transformers": "pnpm --filter @komplett/transformers build",
     "build:ui": "pnpm --filter @komplett/ui build",
     "deps": "pnpm taze",
     "format": "prettier --write .",
