@@ -6,7 +6,12 @@ async function optimizeImage(file: File, options: NonNullable<TransformerSetting
   switch (file.type) {
     case 'image/png': {
       const worker = await getPngWorker();
-      return worker.optimize(file, options);
+      try {
+        return await worker.optimize(file, options);
+      } catch (error) {
+        console.error('Error during PNG optimization:', error);
+        throw new Error(`PNG optimization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
     }
     default: {
       throw new Error(`Unsupported image type for optimization: ${file.type}`);

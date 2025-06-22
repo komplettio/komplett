@@ -1,4 +1,4 @@
-pub mod image;
+pub mod image_transformer;
 
 use std::collections::VecDeque;
 
@@ -15,20 +15,18 @@ impl<T, S> Transformer<T, S> {
         }
     }
 
-    pub fn chain<F>(mut self, action: F) -> Self
+    pub fn chain<F>(&mut self, action: F)
     where
         F: FnOnce(S) -> S + 'static,
     {
         self.actions.push_back(Box::new(action));
-        self
     }
 
-    pub fn exec(self, initial: S) -> S {
-        let res = self
-            .actions
-            .into_iter()
-            .fold(initial, |state, action| action(state));
-
-        res
+    pub fn exec(&mut self, initial: S) -> S {
+        let mut state = initial;
+        while let Some(action) = self.actions.pop_front() {
+            state = action(state);
+        }
+        state
     }
 }
