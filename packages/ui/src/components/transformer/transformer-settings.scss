@@ -10,6 +10,7 @@
     gap: themed('size-5');
 
     margin-top: auto;
+    height: calc(themed('size-7') + themed('size-6'));
     padding: themed('size-5');
     background-color: themed('color-elevated');
     border-top: 1px solid themed('color-border-light');

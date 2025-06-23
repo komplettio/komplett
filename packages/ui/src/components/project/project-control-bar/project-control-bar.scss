@@ -1,0 +1,11 @@
+.project-control-bar {
+  display: flex;
+  flex-direction: row;
+  gap: themed('size-4');
+  padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
+  background-color: themed('color-elevated');
+  border-top: 1px solid themed('color-border-light');
+
+  &__file-select {
+  }
+}
