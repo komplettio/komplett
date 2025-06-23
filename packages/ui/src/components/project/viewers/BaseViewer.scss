@@ -66,12 +66,17 @@
     z-index: 1;
   }
 
+  &__file-select {
+    &__trigger {
+      pointer-events: all;
+    }
+  }
+
   &__mode-switch,
   &__background-switch {
     display: inline-flex;
     pointer-events: all;
     flex-direction: row;
-    height: min-content;
     border: 1px solid themed('color-border');
     border-radius: themed('border-radius');
   }

@@ -1,4 +1,15 @@
-import { FileInput, FileOutput, Grid3X3, Moon, SquareSplitHorizontal, SquareStack, Sun, SunMoon } from 'lucide-react';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  FileInput,
+  FileOutput,
+  Grid3X3,
+  Moon,
+  SquareSplitHorizontal,
+  SquareStack,
+  Sun,
+  SunMoon,
+} from 'lucide-react';
 import { useEffect } from 'react';
 
 import type { FileBaseModel, UUID } from '@komplett/core';
@@ -19,6 +30,8 @@ import VideoViewer from './VideoViewer';
 import './BaseViewer.scss';
 
 import clsx from 'clsx';
+
+import { formatFileSize } from '#utils/formatters/index.js';
 
 export const ViewerMap = {
   image: ImageViewer,
@@ -61,14 +74,23 @@ export interface ViewerProps {
 }
 
 export interface BaseViewerProps {
-  originalFileId: UUID;
+  selectedFileId: UUID;
+  files: FileBaseModel[];
+  onFileSelect: (fileId: UUID) => void;
   resultFileId: UUID | null;
   kind: ViewerKind;
   zoomEnabled?: boolean;
 }
 
-export default function BaseViewer({ originalFileId, resultFileId, kind, zoomEnabled = true }: BaseViewerProps) {
-  const { data: originalFile } = useFile(originalFileId);
+export default function BaseViewer({
+  selectedFileId,
+  files,
+  onFileSelect,
+  resultFileId,
+  kind,
+  zoomEnabled = true,
+}: BaseViewerProps) {
+  const { data: originalFile } = useFile(selectedFileId);
   const { data: resultFile } = useFile(resultFileId);
   const [viewerMode, background, setViewerMode, setBackground] = useEditorStore(s => [
     s.viewerMode,
@@ -96,6 +118,32 @@ export default function BaseViewer({ originalFileId, resultFileId, kind, zoomEna
   return (
     <div className={clsx('base-viewer', `base-viewer--${background ?? 'default'}`)}>
       <div className="base-viewer__overlay">
+        <UI.Select.Root value={selectedFileId} onValueChange={onFileSelect}>
+          <UI.Select.Trigger className="base-viewer__file-select__trigger">
+            <UI.Select.Value placeholder="Select a file..." />
+            <UI.Select.Icon>
+              <ChevronDownIcon />
+            </UI.Select.Icon>
+          </UI.Select.Trigger>
+
+          <UI.Select.Portal>
+            <UI.Select.Content position="popper" className="base-viewer__file-select__content">
+              {files.map(file => (
+                <UI.Select.Item key={file.id} value={file.id}>
+                  <UI.Select.ItemText>
+                    {file.name} ({formatFileSize(file.size)})
+                  </UI.Select.ItemText>
+                  {selectedFileId === file.id && (
+                    <UI.Select.ItemIndicator>
+                      <CheckIcon />
+                    </UI.Select.ItemIndicator>
+                  )}
+                </UI.Select.Item>
+              ))}
+            </UI.Select.Content>
+          </UI.Select.Portal>
+        </UI.Select.Root>
+
         <UI.ToggleGroup.Root
           className="base-viewer__mode-switch"
           type="single"
@@ -123,16 +171,16 @@ export default function BaseViewer({ originalFileId, resultFileId, kind, zoomEna
           }}
         >
           <UI.ToggleGroup.Item value="default">
-            <SunMoon />
+            <SunMoon size={20} />
           </UI.ToggleGroup.Item>
           <UI.ToggleGroup.Item value="dark">
-            <Moon />
+            <Moon size={20} />
           </UI.ToggleGroup.Item>
           <UI.ToggleGroup.Item value="light">
-            <Sun />
+            <Sun size={20} />
           </UI.ToggleGroup.Item>
           <UI.ToggleGroup.Item value="pattern">
-            <Grid3X3 />
+            <Grid3X3 size={20} />
           </UI.ToggleGroup.Item>
         </UI.ToggleGroup.Root>
       </div>

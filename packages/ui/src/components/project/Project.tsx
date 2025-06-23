@@ -106,7 +106,13 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         {project.files.length > 0 ? (
           <>
             {selectedFileId ? (
-              <BaseViewer originalFileId={selectedFileId} resultFileId={resultFile?.id ?? null} kind={project.kind} />
+              <BaseViewer
+                selectedFileId={selectedFileId}
+                files={project.files}
+                onFileSelect={setSelectedFileId}
+                resultFileId={resultFile?.id ?? null}
+                kind={project.kind}
+              />
             ) : (
               <div className="project-main__file-preview-loading">
                 <p>Preview not available</p>

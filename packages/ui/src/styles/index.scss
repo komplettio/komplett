@@ -5,10 +5,6 @@
 
 @include apply();
 
-:where(code) {
-  font-family: 'JetBrains Mono Variable', 'IBM Plex Mono', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 html {
   font-size: 16px;
 }
@@ -26,6 +22,12 @@ body {
   background-color: themed('color-background');
   color: themed('color-text-primary');
   position: relative;
+}
+
+// TODO: For some reason, spans in select elements are not styled correctly
+// So I set the font here again?
+span {
+  font-family: 'JetBrains Mono Variable', 'IBM Plex Mono', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
