@@ -28,12 +28,12 @@
   .base-viewer__label {
     position: absolute;
     top: 0;
-    max-width: 200px;
     padding: themed('size-3') themed('size-4');
     font-size: 0.8em;
+    display: flex;
+    gap: themed('size-3');
 
     span {
-      display: block;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

@@ -35,7 +35,7 @@ async function executeImageTransformer(
 
   const resultFileIds: UUID[] = [];
 
-  for (const originalFile of transformer.originalFiles) {
+  const workerPromises = transformer.originalFiles.map(async originalFile => {
     if (settings.optimize) {
       callback({
         id: transformer.id,
@@ -45,6 +45,7 @@ async function executeImageTransformer(
       });
       try {
         const worker = getImageWorker();
+        console.log('created worker', worker);
         const resultBlob = await (await worker).process(originalFile, settings);
         const resultFile = await FileCtrl.import(resultBlob, originalFile.id);
         resultFileIds.push(resultFile.id);
@@ -68,7 +69,9 @@ async function executeImageTransformer(
     await TransformerCtrl.update(transformer.id, {
       resultFileIds,
     });
-  }
+  });
+
+  await Promise.all(workerPromises);
 
   console.log('Image transformer execution completed, result files:', resultFileIds);
 }

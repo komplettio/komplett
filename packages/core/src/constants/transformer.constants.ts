@@ -1,11 +1,11 @@
 import type { TransformerKind, TransformerSetting, TransformerSettings } from '#types';
 
 export const TRANSFORMER_FEATURES = {
-  image: ['optimize', 'resize', 'crop', 'rotate', 'filter', 'flip'],
-  video: ['resize', 'crop', 'trim'],
-  audio: ['trim'],
-  document: [],
-  text: [],
+  image: ['format', 'optimize', 'resize', 'crop', 'rotate', 'filter', 'flip'],
+  video: ['format', 'resize', 'crop', 'trim'],
+  audio: ['format', 'trim'],
+  document: ['format'],
+  text: ['format'],
   unknown: [],
 } as const satisfies Record<TransformerKind, TransformerSetting[]>;
 

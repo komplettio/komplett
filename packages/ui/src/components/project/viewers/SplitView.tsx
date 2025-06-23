@@ -18,10 +18,10 @@ export function SplitViewHandle({ originalFile, resultFile }: SplitViewHandlePro
   return (
     <div className="split-view__handle">
       <span className="base-viewer__label base-viewer__label--input">
-        <span>{originalFile?.name}</span> <span>{originalFile ? formatFileSize(originalFile.size) : ''}</span>
+        <span>{originalFile?.name}</span> - <span>{originalFile ? formatFileSize(originalFile.size) : ''}</span>
       </span>
       <span className="base-viewer__label base-viewer__label--result">
-        <span>{resultFile?.name}</span> <span>{resultFile ? formatFileSize(resultFile.size) : ''}</span>
+        <span>{resultFile?.name}</span> - <span>{resultFile ? formatFileSize(resultFile.size) : ''}</span>
       </span>
     </div>
   );

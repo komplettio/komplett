@@ -5,6 +5,7 @@ import { emitter } from '@komplett/core';
 
 export function useExecuteTransformer() {
   return useMutation({
+    mutationKey: ['transformers.execute'],
     mutationFn: ({
       data,
       callback,

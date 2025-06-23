@@ -1,3 +1,4 @@
+import { useMutationState } from '@tanstack/react-query';
 import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
 import type React from 'react';
 import { useState } from 'react';
@@ -11,11 +12,10 @@ import { useImportFile, useUpdateProject } from '#state/mutations';
 import { useTransformer } from '#state/queries';
 import { ConfirmationModal } from '#ui/ConfirmationModal';
 
+import ProjectControlBar from './project-control-bar/project-control-bar';
 import BaseViewer from './viewers/BaseViewer';
 
 import './Project.scss';
-
-import ProjectControlBar from './project-control-bar/project-control-bar';
 
 interface ProjectProps {
   project: ProjectModel;
@@ -25,6 +25,11 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const navigate = useNavigate();
   const importFile = useImportFile();
   const updateProject = useUpdateProject();
+  const transformerExecuting = useMutationState({
+    filters: { status: 'pending', mutationKey: ['transformers.execute'] },
+    select: mutation => mutation.mutationId,
+  });
+
   const { data: transformer } = useTransformer(project.transformer?.id ?? null);
 
   const [selectedFileId, setSelectedFileId] = useState<UUID | null>(project.files[0]?.id ?? null);
@@ -111,6 +116,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                 files={project.files}
                 onFileSelect={setSelectedFileId}
                 resultFileId={resultFile?.id ?? null}
+                busy={transformerExecuting.length > 0}
                 kind={project.kind}
               />
             ) : (

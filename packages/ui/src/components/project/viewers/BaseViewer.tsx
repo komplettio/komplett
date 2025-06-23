@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -28,10 +29,6 @@ import UnknownViewer from './UnknownViewer';
 import VideoViewer from './VideoViewer';
 
 import './BaseViewer.scss';
-
-import clsx from 'clsx';
-
-import { formatFileSize } from '#utils/formatters/index.js';
 
 export const ViewerMap = {
   image: ImageViewer,
@@ -79,6 +76,7 @@ export interface BaseViewerProps {
   onFileSelect: (fileId: UUID) => void;
   resultFileId: UUID | null;
   kind: ViewerKind;
+  busy?: boolean;
   zoomEnabled?: boolean;
 }
 
@@ -88,6 +86,7 @@ export default function BaseViewer({
   onFileSelect,
   resultFileId,
   kind,
+  busy = false,
   zoomEnabled = true,
 }: BaseViewerProps) {
   const { data: originalFile } = useFile(selectedFileId);
@@ -130,9 +129,7 @@ export default function BaseViewer({
             <UI.Select.Content position="popper" className="base-viewer__file-select__content">
               {files.map(file => (
                 <UI.Select.Item key={file.id} value={file.id}>
-                  <UI.Select.ItemText>
-                    {file.name} ({formatFileSize(file.size)})
-                  </UI.Select.ItemText>
+                  <UI.Select.ItemText>{file.name}</UI.Select.ItemText>
                   {selectedFileId === file.id && (
                     <UI.Select.ItemIndicator>
                       <CheckIcon />
@@ -184,13 +181,21 @@ export default function BaseViewer({
           </UI.ToggleGroup.Item>
         </UI.ToggleGroup.Root>
       </div>
-      <Viewer
-        originalFile={originalFile}
-        resultFile={resultFile}
-        mode={viewerMode}
-        kind={kind}
-        zoomEnabled={zoomEnabled}
-      />
+      {busy ? (
+        <div className="base-viewer__loading">
+          <div className="base-viewer__processing-effect"></div>
+          <p>Processing your file(s)!</p>
+          <span>This shouldn&apos;t take too long</span>
+        </div>
+      ) : (
+        <Viewer
+          originalFile={originalFile}
+          resultFile={resultFile}
+          mode={viewerMode}
+          kind={kind}
+          zoomEnabled={zoomEnabled}
+        />
+      )}
     </div>
   );
 }

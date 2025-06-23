@@ -16,8 +16,28 @@
     border-top: 1px solid themed('color-border-light');
   }
 
-  &__process-button {
-    text-wrap: nowrap;
+  &__process-button-container {
+    display: flex;
+    flex-flow: row;
+
+    .transformer-settings__process-button {
+      text-wrap: nowrap;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .transformer-settings__file-select__trigger {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      background-color: themed('color-interactive');
+      border: none;
+      border-left: 1px solid themed('color-interactive-light');
+      padding: themed('size-3') themed('size-3');
+
+      &:hover {
+        background-color: themed('color-interactive-hover');
+      }
+    }
   }
 
   &__progress-label {
@@ -39,5 +59,12 @@
     height: 100%;
     padding: themed('size-5');
     color: themed('color-text-secondary');
+  }
+}
+
+// positioned in a portal outside of the transformer-settings component
+.transformer-settings__file-select__content {
+  &.themed-ui__select__content {
+    width: 80px;
   }
 }

@@ -1,7 +1,9 @@
-export type ImageFileType = 'jpeg' | 'png' | 'gif' | 'webp' | 'avif';
-export type VideoFileType = 'mp4' | 'webm' | 'avi' | 'mkv' | 'mov';
-export type AudioFileType = 'mp3' | 'wav' | 'flac' | 'aac' | 'ogg';
-export type DocumentFileType = 'pdf' | 'docx' | 'txt' | 'xlsx';
+import type { AUDIO_FILE_TYPES, DOCUMENT_FILE_TYPES, IMAGE_FILE_TYPES, VIDEO_FILE_TYPES } from '#constants';
+
+export type ImageFileType = (typeof IMAGE_FILE_TYPES)[number];
+export type VideoFileType = (typeof VIDEO_FILE_TYPES)[number];
+export type AudioFileType = (typeof AUDIO_FILE_TYPES)[number];
+export type DocumentFileType = (typeof DOCUMENT_FILE_TYPES)[number];
 export type FileType = ImageFileType | VideoFileType | AudioFileType | DocumentFileType;
 
 export type FileKind = 'image' | 'video' | 'audio' | 'text' | 'document' | 'unknown';

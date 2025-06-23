@@ -131,7 +131,7 @@ export class ImageWorker {
       resultBuffer = this.processor.export(settings.format);
     }
 
-    return new File([resultBuffer], 'output.jpg', { type: 'image/jpeg' });
+    return new File([resultBuffer], `output.${settings.format}`, { type: `image/${settings.format}` });
   }
 }
 

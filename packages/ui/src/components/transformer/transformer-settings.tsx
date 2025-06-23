@@ -1,19 +1,25 @@
+import { CheckIcon, ChevronUpIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import type { FileType, TransformerExecuteResponse, TransformerSetting } from '@komplett/core';
-import { TRANSFORMER_DEFAULT_SETTINGS, TRANSFORMER_FEATURES, transformerHasSetting, type UUID } from '@komplett/core';
+import {
+  FILE_TYPE_MAP,
+  TRANSFORMER_DEFAULT_SETTINGS,
+  TRANSFORMER_FEATURES,
+  transformerHasSetting,
+  type UUID,
+} from '@komplett/core';
 
 import { useExecuteTransformer, useUpdateTransformer } from '#state/mutations';
 import { useTransformer } from '#state/queries';
 import * as UI from '#ui';
 
+import CropSettings from './crop-settings';
+import FilterSettings from './filter-settings';
 import OptimizeSettings from './optimize-settings';
 import ResizeSettings from './resize-settings';
 
 import './transformer-settings.scss';
-
-import CropSettings from './crop-settings';
-import FilterSettings from './filter-settings';
 
 export interface TransformerSettingsProps {
   id: UUID;
@@ -44,8 +50,6 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
     }
     setTransformerProgressMessage(resp.message);
   };
-
-  const transformerHasAnySetting = Object.entries(transformer.settings).some(([_, value]) => value !== undefined);
 
   const handleExportButtonClick = () => {
     executeTransformer.mutate(
@@ -157,14 +161,51 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
             <UI.Progress.Indicator style={{ width: `${String(transformerProgress)}%` }} />
           </UI.Progress.Root>
         </UI.Label.Root>
-        <UI.Button.Root
-          className="transformer-settings__process-button"
-          primary
-          onClick={handleExportButtonClick}
-          disabled={executeTransformer.isPending || !transformerHasAnySetting}
+        <UI.Select.Root
+          value={transformer.settings.format}
+          onValueChange={v => {
+            handleTransformerSettingsChange('format', 'format')(v as FileType);
+          }}
         >
-          Process files
-        </UI.Button.Root>
+          <div className="transformer-settings__process-button-container">
+            <UI.Button.Root
+              className="transformer-settings__process-button"
+              primary
+              onClick={handleExportButtonClick}
+              disabled={executeTransformer.isPending}
+            >
+              Process as {transformer.settings.format}
+            </UI.Button.Root>
+            <UI.Select.Trigger
+              className="transformer-settings__file-select__trigger"
+              disabled={executeTransformer.isPending}
+            >
+              <UI.Select.Icon>
+                <ChevronUpIcon />
+              </UI.Select.Icon>
+            </UI.Select.Trigger>
+          </div>
+
+          <UI.Select.Portal>
+            <UI.Select.Content
+              position="popper"
+              side="top"
+              align="end"
+              className="transformer-settings__file-select__content"
+            >
+              {FILE_TYPE_MAP[transformer.kind].map(fileType => (
+                <UI.Select.Item key={fileType} value={fileType}>
+                  <UI.Select.ItemText>{fileType}</UI.Select.ItemText>
+                  {transformer.settings.format === fileType && (
+                    <UI.Select.ItemIndicator>
+                      <CheckIcon />
+                    </UI.Select.ItemIndicator>
+                  )}
+                </UI.Select.Item>
+              ))}
+            </UI.Select.Content>
+          </UI.Select.Portal>
+        </UI.Select.Root>
       </div>
     </div>
   );
