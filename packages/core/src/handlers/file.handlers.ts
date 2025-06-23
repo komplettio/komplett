@@ -1,5 +1,5 @@
 import { FileCtrl } from '#controllers/file.controller';
-import type { EventHandlerContext} from '#events/emitter';
+import type { EventHandlerContext } from '#events/emitter';
 import { EventHandler, on, register } from '#events/emitter';
 import type { Events } from '#events/index';
 
@@ -39,7 +39,6 @@ export class FileHandler extends EventHandler {
 
   @on('files.get')
   async getFile(data: Events['files.get'], ctx: EventHandlerContext<'files.get'>) {
-    console.log('Getting file:', data);
     const file = await FileCtrl.getById(data.payload.id);
 
     if (!file) {
@@ -51,7 +50,6 @@ export class FileHandler extends EventHandler {
 
   @on('files.list')
   async listFiles(data: Events['files.list'], ctx: EventHandlerContext<'files.list'>) {
-    console.log('Listing files:', data);
     const files = await FileCtrl.getMany(data.payload);
 
     await ctx.emitter.respond('files.list', data, files);

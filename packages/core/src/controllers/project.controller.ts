@@ -50,7 +50,7 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
         projectId: project.id,
         kind,
         settings: {
-          kind,
+          format: 'jpeg', // Default format, should be changed by the user
         },
         resultFileIds: [],
         status: 'idle',

@@ -1,13 +1,13 @@
 import * as Comlink from 'comlink';
 
-import type { PngWorker } from './png.worker';
+import type { ImageWorker } from './image.worker';
 
-const pngWorker = new Worker(new URL('./png.worker.ts', import.meta.url), {
+const imageWorker = new Worker(new URL('./image.worker.ts', import.meta.url), {
   type: 'module',
 });
 
-const instance = Comlink.wrap<{ PngWorker: typeof PngWorker }>(pngWorker);
+const imageWorkerInstance = Comlink.wrap<{ ImageWorker: typeof ImageWorker }>(imageWorker);
 
-export function getPngWorker() {
-  return new instance.PngWorker();
+export function getImageWorker() {
+  return new imageWorkerInstance.ImageWorker();
 }

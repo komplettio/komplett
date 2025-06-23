@@ -1,3 +1,9 @@
+export type ImageFileType = 'jpeg' | 'png' | 'gif' | 'webp' | 'avif';
+export type VideoFileType = 'mp4' | 'webm' | 'avi' | 'mkv' | 'mov';
+export type AudioFileType = 'mp3' | 'wav' | 'flac' | 'aac' | 'ogg';
+export type DocumentFileType = 'pdf' | 'docx' | 'txt' | 'xlsx';
+export type FileType = ImageFileType | VideoFileType | AudioFileType | DocumentFileType;
+
 export type FileKind = 'image' | 'video' | 'audio' | 'text' | 'document' | 'unknown';
 
 export interface BaseFileMetadata {

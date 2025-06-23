@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import type { FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#models/file.models';
+import type { FileBaseModel, FileCreateModel, FileDeleteModel, FileModel, FileUpdateModel } from '#models/file.models';
 import type { UUID } from '#types/db.types';
 import type { ListEvent } from '#types/event.types';
 
@@ -26,7 +26,7 @@ export type FilePubEvent = FileModel[];
 
 export type FileCreateResponse = {
   id: UUID;
-  data: FileModel;
+  data: FileBaseModel;
 };
 
 export type FileGetResponse = FileModel;

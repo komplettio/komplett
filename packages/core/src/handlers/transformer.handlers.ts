@@ -34,7 +34,6 @@ export class TransformerHandler extends EventHandler {
 
   @on('transformers.get')
   async getTransformer(data: Events['transformers.get'], ctx: EventHandlerContext<'transformers.get'>) {
-    console.log('Getting transformer:', data);
     const transformer = await TransformerCtrl.getById(data.payload.id);
 
     if (!transformer) {
@@ -46,7 +45,6 @@ export class TransformerHandler extends EventHandler {
 
   @on('transformers.list')
   async listTransformers(data: Events['transformers.list'], ctx: EventHandlerContext<'transformers.list'>) {
-    console.log('Listing transformers:', data);
     const transformers = await TransformerCtrl.getMany(data.payload);
 
     await ctx.emitter.respond('transformers.list', data, transformers);

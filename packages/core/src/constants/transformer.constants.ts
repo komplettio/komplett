@@ -1,7 +1,7 @@
 import type { TransformerKind, TransformerSetting, TransformerSettings } from '#types';
 
 export const TRANSFORMER_FEATURES = {
-  image: ['optimize', 'resize', 'crop'],
+  image: ['optimize', 'resize', 'crop', 'rotate', 'filter', 'flip'],
   video: ['resize', 'crop', 'trim'],
   audio: ['trim'],
   document: [],
@@ -10,15 +10,15 @@ export const TRANSFORMER_FEATURES = {
 } as const satisfies Record<TransformerKind, TransformerSetting[]>;
 
 export const TRANSFORMER_DEFAULT_SETTINGS = {
-  optimize: {
-    optimizeAlpha: true,
-    interlace: false,
-    level: 3,
-  },
+  format: 'jpeg',
   resize: {
+    width: 100,
+    height: 100,
     maintainAspectRatio: true,
-    fillMethod: 'crop',
-    method: 'basic',
+    method: 'lanczos3',
+  },
+  rotate: {
+    angle: 90,
   },
   crop: {
     x: 0,
@@ -26,8 +26,34 @@ export const TRANSFORMER_DEFAULT_SETTINGS = {
     width: 100,
     height: 100,
   },
+  filter: {
+    grayscale: false,
+    invert: false,
+    blur: {
+      sigma: 0,
+    },
+    brighten: {
+      amount: 0,
+    },
+    contrast: {
+      amount: 0,
+    },
+    unsharpen: {
+      sigma: 0,
+      threshold: 0,
+    },
+  },
+  flip: {
+    horizontal: false,
+    vertical: false,
+  },
   trim: {
     start: 0,
     end: 0,
+  },
+  optimize: {
+    optimizeAlpha: true,
+    interlace: false,
+    level: 3,
   },
 } as const satisfies TransformerSettings;

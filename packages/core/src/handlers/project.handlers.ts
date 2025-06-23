@@ -1,5 +1,5 @@
 import { ProjectCtrl } from '#controllers/project.controller';
-import type { EventHandlerContext} from '#events/emitter';
+import type { EventHandlerContext } from '#events/emitter';
 import { EventHandler, on, register } from '#events/emitter';
 import type { Events } from '#events/index';
 
@@ -31,7 +31,6 @@ export class ProjectHandler extends EventHandler {
 
   @on('projects.get')
   async getProject(data: Events['projects.get'], ctx: EventHandlerContext<'projects.get'>) {
-    console.log('Getting project:', data);
     const project = await ProjectCtrl.getById(data.payload.id);
 
     if (!project) {
@@ -43,7 +42,6 @@ export class ProjectHandler extends EventHandler {
 
   @on('projects.list')
   async listProjects(data: Events['projects.list'], ctx: EventHandlerContext<'projects.list'>) {
-    console.log('Listing projects:', data);
     const projects = await ProjectCtrl.getMany(data.payload);
 
     await ctx.emitter.respond('projects.list', data, projects);

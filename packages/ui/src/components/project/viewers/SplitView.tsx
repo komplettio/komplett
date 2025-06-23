@@ -63,10 +63,10 @@ export default function SplitView({ children, className, originalFile, resultFil
           right: <SplitViewHandle originalFile={originalFile} resultFile={resultFile} />,
         }}
       >
-        <div className="split-view__container">{children[1]}</div>
+        <div className="split-view__container">{children[0]}</div>
       </Resizable>
       <div className="split-view__item">
-        <div className="split-view__container">{children[0]}</div>
+        <div className="split-view__container">{children[1]}</div>
       </div>
     </div>
   );

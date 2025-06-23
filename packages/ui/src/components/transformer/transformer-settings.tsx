@@ -1,4 +1,6 @@
-import type { TransformerExecuteResponse, TransformerSetting } from '@komplett/core';
+import { useEffect, useState } from 'react';
+
+import type { FileType, TransformerExecuteResponse, TransformerSetting } from '@komplett/core';
 import { TRANSFORMER_DEFAULT_SETTINGS, TRANSFORMER_FEATURES, transformerHasSetting, type UUID } from '@komplett/core';
 
 import { useExecuteTransformer, useUpdateTransformer } from '#state/mutations';
@@ -6,10 +8,12 @@ import { useTransformer } from '#state/queries';
 import * as UI from '#ui';
 
 import OptimizeSettings from './optimize-settings';
+import ResizeSettings from './resize-settings';
 
 import './transformer-settings.scss';
 
-import { useEffect, useState } from 'react';
+import CropSettings from './crop-settings';
+import FilterSettings from './filter-settings';
 
 export interface TransformerSettingsProps {
   id: UUID;
@@ -73,39 +77,31 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
 
   const handleTransformerSettingsChange = (feature: TransformerSetting, setting: string) => (value: unknown) => {
     if (transformerHasSetting(transformer, feature)) {
-      updateTransformer.mutate({
-        id: transformer.id,
-        data: {
-          settings: {
-            [feature]: {
-              [setting]: value,
+      if (feature === 'format') {
+        updateTransformer.mutate({
+          id: transformer.id,
+          data: {
+            settings: {
+              ...transformer.settings,
+              format: value as FileType,
             },
           },
-        },
-      });
+        });
+      } else {
+        updateTransformer.mutate({
+          id: transformer.id,
+          data: {
+            settings: {
+              ...transformer.settings,
+              [feature]: {
+                ...transformer.settings[feature],
+                [setting]: value,
+              },
+            },
+          },
+        });
+      }
     }
-  };
-
-  const resizeSettings = () => {
-    if (transformerHasSetting(transformer, 'resize')) {
-      return (
-        <UI.FeatureToggle.Item value="resize">
-          <UI.FeatureToggle.Header>
-            <UI.FeatureToggle.Trigger
-              checked={!!transformer.settings.resize}
-              onCheckedChange={() => {
-                handleToggleFeature('resize');
-              }}
-            >
-              Resize
-            </UI.FeatureToggle.Trigger>
-          </UI.FeatureToggle.Header>
-          <UI.FeatureToggle.Content>asd</UI.FeatureToggle.Content>
-        </UI.FeatureToggle.Item>
-      );
-    }
-
-    return null;
   };
 
   const renderSettings = () => {
@@ -116,8 +112,24 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
 
     return (
       <UI.FeatureToggle.Root type="multiple">
-        {resizeSettings()}
-
+        <ResizeSettings
+          busy={executeTransformer.isPending}
+          transformer={transformer}
+          onChange={handleTransformerSettingsChange}
+          toggleFeature={handleToggleFeature}
+        />
+        <CropSettings
+          busy={executeTransformer.isPending}
+          transformer={transformer}
+          onChange={handleTransformerSettingsChange}
+          toggleFeature={handleToggleFeature}
+        />
+        <FilterSettings
+          busy={executeTransformer.isPending}
+          transformer={transformer}
+          onChange={handleTransformerSettingsChange}
+          toggleFeature={handleToggleFeature}
+        />
         <OptimizeSettings
           busy={executeTransformer.isPending}
           transformer={transformer}

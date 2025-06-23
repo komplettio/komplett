@@ -1,24 +1,27 @@
-import { TRANSFORMER_FEATURES } from '#constants/transformer.constants.js';
-import type { TransformerExecuteResponse } from '#events/index.js';
+import { TRANSFORMER_FEATURES } from '#constants/transformer.constants';
+import type { TransformerExecuteResponse } from '#events';
 import type { TransformerModel } from '#models';
-
-import type { FileKind } from './file.types';
+import type { FileKind, FileType } from '#types';
 
 export type TransformerKind = FileKind;
 export type TransformerStatus = 'idle' | 'running' | 'completed' | 'error' | 'canceled' | 'unknown';
 
-export type TransformerResizeMethod = 'basic';
-export type TransformerResizeFillMethod = 'crop' | 'contain' | 'stretch';
+export type TransformerResizeMethod = 'nearest' | 'triangle' | 'catmullrom' | 'gaussian' | 'lanczos3';
+
+export type TransformerRotateAngle = 90 | 180 | 270;
+
+export interface TransformerSettingsBase {
+  format: FileType;
+}
 
 // TODO: Remove the optional main key and instead add that to the TransformerSettings union
 export interface TransformerSettingsResize {
   resize?:
     | {
-        width?: number;
-        height?: number;
+        width: number;
+        height: number;
         maintainAspectRatio?: boolean;
-        method: TransformerResizeMethod;
-        fillMethod?: TransformerResizeFillMethod;
+        method?: TransformerResizeMethod;
       }
     | undefined;
 }
@@ -34,12 +37,41 @@ export interface TransformerSettingsCrop {
     | undefined;
 }
 
-export interface TransformerSettingsOptimize {
-  optimize?:
+export interface TransformerSettingsFilter {
+  filter?:
     | {
-        level: number;
-        interlace?: boolean;
-        optimizeAlpha?: boolean;
+        grayscale?: boolean;
+        invert?: boolean;
+        blur?: {
+          sigma: number;
+        };
+        brighten?: {
+          amount: number;
+        };
+        contrast?: {
+          amount: number;
+        };
+        unsharpen?: {
+          sigma: number;
+          threshold: number;
+        };
+      }
+    | undefined;
+}
+
+export interface TransformerSettingsFlip {
+  flip?:
+    | {
+        horizontal?: boolean;
+        vertical?: boolean;
+      }
+    | undefined;
+}
+
+export interface TransformerSettingsRotate {
+  rotate?:
+    | {
+        angle: TransformerRotateAngle;
       }
     | undefined;
 }
@@ -53,15 +85,34 @@ export interface TransformerSettingsTrim {
     | undefined;
 }
 
-export type TransformerSettings = TransformerSettingsResize &
-  TransformerSettingsCrop &
-  TransformerSettingsOptimize &
-  TransformerSettingsTrim;
+export interface TransformerSettingsOptimize {
+  optimize?:
+    | {
+        level: number;
+        interlace?: boolean;
+        optimizeAlpha?: boolean;
+      }
+    | undefined;
+}
 
-export type TransformerSettingsImage = TransformerSettingsResize &
+export type TransformerSettings = TransformerSettingsBase &
+  TransformerSettingsResize &
+  TransformerSettingsRotate &
   TransformerSettingsCrop &
+  TransformerSettingsFilter &
+  TransformerSettingsFlip &
+  TransformerSettingsTrim &
   TransformerSettingsOptimize;
-export type TransformerSettingsVideo = TransformerSettingsResize & TransformerSettingsTrim;
+
+export type TransformerSettingsImage = TransformerSettingsBase &
+  TransformerSettingsResize &
+  TransformerSettingsRotate &
+  TransformerSettingsCrop &
+  TransformerSettingsFilter &
+  TransformerSettingsFlip &
+  TransformerSettingsOptimize;
+
+export type TransformerSettingsVideo = TransformerSettingsBase & TransformerSettingsResize & TransformerSettingsTrim;
 
 export type TransformerSetting = keyof TransformerSettings;
 

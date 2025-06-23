@@ -1,6 +1,5 @@
 use image::DynamicImage;
 use image::ImageFormat;
-use std::io::Cursor;
 use wasm_bindgen::prelude::*;
 
 use crate::js;
@@ -26,32 +25,124 @@ impl ImageProcessor {
         ImageProcessor { kind, transformer }
     }
 
-    pub fn import(&mut self, raw: Vec<u8>) {
-        js::log("Rust: Importing image data");
-        self.transformer.import(raw);
-    }
-
-    pub fn optimize(&mut self, level: u8, interlace: bool, optimize_alpha: bool) {
-        self.transformer.optimize(level, interlace, optimize_alpha);
-    }
-
-    #[wasm_bindgen(js_name = "processTo")]
-    pub fn process_to(&mut self, format: &str) -> Vec<u8> {
-        let format = match format.to_lowercase().as_str() {
+    fn get_format(format: &str) -> ImageFormat {
+        match format.to_lowercase().as_str() {
             "png" => ImageFormat::Png,
             "jpeg" | "jpg" => ImageFormat::Jpeg,
             "gif" => ImageFormat::Gif,
             "bmp" => ImageFormat::Bmp,
             "webp" => ImageFormat::WebP,
             _ => panic!("Unsupported image format: {}", format),
+        }
+    }
+
+    pub fn import(&mut self, raw: Vec<u8>) {
+        js::log("Rust: Importing image data");
+        self.transformer.import(raw);
+    }
+
+    pub fn export(&mut self, format: &str) -> Vec<u8> {
+        let format = Self::get_format(format);
+        js::log("Rust: Exporting image data");
+
+        self.transformer.export(format)
+    }
+
+    pub fn rotate(&mut self, degrees: u16) {
+        js::log("Rust: Rotating image");
+        let rotation = match degrees {
+            90 => image_transformer::ImageRotation::Degrees90,
+            180 => image_transformer::ImageRotation::Degrees180,
+            270 => image_transformer::ImageRotation::Degrees270,
+            _ => panic!("Unsupported rotation angle: {}", degrees),
         };
 
-        js::log("Rust: Starting processing");
-        let img = self.transformer.exec();
+        self.transformer.rotate(rotation);
+    }
 
-        let mut buffer = Cursor::new(Vec::new());
-        img.write_to(&mut buffer, format)
-            .expect("Failed to write image");
-        buffer.into_inner()
+    pub fn resize(&mut self, width: u32, height: u32, maintain_aspect_ratio: bool, filter: &str) {
+        js::log("Rust: Resizing image");
+        let filter = match filter.to_lowercase().as_str() {
+            "nearest" => image::imageops::FilterType::Nearest,
+            "triangle" => image::imageops::FilterType::Triangle,
+            "catmullrom" => image::imageops::FilterType::CatmullRom,
+            "gaussian" => image::imageops::FilterType::Gaussian,
+            "lanczos3" => image::imageops::FilterType::Lanczos3,
+            _ => panic!("Unsupported filter type: {}", filter),
+        };
+
+        self.transformer
+            .resize(width, height, maintain_aspect_ratio, filter);
+    }
+
+    pub fn crop(&mut self, x: u32, y: u32, width: u32, height: u32) {
+        js::log("Rust: Cropping image");
+        self.transformer.crop(x, y, width, height);
+    }
+
+    pub fn flip(&mut self, horizontal: bool, vertical: bool) {
+        if horizontal {
+            js::log("Rust: Flipping image horizontally");
+            self.transformer.flip_horizontal();
+        }
+        if vertical {
+            js::log("Rust: Flipping image vertically");
+            self.transformer.flip_vertical();
+        }
+    }
+
+    pub fn grayscale(&mut self) {
+        js::log("Rust: Converting image to grayscale");
+        self.transformer.grayscale();
+    }
+
+    pub fn blur(&mut self, sigma: f32) {
+        js::log("Rust: Applying Gaussian blur to image");
+        self.transformer.blur(sigma)
+    }
+
+    pub fn brighten(&mut self, value: i32) {
+        js::log("Rust: Brightening image");
+        self.transformer.brighten(value);
+    }
+
+    pub fn contrast(&mut self, value: f32) {
+        js::log("Rust: Adjusting image contrast");
+        self.transformer.contrast(value);
+    }
+
+    pub fn unsharpen(&mut self, sigma: f32, threshold: i32) {
+        js::log("Rust: Applying unsharp mask to image");
+        self.transformer.unsharpen(sigma, threshold);
+    }
+
+    pub fn invert(&mut self) {
+        js::log("Rust: Inverting image colors");
+        self.transformer.invert();
+    }
+
+    /// Post-processing function to export image in an optimal way.
+    pub fn optimize(
+        &mut self,
+        format: &str,
+        level: u8,
+        interlace: bool,
+        optimize_alpha: bool,
+    ) -> Vec<u8> {
+        let format = Self::get_format(format);
+
+        self.transformer
+            .optimize(format, level, interlace, optimize_alpha)
+    }
+
+    // Perform the image processing and save the result as a byte vector on this class.
+    // Later, the user can call post-processing methods to export the image.
+    pub fn exec(&mut self, format: &str) {
+        let format = Self::get_format(format);
+
+        js::log("Rust: Starting processing");
+        self.transformer.exec(format);
+
+        js::log("Rust: Processing completed");
     }
 }

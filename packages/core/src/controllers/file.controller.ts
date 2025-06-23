@@ -26,6 +26,7 @@ class FileController extends BaseController<FileBaseModel, FileModel, FileCreate
 
   public async import(file: File, originalFileId?: UUID) {
     const kind = determineFileKind(file.type);
+    console.log(`Importing file of kind: ${kind}`, file);
     const metadata = await this.metadataExtractor.extractMetadata(file, kind);
 
     let originalFile: FileModel | undefined;
@@ -36,9 +37,14 @@ class FileController extends BaseController<FileBaseModel, FileModel, FileCreate
       }
     }
 
+    // TODO: Handle this in a better place, in a more robust way
+    const originalExtension = originalFile?.name.split('.').pop() ?? 'png';
+    const originalNameWithoutExtension = originalFile?.name.replace(`.${originalExtension}`, '');
+    const newExtension = file.name.split('.').pop() ?? originalExtension;
+    const finalName = originalNameWithoutExtension ? `${originalNameWithoutExtension}.${newExtension}` : file.name;
+
     return await this.create({
-      name: originalFile?.name ?? file.name,
-      originalName: originalFile?.name ?? file.name,
+      name: finalName,
       blob: file,
       kind,
       metadata,

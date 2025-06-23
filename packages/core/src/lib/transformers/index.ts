@@ -3,7 +3,7 @@ import { TransformerCtrl } from '#controllers/transformer.controller';
 import type { TransformerModel } from '#models';
 import type { TransformerExecuteCallback, TransformerSettingsImage, TransformerStatus, UUID } from '#types';
 
-import { optimize } from './optimize';
+import { getImageWorker } from '../workers';
 
 export async function executeTransformer(
   transformer: TransformerModel,
@@ -40,13 +40,15 @@ async function executeImageTransformer(
       callback({
         id: transformer.id,
         status: transformer.status,
-        message: `Optimizing file ${originalFile.name}...`,
+        message: `Processing file ${originalFile.name}...`,
         files: getFileStates(resultFileIds),
       });
       try {
-        const resultBlob = await optimize(originalFile.blob, originalFile.kind, settings.optimize);
+        const worker = getImageWorker();
+        const resultBlob = await (await worker).process(originalFile, settings);
         const resultFile = await FileCtrl.import(resultBlob, originalFile.id);
         resultFileIds.push(resultFile.id);
+
         callback({
           id: transformer.id,
           status: transformer.status,

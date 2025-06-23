@@ -5,7 +5,6 @@ import type { FileKind, FileMetadata } from '#types/file.types';
 export interface FileBaseModel extends BaseModel {
   size: number;
   name: string;
-  originalName: string;
   kind: FileKind;
   blob: File;
   metadata: FileMetadata;

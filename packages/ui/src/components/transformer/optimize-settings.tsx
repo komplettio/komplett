@@ -21,7 +21,7 @@ export default function OptimizeSettings({ transformer, busy, onChange, toggleFe
   const debouncedLevel = useDebounce(level);
 
   useEffect(() => {
-    onChange('optimize', 'level')(debouncedLevel);
+    onChange('optimize', 'level')(debouncedLevel[0]);
   }, [debouncedLevel]);
 
   if (transformerHasSetting(transformer, 'optimize')) {
@@ -47,7 +47,7 @@ export default function OptimizeSettings({ transformer, busy, onChange, toggleFe
               value={level}
               onValueChange={setLevel}
               disabled={!transformer.settings.optimize || busy}
-              min={1}
+              min={0}
               max={10}
               step={1}
             >
