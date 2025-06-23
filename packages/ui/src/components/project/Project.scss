@@ -219,8 +219,6 @@
   background: themed('color-surface');
   border-radius: themed('size-4');
   border: 1px solid themed('color-border-light');
-  display: grid;
-  grid-template-rows: auto calc(themed('size-7') + themed('size-6'));
   overflow: hidden;
   position: relative;
   min-height: 300px;

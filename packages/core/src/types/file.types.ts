@@ -1,10 +1,17 @@
-import type { AUDIO_FILE_TYPES, DOCUMENT_FILE_TYPES, IMAGE_FILE_TYPES, VIDEO_FILE_TYPES } from '#constants';
+import type {
+  AUDIO_FILE_TYPES,
+  DOCUMENT_FILE_TYPES,
+  IMAGE_FILE_TYPES,
+  TEXT_FILE_TYPES,
+  VIDEO_FILE_TYPES,
+} from '#constants';
 
 export type ImageFileType = (typeof IMAGE_FILE_TYPES)[number];
 export type VideoFileType = (typeof VIDEO_FILE_TYPES)[number];
 export type AudioFileType = (typeof AUDIO_FILE_TYPES)[number];
 export type DocumentFileType = (typeof DOCUMENT_FILE_TYPES)[number];
-export type FileType = ImageFileType | VideoFileType | AudioFileType | DocumentFileType;
+export type TextFileType = (typeof TEXT_FILE_TYPES)[number];
+export type FileType = ImageFileType | VideoFileType | AudioFileType | DocumentFileType | TextFileType;
 
 export type FileKind = 'image' | 'video' | 'audio' | 'text' | 'document' | 'unknown';
 

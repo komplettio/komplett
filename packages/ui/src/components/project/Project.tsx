@@ -12,7 +12,6 @@ import { useImportFile, useUpdateProject } from '#state/mutations';
 import { useTransformer } from '#state/queries';
 import { ConfirmationModal } from '#ui/ConfirmationModal';
 
-import ProjectControlBar from './project-control-bar/project-control-bar';
 import BaseViewer from './viewers/BaseViewer';
 
 import './Project.scss';
@@ -129,7 +128,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         ) : (
           <FileDropZone onFileUpload={handleFileUpload} />
         )}
-        <ProjectControlBar files={project.files} selectedFileId={selectedFileId} onFileSelect={setSelectedFileId} />
       </div>
 
       <div className="editor-section">

@@ -1,3 +1,4 @@
+import { DEFAULT_FILE_TYPE_MAP } from '#constants/file.constants.js';
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
 import type { ProjectBaseModel, ProjectCreateModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
@@ -50,7 +51,7 @@ class ProjectController extends BaseController<ProjectBaseModel, ProjectModel, P
         projectId: project.id,
         kind,
         settings: {
-          format: 'jpeg', // Default format, should be changed by the user
+          format: DEFAULT_FILE_TYPE_MAP[kind],
         },
         resultFileIds: [],
         status: 'idle',
