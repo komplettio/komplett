@@ -16,7 +16,7 @@ export const FILE_TYPE_MAP = {
 } as const satisfies Record<FileKind, readonly string[]>;
 
 export const DEFAULT_FILE_TYPE_MAP = {
-  image: 'png',
+  image: 'jpg',
   video: 'mp4',
   audio: 'mp3',
   text: 'txt',

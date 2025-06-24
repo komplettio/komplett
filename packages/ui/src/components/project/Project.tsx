@@ -1,15 +1,22 @@
 import { useMutationState } from '@tanstack/react-query';
-import { ArrowLeft, Download, Settings, Trash2 } from 'lucide-react';
+import { ArrowLeft, Download, Trash2 } from 'lucide-react';
 import type React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import type { FileBaseModel, ProjectModel, UUID } from '@komplett/core';
+import type { ProjectModel, UUID } from '@komplett/core';
 
 import { FileDropZone } from '#components/file-manager/FileDropZone';
 import TransformerSettings from '#components/transformer/transformer-settings';
-import { useImportFile, useUpdateProject } from '#state/mutations';
+import {
+  useDeleteFiles,
+  useDeleteProject,
+  useGetFilesImperatively,
+  useImportFile,
+  useUpdateProject,
+} from '#state/mutations';
 import { useTransformer } from '#state/queries';
+import * as UI from '#ui';
 import { ConfirmationModal } from '#ui/ConfirmationModal';
 
 import BaseViewer from './viewers/BaseViewer';
@@ -22,8 +29,13 @@ interface ProjectProps {
 
 export const Project: React.FC<ProjectProps> = ({ project }) => {
   const navigate = useNavigate();
+
   const importFile = useImportFile();
   const updateProject = useUpdateProject();
+  const deleteProject = useDeleteProject();
+  const deleteFiles = useDeleteFiles();
+  const getFiles = useGetFilesImperatively();
+
   const transformerExecuting = useMutationState({
     filters: { status: 'pending', mutationKey: ['transformers.execute'] },
     select: mutation => mutation.mutationId,
@@ -33,7 +45,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
 
   const [selectedFileId, setSelectedFileId] = useState<UUID | null>(project.files[0]?.id ?? null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
 
   const resultFile = transformer?.resultFiles.find(file => file.originalFileId === selectedFileId);
 
@@ -42,16 +53,11 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   };
 
   const handleDeleteProject = () => {
-    try {
-      setIsDeleting(true);
-      // await deleteProject(project.id);
-      setIsDeleteModalOpen(false);
-      // Navigation will be handled by the context
-    } catch (error) {
-      console.error('Failed to delete project:', error);
-    } finally {
-      setIsDeleting(false);
-    }
+    deleteProject.mutate(project.id, {
+      onSuccess: () => {
+        setIsDeleteModalOpen(false);
+      },
+    });
   };
 
   const handleFileUpload = async (files: File[]) => {
@@ -68,11 +74,46 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     }
   };
 
-  const handleDeleteFile = (_: FileBaseModel) => {
-    // TODO: handle
-    if (window.confirm('Are you sure you want to delete this file?')) {
-      // await deleteFile(fileId);
-    }
+  const handleFilesDelete = () => {
+    deleteFiles.mutate(
+      project.files.map(file => file.id),
+      {
+        onSuccess: () => {
+          setSelectedFileId(null);
+          updateProject.mutate({
+            id: project.id,
+            data: {
+              fileIds: [],
+            },
+          });
+        },
+      },
+    );
+  };
+
+  const handleFilesExport = () => {
+    if (!project.transformer) return;
+
+    getFiles.mutate(project.transformer.resultFileIds, {
+      onSuccess: files => {
+        const fileBlobs = files.map(file => file.blob);
+
+        for (const file of fileBlobs) {
+          const fileURL = URL.createObjectURL(file);
+
+          const downloadLink = document.createElement('a');
+          downloadLink.href = fileURL;
+          downloadLink.download = file.name || 'unknown komplett file';
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+
+          URL.revokeObjectURL(fileURL);
+        }
+      },
+      onError: err => {
+        console.error('Failed to export files:', err);
+      },
+    });
   };
 
   return (
@@ -90,19 +131,17 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         </div>
 
         <div className="header-actions">
-          <button className="action-button">
-            <Settings size={20} />
-            Settings
-          </button>
-          <button
-            className="action-button danger"
+          <UI.Button.Root
+            className="action-button"
+            error
+            large
             onClick={() => {
               setIsDeleteModalOpen(true);
             }}
           >
             <Trash2 size={20} />
             Delete
-          </button>
+          </UI.Button.Root>
         </div>
       </div>
 
@@ -135,21 +174,14 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
           <h3 className="file-name">File actions:</h3>
           <div className="file-actions">
             {/* TODO */}
-            <button className="action-button">
+            <UI.Button.Root secondary large className="action-button" onClick={handleFilesExport}>
               <Download size={16} />
-              Download
-            </button>
-            <button
-              className="action-button danger"
-              onClick={() => {
-                if (project.files[0]) {
-                  handleDeleteFile(project.files[0]);
-                }
-              }}
-            >
+              Export
+            </UI.Button.Root>
+            <UI.Button.Root error large className="action-button danger" onClick={handleFilesDelete}>
               <Trash2 size={16} />
               Delete
-            </button>
+            </UI.Button.Root>
           </div>
         </div>
 
@@ -170,7 +202,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         cancelText="Cancel"
         variant="danger"
         projectName={project.name}
-        isLoading={isDeleting}
+        isLoading={deleteProject.isPending}
       />
     </div>
   );

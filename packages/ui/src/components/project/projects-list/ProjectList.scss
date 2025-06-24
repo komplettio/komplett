@@ -465,6 +465,11 @@
   }
 }
 
+a:has(.project-card) {
+  text-decoration: none;
+  color: inherit; // Inherit color from parent
+}
+
 .project-card {
   background: themed('color-surface');
   border: 1px solid themed('color-border-light');
@@ -473,6 +478,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 44px; // Touch target
+
+  text-decoration: none;
 
   &:hover {
     transform: translateY(-2px);

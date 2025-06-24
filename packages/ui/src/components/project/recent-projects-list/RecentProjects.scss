@@ -2,24 +2,29 @@ h2 {
   margin-top: 8px;
 }
 
-.recent-projects-grid {
+.recent-projects {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: themed('size-4');
   overflow-y: auto;
-  margin-top: themed('size-4');
+  padding-top: themed('size-4');
 
   .project-card {
     padding: themed('size-4');
   }
 
-  // Mobile adjustments
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  @include media('<=desktop') {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 
-  // Desktop adjustments
-  @media (min-width: 1025px) {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  @include media('<=tablet') {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+
+  @include media('<=phone') {
+    grid-template-columns: minmax(100px, 200px);
   }
 }

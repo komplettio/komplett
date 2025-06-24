@@ -142,7 +142,13 @@ export class ImageWorker {
       resultBuffer = this.processor.export(settings.format);
     }
 
-    return new File([resultBuffer], `output.${settings.format}`, { type: `image/${settings.format}` });
+    // TODO: Handle this better
+    const originalExtension = file.name.split('.').pop() ?? 'png';
+    const originalNameWithoutExtension = file.name.replace(`.${originalExtension}`, '');
+    const newExtension = settings.format;
+    const finalName = originalNameWithoutExtension ? `${originalNameWithoutExtension}.${newExtension}` : file.name;
+
+    return new File([resultBuffer], finalName, { type: `image/${newExtension}` });
   }
 }
 

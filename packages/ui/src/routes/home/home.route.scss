@@ -1,8 +1,42 @@
 .home {
   height: 100%;
+  width: 80%;
+  padding: 0 themed('size-8');
+  margin: auto;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column;
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__subtitle {
+    color: themed('color-text-secondary');
+    margin-bottom: themed('size-7');
+
+    span {
+      color: themed('color-interactive');
+    }
+  }
+
+  @include media('<=ultrawide') {
+    width: 100%;
+  }
+
+  @include media('<=desktop') {
+    padding: themed('size-7');
+  }
+
+  @include media('<=tablet') {
+    width: 100%;
+    padding: themed('size-6');
+  }
+
+  @include media('<=phone') {
+    width: 100%;
+    padding: themed('size-5');
+  }
 }

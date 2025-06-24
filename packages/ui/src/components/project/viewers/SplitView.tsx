@@ -75,6 +75,11 @@ export default function SplitView({ children, className, originalFile, resultFil
         onResize={handleResize}
         resizeRatio={1 / zoomFactor}
         bounds="parent"
+        handleStyles={{
+          right: {
+            width: 3,
+          },
+        }}
         handleComponent={{
           right: <SplitViewHandle originalFile={originalFile} resultFile={resultFile} />,
         }}

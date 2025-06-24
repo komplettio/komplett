@@ -32,7 +32,7 @@ export class FileHandler extends EventHandler {
   @on('files.delete')
   async deleteFile(data: Events['files.delete'], ctx: EventHandlerContext<'files.delete'>) {
     console.log('Deleting file:', data);
-    await FileCtrl.delete(data.payload.id);
+    await FileCtrl.deleteMany(data.payload.ids);
 
     await ctx.emitter.respond('files.delete', data, null);
   }

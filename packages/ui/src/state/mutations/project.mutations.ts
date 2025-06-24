@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import type { ProjectCreateResponse} from '@komplett/core';
+import type { ProjectCreateResponse, UUID } from '@komplett/core';
 import { emitter, type ProjectCreateEvent, type ProjectUpdateEvent } from '@komplett/core';
 
 export function useCreateProject() {
@@ -25,6 +25,22 @@ export function useUpdateProject() {
       return new Promise<void>((resolve, reject) => {
         emitter
           .await('projects.update', data, () => {
+            resolve();
+          })
+          .catch((err: unknown) => {
+            reject(err as Error);
+          });
+      });
+    },
+  });
+}
+
+export function useDeleteProject() {
+  return useMutation({
+    mutationFn: async (projectId: UUID) => {
+      return new Promise<void>((resolve, reject) => {
+        emitter
+          .await('projects.delete', { id: projectId }, () => {
             resolve();
           })
           .catch((err: unknown) => {

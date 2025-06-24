@@ -32,9 +32,8 @@
 
   &__handle {
     background-color: themed('color-border-light');
-    width: themed('size-2');
     height: 100%;
-    transform: translateX(200%);
+    transform: translateX(-100%);
   }
 
   .base-viewer__label {

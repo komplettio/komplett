@@ -7,12 +7,16 @@ import { formatFileSize } from '#utils/formatters';
 import './RecentProjects.scss';
 
 export default function RecentProjects() {
-  const { data: projects, isLoading: isLoadingProjects } = useProjects({ limit: 2 });
+  const { data: projects, isLoading: isLoadingProjects } = useProjects({ limit: 3 });
+
+  if (projects && projects.length === 0) {
+    return null;
+  }
 
   return (
     <>
       <h2>Recent projects:</h2>
-      <div className="recent-projects-grid">
+      <div className="recent-projects">
         {isLoadingProjects ? (
           <div>Loading...</div>
         ) : (

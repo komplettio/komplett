@@ -1,4 +1,4 @@
-import { FileIcon, Image, Music, Upload, Video } from 'lucide-react';
+import { Image, Music, Upload, Video } from 'lucide-react';
 import type React from 'react';
 import { useCallback, useState } from 'react';
 
@@ -130,10 +130,10 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({ onFileUpload }) => {
         </label>
 
         <div className="supported-formats">
-          <div className="format-group">
+          {/* <div className="format-group">
             <FileIcon size={18} />
             <span>Documents</span>
-          </div>
+          </div> */}
           <div className="format-group">
             <Image size={18} />
             <span>Images</span>
