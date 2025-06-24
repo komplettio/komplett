@@ -2,7 +2,6 @@ use image::DynamicImage;
 use image::ImageFormat;
 use wasm_bindgen::prelude::*;
 
-use crate::js;
 use crate::transformers;
 use crate::transformers::image_transformer;
 
@@ -37,19 +36,16 @@ impl ImageProcessor {
     }
 
     pub fn import(&mut self, raw: Vec<u8>) {
-        js::log("Rust: Importing image data");
         self.transformer.import(raw);
     }
 
     pub fn export(&mut self, format: &str) -> Vec<u8> {
         let format = Self::get_format(format);
-        js::log("Rust: Exporting image data");
 
         self.transformer.export(format)
     }
 
     pub fn rotate(&mut self, degrees: u16) {
-        js::log("Rust: Rotating image");
         let rotation = match degrees {
             90 => image_transformer::ImageRotation::Degrees90,
             180 => image_transformer::ImageRotation::Degrees180,
@@ -61,7 +57,6 @@ impl ImageProcessor {
     }
 
     pub fn resize(&mut self, width: u32, height: u32, maintain_aspect_ratio: bool, filter: &str) {
-        js::log("Rust: Resizing image");
         let filter = match filter.to_lowercase().as_str() {
             "nearest" => image::imageops::FilterType::Nearest,
             "triangle" => image::imageops::FilterType::Triangle,
@@ -76,48 +71,39 @@ impl ImageProcessor {
     }
 
     pub fn crop(&mut self, x: u32, y: u32, width: u32, height: u32) {
-        js::log("Rust: Cropping image");
         self.transformer.crop(x, y, width, height);
     }
 
     pub fn flip(&mut self, horizontal: bool, vertical: bool) {
         if horizontal {
-            js::log("Rust: Flipping image horizontally");
             self.transformer.flip_horizontal();
         }
         if vertical {
-            js::log("Rust: Flipping image vertically");
             self.transformer.flip_vertical();
         }
     }
 
     pub fn grayscale(&mut self) {
-        js::log("Rust: Converting image to grayscale");
         self.transformer.grayscale();
     }
 
     pub fn blur(&mut self, sigma: f32) {
-        js::log("Rust: Applying Gaussian blur to image");
         self.transformer.blur(sigma)
     }
 
     pub fn brighten(&mut self, value: i32) {
-        js::log("Rust: Brightening image");
         self.transformer.brighten(value);
     }
 
     pub fn contrast(&mut self, value: f32) {
-        js::log("Rust: Adjusting image contrast");
         self.transformer.contrast(value);
     }
 
     pub fn unsharpen(&mut self, sigma: f32, threshold: i32) {
-        js::log("Rust: Applying unsharp mask to image");
         self.transformer.unsharpen(sigma, threshold);
     }
 
     pub fn invert(&mut self) {
-        js::log("Rust: Inverting image colors");
         self.transformer.invert();
     }
 
@@ -140,9 +126,6 @@ impl ImageProcessor {
     pub fn exec(&mut self, format: &str) {
         let format = Self::get_format(format);
 
-        js::log("Rust: Starting processing");
         self.transformer.exec(format);
-
-        js::log("Rust: Processing completed");
     }
 }

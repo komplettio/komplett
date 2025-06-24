@@ -4,7 +4,6 @@ use oxipng::Interlacing;
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
 
-use crate::js;
 use crate::transformers;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -37,13 +36,10 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
 
         let image = reader.decode().expect("Failed to decode image data");
 
-        js::log("Successfully imported image data.");
         self.data = Some(image);
     }
 
     pub fn export(&mut self, format: ImageFormat) -> Vec<u8> {
-        js::log("Exporting image data...");
-
         let img = self.data.take().expect("No image data to export");
         let mut buffer = Cursor::new(Vec::new());
 
@@ -73,7 +69,6 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
         filter: image::imageops::FilterType,
     ) {
         self.chain(move |img, _| {
-            js::log(&format!("Resizing image to {}x{}...", width, height));
             if maintain_aspect_ratio {
                 return img.resize(width, height, filter);
             } else {
@@ -83,18 +78,11 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
     }
 
     pub fn crop(&mut self, x: u32, y: u32, width: u32, height: u32) {
-        self.chain(move |img, _| {
-            js::log(&format!(
-                "Cropping image to {}x{} at ({}, {})...",
-                width, height, x, y
-            ));
-            img.crop_imm(x, y, width, height)
-        });
+        self.chain(move |img, _| img.crop_imm(x, y, width, height));
     }
 
     pub fn rotate(&mut self, degrees: ImageRotation) {
         self.chain(move |img, _| {
-            js::log(&format!("Rotating image by {} degrees...", degrees as u32));
             if degrees == ImageRotation::Degrees90 {
                 img.rotate90()
             } else if degrees == ImageRotation::Degrees180 {
@@ -111,24 +99,15 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
     }
 
     pub fn flip_horizontal(&mut self) {
-        self.chain(|img, _| {
-            js::log("Flipping image horizontally...");
-            img.fliph()
-        });
+        self.chain(|img, _| img.fliph());
     }
 
     pub fn flip_vertical(&mut self) {
-        self.chain(|img, _| {
-            js::log("Flipping image vertically...");
-            img.flipv()
-        });
+        self.chain(|img, _| img.flipv());
     }
 
     pub fn grayscale(&mut self) {
-        self.chain(|img, _| {
-            js::log("Converting image to grayscale...");
-            img.grayscale()
-        });
+        self.chain(|img, _| img.grayscale());
     }
 
     pub fn blur(&mut self, sigma: f32) {
@@ -136,32 +115,19 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
     }
 
     pub fn brighten(&mut self, amount: i32) {
-        self.chain(move |img, _| {
-            js::log(&format!("Brightening image by {}...", amount));
-            img.brighten(amount)
-        });
+        self.chain(move |img, _| img.brighten(amount));
     }
 
     pub fn contrast(&mut self, amount: f32) {
-        self.chain(move |img, _| {
-            js::log(&format!("Adjusting contrast by {}...", amount));
-            img.adjust_contrast(amount)
-        });
+        self.chain(move |img, _| img.adjust_contrast(amount));
     }
 
     pub fn unsharpen(&mut self, sigma: f32, threshold: i32) {
-        self.chain(move |img, _| {
-            js::log(&format!(
-                "Applying unsharp mask with sigma {} and threshold {}...",
-                sigma, threshold
-            ));
-            img.unsharpen(sigma, threshold)
-        });
+        self.chain(move |img, _| img.unsharpen(sigma, threshold));
     }
 
     pub fn invert(&mut self) {
         self.chain(|mut img, _| {
-            js::log("Inverting image colors...");
             img.invert();
             img
         });
@@ -176,7 +142,6 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
         optimize_alpha: bool,
     ) -> Vec<u8> {
         if format == ImageFormat::Png {
-            js::log("Optimizing PNG image...");
             let image = self.data.take().expect("No image data to optimize");
 
             // get a png buffer
@@ -199,7 +164,6 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
 
             return res;
         } else {
-            js::log("Skipping optimization for non-PNG image format.");
             return self.export(format);
         }
     }

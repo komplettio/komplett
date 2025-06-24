@@ -3,7 +3,7 @@ pub mod image_transformer;
 use image::ImageFormat;
 use std::collections::VecDeque;
 
-use crate::js;
+
 
 pub struct Transformer<T, S> {
     pub kind: T,
@@ -34,7 +34,7 @@ impl<T, S> Transformer<T, S> {
             .expect("failed to execute transformer: No data provided");
 
         if self.actions.is_empty() {
-            js::log("Transformer has no actions to execute");
+            
             self.data = Some(state);
             return;
         }
