@@ -31,6 +31,18 @@ class TransformerController extends BaseController<
   public async updateStatus(id: UUID, status: TransformerBaseModel['status']): Promise<void> {
     await this.update(id, { status });
   }
+
+  public unassignFiles(id: UUID, fileIds: UUID[]): Promise<void> {
+    return db.transaction('rw', [db.transformers], async () => {
+      const transformer = await this.getById(id);
+      if (!transformer) {
+        throw new Error(`Transformer with ID ${id} not found`);
+      }
+
+      const updatedFileIds = transformer.resultFileIds.filter(fileId => !fileIds.includes(fileId));
+      await this.update(id, { resultFileIds: updatedFileIds });
+    });
+  }
 }
 
 export const TransformerCtrl = TransformerController.getInstance();

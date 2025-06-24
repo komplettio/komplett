@@ -30,6 +30,7 @@ export function useFile(id: UUID | null) {
   return useQuery({
     queryKey: ['files', id],
     enabled: !!id,
+    placeholderData: prev => prev,
     queryFn: async () => {
       if (!id) return;
 

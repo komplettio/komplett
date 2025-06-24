@@ -102,10 +102,21 @@ export class ImageWorker {
     console.log('Processing file in worker:', file.name);
     this.file = file;
 
-    const arr = await file.blob.bytes();
-    this.processor.import(arr);
+    const arr: Uint8Array = new Uint8Array(await file.blob.arrayBuffer());
 
-    this.handleSettings(settings);
+    try {
+      this.processor.import(arr);
+    } catch (error) {
+      console.error('Error importing image data:', error);
+      throw new Error(`Failed to import image data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+
+    try {
+      this.handleSettings(settings);
+    } catch (error) {
+      console.error('Error handling settings:', error);
+      throw new Error(`Failed to handle settings: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
 
     try {
       console.log('Executing image processing with format:', settings.format);

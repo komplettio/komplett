@@ -5,15 +5,27 @@
   display: flex;
 
   &__item {
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 100% !important;
 
     &:first-of-type {
       z-index: 1;
 
       .split-view__container {
         overflow: hidden;
+      }
+    }
+
+    &:last-of-type {
+      position: absolute;
+      overflow: hidden;
+      right: 0;
+      width: auto;
+
+      .split-view__container {
+        img {
+          display: block;
+          float: right;
+        }
       }
     }
   }

@@ -7,12 +7,20 @@ import { useEditorStore } from '#state/stores';
 import './ZoomableView.scss';
 
 export interface ZoomableViewProps {
-  zoomEnabled?: boolean | undefined;
   children?: React.ReactNode;
   className?: string;
+  contentWidth?: number;
+  contentHeight?: number;
+  zoomEnabled?: boolean;
 }
 
-export default function ZoomableView({ children, zoomEnabled, className }: ZoomableViewProps) {
+export default function ZoomableView({
+  children,
+  className,
+  contentWidth,
+  contentHeight,
+  zoomEnabled = true,
+}: ZoomableViewProps) {
   const [isResizingSplitView, setZoomFactor] = useEditorStore(state => [
     state.isResizingSplitView,
     state.setZoomFactor,
@@ -33,8 +41,21 @@ export default function ZoomableView({ children, zoomEnabled, className }: Zooma
       maxScale={20}
       minScale={0.1}
       onZoom={handleZoom}
+      velocityAnimation={{
+        disabled: true,
+      }}
+      onInit={ref => {
+        // Set initial zoom factor based on the current state
+        setZoomFactor(ref.state.scale);
+      }}
     >
-      <TransformComponent wrapperClass="zoomable-view">
+      <TransformComponent
+        wrapperClass="zoomable-view"
+        contentStyle={{
+          width: contentWidth ? `${String(contentWidth)}px` : undefined,
+          height: contentHeight ? `${String(contentHeight)}px` : undefined,
+        }}
+      >
         <div className={clsx('view', className)}>{children}</div>
       </TransformComponent>
     </TransformWrapper>

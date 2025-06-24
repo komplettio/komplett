@@ -46,13 +46,13 @@ impl transformers::Transformer<TImageTransformer, DynamicImage> {
         if format == ImageFormat::Jpeg || format == ImageFormat::Jpeg {
             // remove the alpha channel if it exists
             // TODO: Make the target format configurable
-            let img_buffer = img.to_rgb16();
+            let img_buffer = img.to_rgb8();
             img_buffer
                 .write_to(&mut buffer, format)
                 .expect("Failed to write image");
         } else {
             // TODO: Make the target format configurable
-            let img_buffer = img.to_rgba16();
+            let img_buffer = img.to_rgba8();
             img_buffer
                 .write_to(&mut buffer, format)
                 .expect("Failed to write image");

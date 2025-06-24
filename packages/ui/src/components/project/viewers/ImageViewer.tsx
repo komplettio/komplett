@@ -1,4 +1,4 @@
-import type { FileBaseModel } from '@komplett/core';
+import type { FileBaseModel, ImageMetadata } from '@komplett/core';
 
 import { formatFileSize } from '#utils/formatters';
 
@@ -70,10 +70,12 @@ function ImageViewSplit({ originalFile, resultFile }: { originalFile: FileBaseMo
   );
 }
 
-export default function ImageViewer({ originalFile, resultFile, mode, zoomEnabled }: ImageViewerProps) {
+export default function ImageViewer({ originalFile, resultFile, mode }: ImageViewerProps) {
   if (!originalFile) {
     return <div className="base-viewer__loading">Loading...</div>;
   }
+
+  const imageMetadata = originalFile.metadata as ImageMetadata;
 
   let viewComponent;
 
@@ -99,7 +101,13 @@ export default function ImageViewer({ originalFile, resultFile, mode, zoomEnable
   }
 
   return (
-    <ZoomableView className="image-viewer" zoomEnabled={zoomEnabled}>
+    <ZoomableView
+      className="image-viewer"
+      zoomEnabled={true}
+      contentHeight={imageMetadata.dimensions.height}
+      contentWidth={imageMetadata.dimensions.width}
+    >
+      <div className="base-viewer__processing-effect"></div>
       {viewComponent}
     </ZoomableView>
   );

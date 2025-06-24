@@ -119,7 +119,7 @@ export default function ResizeSettings({ transformer, busy, onChange, toggleFeat
                     <CheckIcon />
                   </UI.Select.ItemIndicator>
                 </UI.Select.Item>
-                <UI.Select.Item value="nearest-neighbor">
+                <UI.Select.Item value="nearest">
                   <UI.Select.ItemText>Nearest Neighbor</UI.Select.ItemText>
                   <UI.Select.ItemIndicator>
                     <CheckIcon />

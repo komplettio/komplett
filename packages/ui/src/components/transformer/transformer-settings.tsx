@@ -33,6 +33,11 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
   const [transformerProgress, setTransformerProgress] = useState(0);
   const [transformerProgressMessage, setTransformerProgressMessage] = useState('');
 
+  const transformerProgressPercent = Math.min(
+    100,
+    Math.round((transformerProgress / (transformer?.originalFiles.length ?? 0)) * 100),
+  );
+
   useEffect(() => {
     if (transformer?.resultFileIds.length === 0 && executeTransformer.isIdle) {
       executeTransformer.mutate({ data: { id: transformer.id }, callback: handleTransformerUpdate });
@@ -46,7 +51,7 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
   const handleTransformerUpdate = (resp: TransformerExecuteResponse) => {
     if (resp.files) {
       const completedFiles = Object.values(resp.files).filter(status => status === 'completed').length;
-      setTransformerProgress(Math.min(100, Math.round((completedFiles / transformer.originalFiles.length) * 100)));
+      setTransformerProgress(completedFiles);
     }
     setTransformerProgressMessage(resp.message);
   };
@@ -56,7 +61,7 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
       { data: { id: transformer.id }, callback: handleTransformerUpdate },
       {
         onSuccess: () => {
-          setTransformerProgress(100);
+          setTransformerProgress(transformer.originalFiles.length);
         },
       },
     );
@@ -158,7 +163,11 @@ export default function TransformerSettings({ id }: TransformerSettingsProps) {
                 : 'Unknown progress'}
           </span>
           <UI.Progress.Root primary>
-            <UI.Progress.Indicator style={{ width: `${String(transformerProgress)}%` }} />
+            <UI.Progress.Indicator style={{ width: `${String(transformerProgressPercent)}%` }}>
+              {!executeTransformer.isIdle
+                ? `file ${String(transformerProgress)} / ${String(transformer.originalFiles.length)}`
+                : null}
+            </UI.Progress.Indicator>
           </UI.Progress.Root>
         </UI.Label.Root>
         <UI.Select.Root

@@ -2,6 +2,13 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--default {
+    background-color: themed('color-surface');
+  }
 
   &--dark {
     background-color: unthemed('color-surface', 'dark');
@@ -59,27 +66,33 @@
     }
   }
 
-  &__processing-effect {
+  .base-viewer__processing-effect {
+    display: none;
+
     background: linear-gradient(45deg, #3d63dd, #3d95dd, #dd3d63, #95dd3d, #3d63dd);
     background-size: 300% 300%;
-    border-radius: 40%;
     animation: processing-gradient 3s ease-in-out infinite;
     filter: blur(50px);
     position: absolute;
-    width: 40%;
-    height: 40%;
+    height: 100%;
+    width: 100%;
     opacity: 0.2;
+    z-index: -1;
 
     @keyframes processing-gradient {
       0%,
       100% {
         background-position: 0% 50%;
-        transform: rotate(0deg);
       }
       50% {
         background-position: 100% 50%;
-        transform: rotate(180deg);
       }
+    }
+  }
+
+  &--busy {
+    .base-viewer__processing-effect {
+      display: block;
     }
   }
 

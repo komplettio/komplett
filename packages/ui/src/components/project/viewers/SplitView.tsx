@@ -9,6 +9,8 @@ import { formatFileSize } from '#utils/formatters';
 
 import './SplitView.scss';
 
+import { useRef, useState } from 'react';
+
 export interface SplitViewHandleProps {
   originalFile: FileBaseModel | undefined;
   resultFile: FileBaseModel | undefined;
@@ -35,10 +37,13 @@ export interface SplitViewProps {
 }
 
 export default function SplitView({ children, className, originalFile, resultFile }: SplitViewProps) {
+  const splitViewRef = useRef<HTMLDivElement>(null);
+  const [rightWidth, setRightWidth] = useState<number>(50);
   const [zoomFactor, setIsResizingSplitView] = useEditorStore(state => [
     state.zoomFactor,
     state.setIsResizingSplitView,
   ]);
+
   const handleResizeStart: ResizeStartCallback = () => {
     setIsResizingSplitView(true);
   };
@@ -47,8 +52,18 @@ export default function SplitView({ children, className, originalFile, resultFil
     setIsResizingSplitView(false);
   };
 
+  // Needed to calculate the width of the right pane based on the left pane's width
+  // The right element should never be 'below' the left one, as the left may have transparency
+  // Also, the left element cannot have a background, because the background pattern of the main container
+  // should match
+  const handleResize: ResizeCallback = (_, __, ref) => {
+    const parentWidth = splitViewRef.current?.clientWidth ?? 0;
+    const leftWidthPercentage = (ref.clientWidth / parentWidth) * 100;
+    setRightWidth(100 - leftWidthPercentage);
+  };
+
   return (
-    <div className={clsx('split-view', className)}>
+    <div className={clsx('split-view', className)} ref={splitViewRef}>
       <Resizable
         className="split-view__item"
         enable={{ right: true }}
@@ -57,6 +72,7 @@ export default function SplitView({ children, className, originalFile, resultFil
         maxWidth="95%"
         onResizeStart={handleResizeStart}
         onResizeStop={handleResizeStop}
+        onResize={handleResize}
         resizeRatio={1 / zoomFactor}
         bounds="parent"
         handleComponent={{
@@ -65,7 +81,7 @@ export default function SplitView({ children, className, originalFile, resultFil
       >
         <div className="split-view__container">{children[0]}</div>
       </Resizable>
-      <div className="split-view__item">
+      <div className="split-view__item" style={{ width: `${String(rightWidth)}%` }}>
         <div className="split-view__container">{children[1]}</div>
       </div>
     </div>

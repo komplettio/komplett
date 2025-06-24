@@ -87,7 +87,6 @@ export default function BaseViewer({
   resultFileId,
   kind,
   busy = false,
-  zoomEnabled = true,
 }: BaseViewerProps) {
   const { data: originalFile } = useFile(selectedFileId);
   const { data: resultFile } = useFile(resultFileId);
@@ -115,7 +114,11 @@ export default function BaseViewer({
   const Viewer = originalFile ? ViewerMap[originalFile.kind] : UnknownViewer;
 
   return (
-    <div className={clsx('base-viewer', `base-viewer--${background ?? 'default'}`)}>
+    <div
+      className={clsx('base-viewer', `base-viewer--${background ?? 'default'}`, {
+        'base-viewer--busy': busy,
+      })}
+    >
       <div className="base-viewer__overlay">
         <UI.Select.Root value={selectedFileId} onValueChange={onFileSelect}>
           <UI.Select.Trigger className="base-viewer__file-select__trigger">
@@ -181,21 +184,8 @@ export default function BaseViewer({
           </UI.ToggleGroup.Item>
         </UI.ToggleGroup.Root>
       </div>
-      {busy ? (
-        <div className="base-viewer__loading">
-          <div className="base-viewer__processing-effect"></div>
-          <p>Processing your file(s)!</p>
-          <span>This shouldn&apos;t take too long</span>
-        </div>
-      ) : (
-        <Viewer
-          originalFile={originalFile}
-          resultFile={resultFile}
-          mode={viewerMode}
-          kind={kind}
-          zoomEnabled={zoomEnabled}
-        />
-      )}
+
+      <Viewer originalFile={originalFile} resultFile={resultFile} mode={viewerMode} kind={kind} />
     </div>
   );
 }

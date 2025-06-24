@@ -46,7 +46,13 @@ export function Trigger({ className, children, ...props }: FeatureToggleTogglePr
     <Accordion.Trigger className="komplett__feature-toggle__trigger" asChild>
       <div>
         {children}
-        <Switch.Root {...props}>
+        <Switch.Root
+          {...props}
+          onClick={e => {
+            e.stopPropagation();
+            props.onClick?.(e);
+          }}
+        >
           <Switch.Thumb />
         </Switch.Root>
       </div>
