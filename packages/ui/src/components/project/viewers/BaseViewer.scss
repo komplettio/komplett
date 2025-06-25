@@ -104,22 +104,45 @@
     background-color: transparent;
     padding: themed('size-5');
 
-    display: flex;
+    display: grid;
+    grid-template-areas: 'file mode background' 'x zoom center-button';
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 1fr 1fr;
     justify-content: end;
     gap: themed('size-5');
     z-index: 1;
-  }
 
-  &__file-select {
-    &__trigger {
+    & > * {
       pointer-events: all;
     }
+  }
+
+  &__file-select__trigger {
+    grid-area: file;
+    min-width: 200px;
+  }
+
+  &__mode-switch {
+    grid-area: mode;
+  }
+
+  &__background-switch {
+    grid-area: background;
+  }
+
+  &__center-button {
+    grid-area: center-button;
+    align-self: end;
+  }
+
+  &__zoom-factor__trigger {
+    grid-area: zoom;
+    align-self: end;
   }
 
   &__mode-switch,
   &__background-switch {
     display: inline-flex;
-    pointer-events: all;
     flex-direction: row;
     border: 1px solid themed('color-border');
     border-radius: themed('border-radius');

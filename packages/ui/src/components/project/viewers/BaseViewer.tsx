@@ -30,6 +30,8 @@ import VideoViewer from './VideoViewer';
 
 import './BaseViewer.scss';
 
+const ZOOM_FACTOR_STEPS = [0.5, 1, 1.5, 2, 2.5, 3] as const;
+
 export const ViewerMap = {
   image: ImageViewer,
   video: VideoViewer,
@@ -90,9 +92,11 @@ export default function BaseViewer({
 }: BaseViewerProps) {
   const { data: originalFile } = useFile(selectedFileId);
   const { data: resultFile } = useFile(resultFileId);
-  const [viewerMode, background, setViewerMode, setBackground] = useEditorStore(s => [
+  const [viewerMode, background, zoomFactor, setZoomFactor, setViewerMode, setBackground] = useEditorStore(s => [
     s.viewerMode,
     s.background,
+    s.zoomFactor,
+    s.setZoomFactor,
     s.setViewerMode,
     s.setBackground,
   ]);
@@ -143,7 +147,6 @@ export default function BaseViewer({
             </UI.Select.Content>
           </UI.Select.Portal>
         </UI.Select.Root>
-
         <UI.ToggleGroup.Root
           className="base-viewer__mode-switch"
           type="single"
@@ -161,7 +164,6 @@ export default function BaseViewer({
               ),
           )}
         </UI.ToggleGroup.Root>
-
         <UI.ToggleGroup.Root
           className="base-viewer__background-switch"
           type="single"
@@ -183,6 +185,53 @@ export default function BaseViewer({
             <Grid3X3 size={20} />
           </UI.ToggleGroup.Item>
         </UI.ToggleGroup.Root>
+
+        <UI.Button.Root
+          className="base-viewer__center-button"
+          secondary
+          onClick={() => {
+            setZoomFactor(1);
+          }}
+        >
+          center
+        </UI.Button.Root>
+
+        <UI.Select.Root
+          value={zoomFactor.toFixed(2)}
+          onValueChange={v => {
+            setZoomFactor(Number(v));
+          }}
+        >
+          <UI.Select.Trigger className="base-viewer__zoom-factor__trigger">
+            <UI.Select.Value placeholder="Zoom factor" />
+            <UI.Select.Icon>
+              <ChevronDownIcon />
+            </UI.Select.Icon>
+          </UI.Select.Trigger>
+
+          <UI.Select.Portal>
+            <UI.Select.Content position="popper" className="base-viewer__zoom-factor__content">
+              {!ZOOM_FACTOR_STEPS.includes(zoomFactor as (typeof ZOOM_FACTOR_STEPS)[number]) && (
+                <UI.Select.Item value={zoomFactor.toFixed(2)}>
+                  <UI.Select.ItemText>{(zoomFactor * 100).toFixed(2)}%</UI.Select.ItemText>
+                  <UI.Select.ItemIndicator>
+                    <CheckIcon />
+                  </UI.Select.ItemIndicator>
+                </UI.Select.Item>
+              )}
+              {ZOOM_FACTOR_STEPS.map(zoom => (
+                <UI.Select.Item key={zoom} value={zoom.toFixed(2)}>
+                  <UI.Select.ItemText>{(zoom * 100).toFixed(2)}%</UI.Select.ItemText>
+                  {zoomFactor.toFixed(2) === zoom.toFixed(2) && (
+                    <UI.Select.ItemIndicator>
+                      <CheckIcon />
+                    </UI.Select.ItemIndicator>
+                  )}
+                </UI.Select.Item>
+              ))}
+            </UI.Select.Content>
+          </UI.Select.Portal>
+        </UI.Select.Root>
       </div>
 
       <Viewer originalFile={originalFile} resultFile={resultFile} mode={viewerMode} kind={kind} />

@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import type { ResizeCallback, ResizeStartCallback } from 're-resizable';
 import { Resizable } from 're-resizable';
+import { useRef, useState } from 'react';
+import { KeepScale } from 'react-zoom-pan-pinch';
 
 import type { FileBaseModel } from '@komplett/core';
 
@@ -8,8 +10,6 @@ import { useEditorStore } from '#state/stores';
 import { formatFileSize } from '#utils/formatters';
 
 import './SplitView.scss';
-
-import { useRef, useState } from 'react';
 
 export interface SplitViewHandleProps {
   originalFile: FileBaseModel | undefined;
@@ -19,12 +19,16 @@ export interface SplitViewHandleProps {
 export function SplitViewHandle({ originalFile, resultFile }: SplitViewHandleProps) {
   return (
     <div className="split-view__handle">
-      <span className="base-viewer__label base-viewer__label--input">
-        <span>{originalFile?.name}</span> - <span>{originalFile ? formatFileSize(originalFile.size) : ''}</span>
-      </span>
-      <span className="base-viewer__label base-viewer__label--result">
-        <span>{resultFile?.name}</span> - <span>{resultFile ? formatFileSize(resultFile.size) : ''}</span>
-      </span>
+      <KeepScale>
+        <span className="base-viewer__label base-viewer__label--input">
+          <span>{originalFile?.name}</span> - <span>{originalFile ? formatFileSize(originalFile.size) : ''}</span>
+        </span>
+      </KeepScale>
+      <KeepScale>
+        <span className="base-viewer__label base-viewer__label--result">
+          <span>{resultFile?.name}</span> - <span>{resultFile ? formatFileSize(resultFile.size) : ''}</span>
+        </span>
+      </KeepScale>
     </div>
   );
 }
@@ -77,7 +81,7 @@ export default function SplitView({ children, className, originalFile, resultFil
         bounds="parent"
         handleStyles={{
           right: {
-            width: 3,
+            width: 5,
           },
         }}
         handleComponent={{
