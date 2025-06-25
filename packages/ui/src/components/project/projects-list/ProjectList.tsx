@@ -211,7 +211,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
 
             <div className="sort-controls">
               <button
-                className={`sort-button ${sortBy === 'name' ? 'active' : ''}`}
+                className={`filter-button ${sortBy === 'name' ? 'active' : ''}`}
                 onClick={() => {
                   toggleSort('name');
                 }}
@@ -220,7 +220,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
                 {sortBy === 'name' && (sortOrder === 'asc' ? <SortAsc size={14} /> : <SortDesc size={14} />)}
               </button>
               <button
-                className={`sort-button ${sortBy === 'date' ? 'active' : ''}`}
+                className={`filter-button ${sortBy === 'date' ? 'active' : ''}`}
                 onClick={() => {
                   toggleSort('date');
                 }}
@@ -229,7 +229,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ isOpen, onClose }) => 
                 {sortBy === 'date' && (sortOrder === 'asc' ? <SortAsc size={14} /> : <SortDesc size={14} />)}
               </button>
               <button
-                className={`sort-button ${sortBy === 'size' ? 'active' : ''}`}
+                className={`filter-button ${sortBy === 'size' ? 'active' : ''}`}
                 onClick={() => {
                   toggleSort('size');
                 }}

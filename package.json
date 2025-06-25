@@ -34,12 +34,5 @@
   "packageManager": "pnpm@10.12.3",
   "engines": {
     "node": ">=22.11.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@janis.me/react-themed": "file:../themed/packages/react-themed",
-      "@janis.me/themed": "file:../themed/packages/themed",
-      "@janis.me/ui": "file:../ui/packages/ui"
-    }
   }
 }

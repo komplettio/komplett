@@ -6,7 +6,7 @@ import { useCreateProject, useImportFile } from '#state/mutations';
 
 import './home.route.scss';
 
-import { ChevronDown, ChevronDownCircle } from 'lucide-react';
+import { ChevronDown, ChevronDownCircle, InfoIcon } from 'lucide-react';
 
 export default function HomeRoute() {
   const navigate = useNavigate();
@@ -37,15 +37,43 @@ export default function HomeRoute() {
     <div className="home">
       <div className="home__header">
         <h1 className="home__title">
-          Transform <span>every</span> file, <span>Instantly</span>!
+          <div className="animated-text-container">
+            <span className="animated-text highlight">Compress</span>
+            <span className="animated-text highlight">Convert</span>
+            <span className="animated-text highlight">Optimize</span>
+            <span className="animated-text highlight">Stylize</span>
+          </div>
+          your
+          <div className="animated-text-container">
+            <span className="animated-text highlight">Images</span>
+            <span className="animated-text highlight">Videos</span>
+            <span className="animated-text highlight">Audios</span>
+            <span className="animated-text highlight">Files</span>
+          </div>
+          - Offline and <span>Instantly</span>!
         </h1>
         <p className="home__subtitle">
           The smartest way to convert, optimize, and manage your files.
           <br />
-          <span>Privacy and local-first</span>: Files <span>never</span> leave your machine!
+          <span className="highlight">Privacy and local-first</span>: Files <span className="highlight">never</span>{' '}
+          leave your machine!
           <br />
-          Files are processed in your browser using the power of Rust and WebAssembly.
+          <span className="home__subtitle__extra">
+            Files are processed in your browser using the power of{' '}
+            <a href="https://www.rust-lang.org/what/wasm" rel="noopener noreferrer" target="_blank">
+              Rust and WebAssembly
+            </a>
+            .
+          </span>
         </p>
+        <div className="home__info-badge">
+          <InfoIcon />
+          <p>
+            Komplett is still in development, and this is an MVP. <span className="highlight">Dont&apos;t</span> expect
+            things to work. Expect them to <span className="highlight">break</span>, and{' '}
+            <span className="highlight">don&apos;t rely</span> on files being stored.
+          </p>
+        </div>
         <div className="home__dropzone">
           <FileDropZone onFileUpload={handleFileUpload} />
         </div>

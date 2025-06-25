@@ -191,7 +191,7 @@
   &.active {
     background: themed('color-interactive-disabled');
     border-color: themed('color-interactive');
-    color: themed('color-interactive');
+    color: themed('color-interactive-text');
   }
 
   // Mobile touch improvements
@@ -209,40 +209,6 @@
 
   @media (max-width: 768px) {
     gap: themed('size-4');
-  }
-}
-
-.sort-button {
-  display: flex;
-  align-items: center;
-  gap: themed('size-4');
-  padding: themed('size-4') themed('size-5');
-  border: 1px solid themed('color-border-light');
-  border-radius: themed('size-4');
-  background: themed('color-background');
-  color: themed('color-text-primary');
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 36px;
-
-  &:hover {
-    border-color: themed('color-interactive-hover');
-    color: themed('color-interactive');
-  }
-
-  &.active {
-    background: themed('color-interactive-disabled');
-    border-color: themed('color-interactive');
-    color: themed('color-interactive');
-  }
-
-  // Mobile adjustments
-  @media (max-width: 768px) {
-    min-height: 44px;
-    padding: themed('size-4') themed('size-5');
-    font-size: 13px;
   }
 }
 

@@ -96,12 +96,16 @@ export class TransformerHandler extends EventHandler {
         true,
       );
 
-      // Remove files after the client has received the final update
-      // and might already start loading new ones.
-      await db.transaction('rw', [db.files, db.transformers], async () => {
-        await FileCtrl.deleteMany(existingFiles);
-        await TransformerCtrl.unassignFiles(data.payload.id, existingFiles);
-      });
+      try {
+        // Remove files after the client has received the final update
+        // and might already start loading new ones.
+        await db.transaction('rw', [db.files, db.transformers, db.projects], async () => {
+          await FileCtrl.deleteMany(existingFiles);
+          await TransformerCtrl.unassignFiles(data.payload.id, existingFiles);
+        });
+      } catch (error) {
+        console.error('Error removing files:', error);
+      }
     } catch (error) {
       await TransformerCtrl.updateStatus(data.payload.id, 'error');
 

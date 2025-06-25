@@ -34,7 +34,7 @@ class TransformerController extends BaseController<
 
   public unassignFiles(id: UUID, fileIds: UUID[]): Promise<void> {
     return db.transaction('rw', [db.transformers], async () => {
-      const transformer = await this.getById(id);
+      const transformer = await this.getBaseById(id);
       if (!transformer) {
         throw new Error(`Transformer with ID ${id} not found`);
       }
