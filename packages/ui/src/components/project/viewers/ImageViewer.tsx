@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import type { FileBaseModel, ImageMetadata } from '@komplett/core';
 
 import { formatFileSize } from '#utils/formatters';
@@ -59,9 +61,12 @@ function ImageViewOutput({ resultFile }: { resultFile: FileBaseModel }) {
 }
 
 function ImageViewSplit({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
-  const originalUrl = URL.createObjectURL(originalFile.blob);
-  const resultUrl = URL.createObjectURL(resultFile.blob);
+  const [originalUrl, setOriginalUrl] = useState<string>(URL.createObjectURL(originalFile.blob));
+  const [resultUrl, setResultUrl] = useState<string>(URL.createObjectURL(resultFile.blob));
 
+  useEffect(() => {
+    console.log(originalFile, resultFile);
+  }, [originalFile, resultFile]);
   return (
     <SplitView originalFile={originalFile} resultFile={resultFile}>
       <img src={originalUrl} alt={originalFile.name} className="preview-image" />
@@ -103,7 +108,6 @@ export default function ImageViewer({ originalFile, resultFile, mode }: ImageVie
   return (
     <ZoomableView
       className="image-viewer"
-      zoomEnabled={true}
       contentHeight={imageMetadata.dimensions.height}
       contentWidth={imageMetadata.dimensions.width}
     >
