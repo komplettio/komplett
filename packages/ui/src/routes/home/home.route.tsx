@@ -6,6 +6,8 @@ import { useCreateProject, useImportFile } from '#state/mutations';
 
 import './home.route.scss';
 
+import { ChevronDown, ChevronDownCircle } from 'lucide-react';
+
 export default function HomeRoute() {
   const navigate = useNavigate();
   const importFile = useImportFile();
@@ -33,15 +35,35 @@ export default function HomeRoute() {
 
   return (
     <div className="home">
-      <h1 className="home__title">Komplett.io - local-first file processing</h1>
-      <h2 className="home__subtitle">
-        Files never leave your machine!{' '}
-        <span>
-          For <b>all</b> files, for free, for ever!
-        </span>
-      </h2>
-      <FileDropZone onFileUpload={handleFileUpload} />
-      <RecentProjects />
+      <div className="home__header">
+        <h1 className="home__title">
+          Transform <span>every</span> file, <span>Instantly</span>!
+        </h1>
+        <p className="home__subtitle">
+          The smartest way to convert, optimize, and manage your files.
+          <br />
+          <span>Privacy and local-first</span>: Files <span>never</span> leave your machine!
+          <br />
+          Files are processed in your browser using the power of Rust and WebAssembly.
+        </p>
+        <div className="home__dropzone">
+          <FileDropZone onFileUpload={handleFileUpload} />
+        </div>
+
+        <ChevronDown size={32} className="home__header__chevron" />
+      </div>
+
+      <div className="home__features">
+        <h2>Why to choose komplett</h2>
+
+        <p>
+          komplett.io let&apos;s you process, optimize, convert and manipulate all kinds of files like images, videos,
+          audio etc.
+          <br />
+          Files <b>never</b> leave your machine! We use the power of rust and webassembly to run all processing in your
+          browser.
+        </p>
+      </div>
     </div>
   );
 }

@@ -16,35 +16,26 @@
   }
 
   @include media('<=tablet') {
-    grid-template-rows: 160px 1fr;
+    grid-template-rows: 0 50% 50%;
+    grid-template-columns: 1fr;
+    padding-bottom: 0;
+    gap: 0;
   }
 }
 
-.project-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: themed('size-5');
-  background: themed('color-surface');
-  border-bottom: 1px solid themed('color-border-light');
-  grid-area: header;
-
-  // Mobile: Stack vertically
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-    gap: themed('size-5');
+.project {
+  .project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: themed('size-5');
-  }
+    background: themed('color-surface');
+    border-bottom: 1px solid themed('color-border-light');
+    grid-area: header;
 
-  // Tablet adjustments
-  @media (min-width: 769px) and (max-width: 1024px) {
-    padding: calc(themed('size-5') + themed('size-4'));
-  }
-
-  // Desktop spacing
-  @media (min-width: 1025px) {
-    padding: calc(themed('size-5') + themed('size-4'));
+    @include media('<=tablet') {
+      display: none;
+    }
   }
 }
 
@@ -61,39 +52,6 @@
 
   @media (min-width: 1025px) {
     gap: themed('size-5');
-  }
-}
-
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: themed('size-4');
-  padding: themed('size-4') themed('size-5');
-  border: none;
-  border-radius: themed('size-4');
-  background: themed('color-elevated');
-  color: themed('color-text-secondary');
-  font-size: clamp(12px, 2.5vw, 14px);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 40px;
-  white-space: nowrap;
-
-  &:hover {
-    background: themed('color-border-light');
-  }
-
-  // Mobile touch improvements
-  @media (max-width: 768px) {
-    min-height: 44px;
-    padding: themed('size-4') themed('size-5');
-    font-size: 13px;
-  }
-
-  @media (min-width: 1025px) {
-    padding: themed('size-5') themed('size-5');
-    font-size: 14px;
   }
 }
 
@@ -121,15 +79,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  // Mobile specific sizing
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-
-  @media (min-width: 1200px) {
-    font-size: 24px;
-  }
 }
 
 .project-description {
@@ -141,46 +90,8 @@
   text-overflow: ellipsis;
 }
 
-.header-actions {
-  display: flex;
-  gap: themed('size-4');
-
-  // Mobile: Full width, stack if needed
-  @media (max-width: 768px) {
-    width: 100%;
-    gap: themed('size-4');
-    flex-wrap: wrap;
-  }
-
-  @media (min-width: 1025px) {
-    gap: themed('size-5');
-  }
-}
-
 .action-button {
   gap: themed('size-4');
-}
-
-.file-editor-layout {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: themed('size-5');
-  padding: themed('size-5');
-
-  // Mobile: Single column
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-    gap: themed('size-5');
-    padding: themed('size-5');
-  }
-
-  // Desktop spacing
-  @media (min-width: 1025px) {
-    gap: calc(themed('size-5') + themed('size-4'));
-    padding: calc(themed('size-5') + themed('size-4'));
-  }
 }
 
 .project-main {
@@ -207,6 +118,10 @@
   @include media('<=desktop') {
     margin: 0 themed('size-6');
   }
+
+  @include media('<=tablet') {
+    margin: 0;
+  }
 }
 
 .editor-section {
@@ -222,26 +137,30 @@
   @include media('<=desktop') {
     margin: 0 themed('size-6');
   }
+
+  @include media('<=tablet') {
+    margin: 0;
+  }
 }
 
-.file-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: themed('size-5') themed('size-5');
-  border-bottom: 1px solid themed('color-border-light');
-  background: themed('color-elevated');
+.project {
+  .file-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: themed('size-5') themed('size-5');
+    border-bottom: 1px solid themed('color-border-light');
+    background: themed('color-elevated');
 
-  // Mobile: Stack if needed
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-    gap: themed('size-4');
-    padding: themed('size-5');
-  }
+    // Mobile: Stack if needed
+    @media (max-width: 768px) {
+      gap: themed('size-4');
+      padding: themed('size-5');
+    }
 
-  @media (min-width: 1025px) {
-    padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
+    @media (min-width: 1025px) {
+      padding: themed('size-5') calc(themed('size-5') + themed('size-4'));
+    }
   }
 }
 

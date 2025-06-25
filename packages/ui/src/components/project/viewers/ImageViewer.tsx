@@ -65,8 +65,10 @@ function ImageViewSplit({ originalFile, resultFile }: { originalFile: FileBaseMo
   const [resultUrl, setResultUrl] = useState<string>(URL.createObjectURL(resultFile.blob));
 
   useEffect(() => {
-    console.log(originalFile, resultFile);
+    setOriginalUrl(URL.createObjectURL(originalFile.blob));
+    setResultUrl(URL.createObjectURL(resultFile.blob));
   }, [originalFile, resultFile]);
+
   return (
     <SplitView originalFile={originalFile} resultFile={resultFile}>
       <img src={originalUrl} alt={originalFile.name} className="preview-image" />

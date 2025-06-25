@@ -115,6 +115,15 @@
     & > * {
       pointer-events: all;
     }
+
+    @include media('<=tablet') {
+      padding: themed('size-3');
+
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: auto auto;
+      grid-template-areas: 'file mode' 'x background' 'zoom center-button';
+      justify-content: space-between;
+    }
   }
 
   &__file-select__trigger {
@@ -143,9 +152,19 @@
   &__mode-switch,
   &__background-switch {
     display: inline-flex;
-    flex-direction: row;
+    flex-flow: row;
     border: 1px solid themed('color-border');
     border-radius: themed('border-radius');
+
+    @include media('<=tablet') {
+      flex-flow: column;
+      justify-self: end;
+      height: 100%;
+      width: themed('size-6');
+      .themed-ui__toggle-group__item {
+        height: themed('size-6');
+      }
+    }
   }
 
   &__label {

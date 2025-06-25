@@ -19,7 +19,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource-variable/jetbrains-mono": "catalog:frontend",
+    "@fontsource-variable/montserrat": "catalog:frontend",
     "@janis.me/react-themed": "catalog:frontend",
     "@janis.me/ui": "0.1.2-alpha.3",
     "@komplett/core": "workspace:*",

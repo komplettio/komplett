@@ -45,12 +45,9 @@ catalogs:
       specifier: ^2.5.15
       version: 2.5.15
   frontend:
-    '@fontsource-variable/jetbrains-mono':
+    '@fontsource-variable/montserrat':
       specifier: ^5.2.6
       version: 5.2.6
-    '@janis.me/react-themed':
-      specifier: ^0.2.1
-      version: 0.2.1
     '@radix-ui/react-dialog':
       specifier: ^1.1.14
       version: 1.1.14
@@ -151,6 +148,11 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.1.6
       version: 19.1.6
+
+overrides:
+  '@janis.me/react-themed': file:../themed/packages/react-themed
+  '@janis.me/themed': file:../themed/packages/themed
+  '@janis.me/ui': file:../ui/packages/ui
 
 importers:
 
@@ -261,15 +263,15 @@ importers:
 
   packages/ui:
     dependencies:
-      '@fontsource-variable/jetbrains-mono':
+      '@fontsource-variable/montserrat':
         specifier: catalog:frontend
         version: 5.2.6
       '@janis.me/react-themed':
-        specifier: catalog:frontend
-        version: 0.2.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: file:../../../themed/packages/react-themed
+        version: file:../themed/packages/react-themed(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@janis.me/ui':
-        specifier: 0.1.2-alpha.3
-        version: 0.1.2-alpha.3(@janis.me/themed@0.2.1)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)(surimi@0.2.2)
+        specifier: file:../../../ui/packages/ui
+        version: file:../ui/packages/ui(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)
       '@komplett/core':
         specifier: workspace:*
         version: link:../core
@@ -658,8 +660,8 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
-  '@fontsource-variable/jetbrains-mono@5.2.6':
-    resolution: {integrity: sha512-1pvtyK6H1paBOixbtZ9xfQgArVQ4SJMW3WSGZPOd5PiW3yg0t8umwKnjDMzW2ofb7qSdiXnsnIaHPT36vEOdlg==}
+  '@fontsource-variable/montserrat@5.2.6':
+    resolution: {integrity: sha512-1eHefcz9ZXSMjZPckKCWSYd8rLjUpmzQIsNO8DuyU0IdPvsqletPvSIJmztr0sCU6sX4EFKsSHxJWawjmROp2A==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -690,27 +692,27 @@ packages:
       '@vue/compiler-sfc':
         optional: true
 
-  '@janis.me/react-themed@0.2.1':
-    resolution: {integrity: sha512-EWmJKALUnBXTvduwMqMijoWr5Q22ItXAjen3UOZ1M6QwjCwQ+LqvxI61u6tYYVCPnzCE4c5hoyf79mDDcAs5UA==}
+  '@janis.me/react-themed@file:../themed/packages/react-themed':
+    resolution: {directory: ../themed/packages/react-themed, type: directory}
     engines: {node: '>=22.11.0'}
     peerDependencies:
-      react: ^19.1.0
-      react-dom: ^19.1.0
+      react: catalog:react
+      react-dom: catalog:react
 
-  '@janis.me/themed@0.2.1':
-    resolution: {integrity: sha512-j+9XPSPL3yKB6MJRMXugQFALpTvWSfj+Y3Sd06vACZJIEFIPo5v7xmX3GjQxbB/FuOp+E65q7NvbnLHwdNnXVQ==}
+  '@janis.me/themed@file:../themed/packages/themed':
+    resolution: {directory: ../themed/packages/themed, type: directory}
     engines: {node: '>=22.11.0'}
 
-  '@janis.me/ui@0.1.2-alpha.3':
-    resolution: {integrity: sha512-MM1byeONVO0owqF37c979uJ7OLR9ElupJWKM2bjP1tmAtSKXVMX8jmqWEs7x19ewTOsck3eW4I65OcvJZU+/eg==}
+  '@janis.me/ui@file:../ui/packages/ui':
+    resolution: {directory: ../ui/packages/ui, type: directory}
     peerDependencies:
-      '@janis.me/themed': ^0.2.1
-      '@types/react': ^19.1.8
-      '@types/react-dom': ^19.1.6
-      react: ^19.1.0
-      react-dom: ^19.1.0
-      sass: ^1.89.2
-      surimi: ^0.2.2
+      '@janis.me/themed': catalog:ui
+      '@types/react': catalog:react
+      '@types/react-dom': catalog:react
+      react: catalog:react
+      react-dom: catalog:react
+      sass: catalog:build
+      surimi: catalog:ui
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -3061,9 +3063,6 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  surimi@0.2.2:
-    resolution: {integrity: sha512-QBaQ+FrJicfHgGzNTo/PdGTbEynd6EPVLvvl1azN8QcJEQWKyjuWWlo4EV3iiwBR0P9XhV9mepeRTiL6yrHjdg==}
-
   synckit@0.11.8:
     resolution: {integrity: sha512-+XZ+r1XGIJGeQk3VvXhT6xx/VpbHsRzsTkGgF6E5RX9TTXD0118l87puaEBZ566FhqblC6U0d4XnubznJDm30A==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3623,7 +3622,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@fontsource-variable/jetbrains-mono@5.2.6': {}
+  '@fontsource-variable/montserrat@5.2.6': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -3649,17 +3648,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@janis.me/react-themed@0.2.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@janis.me/react-themed@file:../themed/packages/react-themed(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@janis.me/themed': 0.2.1
+      '@janis.me/themed': file:../themed/packages/themed
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@janis.me/themed@0.2.1': {}
+  '@janis.me/themed@file:../themed/packages/themed': {}
 
-  '@janis.me/ui@0.1.2-alpha.3(@janis.me/themed@0.2.1)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)(surimi@0.2.2)':
+  '@janis.me/ui@file:../ui/packages/ui(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)':
     dependencies:
-      '@janis.me/themed': 0.2.1
       '@types/react': 19.1.8
       '@types/react-dom': 19.1.6(@types/react@19.1.8)
       clsx: 2.1.1
@@ -3667,7 +3665,6 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       sass: 1.89.2
-      surimi: 0.2.2
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
@@ -6266,8 +6263,6 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
-
-  surimi@0.2.2: {}
 
   synckit@0.11.8:
     dependencies:

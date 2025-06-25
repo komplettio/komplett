@@ -4,13 +4,14 @@
 @use 'sass:meta';
 
 @use 'include-media' as *;
+@use '@janis.me/react-themed/plugins';
 
 @use '@janis.me/ui/styles' as ui;
 @use '@janis.me/ui/themes';
 
 $colors: (
-  'primary': #3d63dd,
-  'gray': #121216,
+  'primary': #3dcadd,
+  'gray': #151718,
   'info': #2563eb,
   'success': #16a34a,
   'warning': #d97706,
@@ -18,7 +19,7 @@ $colors: (
 );
 
 @include ui.themes(themes.default-light($colors...), themes.default-dark($colors...));
-@include ui.configure();
+@include ui.configure(plugins.colorspace(rgb));
 
 $breakpoints: (
   phone: 420px,

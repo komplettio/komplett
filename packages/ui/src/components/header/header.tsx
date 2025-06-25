@@ -25,18 +25,18 @@ export const Header: React.FC = () => {
         <nav className="nav">
           <button className="nav-button" onClick={toggleProjectList}>
             <FolderOpen size={20} />
-            Projects
+            <span>Projects</span>
           </button>
           <Link to="/settings">
             <button className="nav-button">
               <Settings size={20} />
-              Settings
+              <span>Settings</span>
             </button>
           </Link>
           <Link to="/files">
             <button className="nav-button">
               <File size={20} />
-              Files
+              <span>Files</span>
             </button>
           </Link>
           <button
@@ -46,7 +46,7 @@ export const Header: React.FC = () => {
             }}
           >
             <Sun size={20} />
-            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
           </button>
         </nav>
       </div>
