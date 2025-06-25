@@ -1,3 +1,4 @@
+import type { ProjectBaseModel } from '#models';
 import type { BaseCreateModel, BaseDeleteModel, BaseModel, BaseUpdateModel } from '#models/base.models';
 import type { UUID } from '#types/db.types';
 import type { FileKind, FileMetadata } from '#types/file.types';
@@ -17,4 +18,5 @@ export type FileDeleteModel = BaseDeleteModel<FileBaseModel>;
 
 export interface FileModel extends FileBaseModel {
   projectId: UUID | undefined;
+  project: ProjectBaseModel | undefined;
 }

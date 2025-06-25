@@ -192,6 +192,9 @@
   overflow: hidden;
   position: relative;
   min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__file-preview-loading {
     display: flex;

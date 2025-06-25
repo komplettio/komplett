@@ -14,12 +14,22 @@ class FileController extends BaseController<FileBaseModel, FileModel, FileCreate
   }
 
   protected async _serialize(file: FileBaseModel): Promise<FileModel> {
-    return db.transaction('r', db.projects, async () => {
-      const assignedProject = await db.projects.where('fileIds').equals(file.id).first();
+    return db.transaction('r', db.projects, db.transformers, async () => {
+      const projects = await db.projects.toArray();
+      const transformers = await db.transformers.toArray();
+
+      const assignedProject = projects.find(project => project.fileIds.includes(file.id));
+      const assignedTransformer = transformers.find(transformer => transformer.resultFileIds.includes(file.id));
+      const transformerProject = assignedTransformer?.projectId
+        ? projects.find(project => project.id === assignedTransformer.projectId)
+        : undefined;
+
+      const project = assignedProject ?? transformerProject;
 
       return {
         ...file,
-        projectId: assignedProject?.id,
+        projectId: project?.id,
+        project: project ?? undefined,
       };
     });
   }

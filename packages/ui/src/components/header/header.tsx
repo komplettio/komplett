@@ -1,5 +1,5 @@
 import { useTheme } from '@janis.me/react-themed/js';
-import { FileText, FolderOpen, Settings, Sun } from 'lucide-react';
+import { File, FileText, FolderOpen, Settings, Sun } from 'lucide-react';
 import type React from 'react';
 import { Link } from 'react-router';
 
@@ -31,6 +31,12 @@ export const Header: React.FC = () => {
             <button className="nav-button">
               <Settings size={20} />
               Settings
+            </button>
+          </Link>
+          <Link to="/files">
+            <button className="nav-button">
+              <File size={20} />
+              Files
             </button>
           </Link>
           <button

@@ -30,6 +30,7 @@
     "@radix-ui/react-slider": "catalog:frontend",
     "@radix-ui/react-toast": "catalog:frontend",
     "@tanstack/react-query": "catalog:frontend",
+    "@tanstack/react-table": "^8.21.3",
     "clsx": "catalog:frontend",
     "immer": "catalog:frontend",
     "include-media": "catalog:frontend",
