@@ -1,13 +1,18 @@
 .image-viewer {
   .collage-view {
     display: flex;
-    gap: themed('size-4');
-    flex-flow: column;
-    width: 100%;
-    overflow: hidden;
+    flex-direction: column;
+    gap: themed('size-6');
+
+    &__item {
+      position: relative;
+    }
 
     .base-viewer__label {
-      width: min-content;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      transform: translateX(100%);
     }
   }
 }

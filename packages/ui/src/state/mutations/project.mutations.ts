@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import type { ProjectCreateResponse, UUID } from '@komplett/core';
 import { emitter, type ProjectCreateEvent, type ProjectUpdateEvent } from '@komplett/core';
 
+import { queryClient } from '#state/queries/client.js';
+
 export function useCreateProject() {
   return useMutation({
     mutationFn: async (data: ProjectCreateEvent) => {
@@ -47,6 +49,11 @@ export function useDeleteProject() {
             reject(err as Error);
           });
       });
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['projects'] });
+      void queryClient.invalidateQueries({ queryKey: ['transformers'] });
+      void queryClient.invalidateQueries({ queryKey: ['files'] });
     },
   });
 }

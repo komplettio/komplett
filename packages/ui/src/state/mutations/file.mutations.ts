@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import { emitter } from '@komplett/core';
 import type { FileCreateEvent, FileCreateResponse, FileImportEvent, FileModel, UUID } from '@komplett/core';
 
+import { queryClient } from '#state/queries/client.js';
+
 export function useCreateFile() {
   return useMutation({
     mutationFn: async (data: FileCreateEvent) => {
@@ -47,6 +49,11 @@ export function useDeleteFiles() {
             reject(err as Error);
           });
       });
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['projects'] });
+      void queryClient.invalidateQueries({ queryKey: ['transformers'] });
+      void queryClient.invalidateQueries({ queryKey: ['files'] });
     },
   });
 }

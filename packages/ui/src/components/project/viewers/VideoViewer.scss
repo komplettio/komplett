@@ -1,0 +1,5 @@
+.viewer__controls {
+  height: themed('size-8') - themed('size-7');
+  background-color: themed('color-elevated');
+  border-top: 1px solid themed('color-border-light');
+}

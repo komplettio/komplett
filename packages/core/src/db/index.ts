@@ -46,6 +46,12 @@ class Database extends Dexie {
       obj.updatedAt = new Date();
     });
 
+    this.projects.hook('deleting', async (_, obj) => {
+      // When a project is deleted, also delete associated files and transformers
+      await this.files.where('projectId').equals(obj.id).delete();
+      await this.transformers.where('projectId').equals(obj.id).delete();
+    });
+
     // Auto-update timestamps for files
     this.files.hook('creating', (_, obj) => {
       const now = new Date();
@@ -67,6 +73,12 @@ class Database extends Dexie {
 
     this.transformers.hook('updating', (_, __, obj) => {
       obj.updatedAt = new Date();
+    });
+
+    this.transformers.hook('deleting', async (_, obj) => {
+      // When a transformer is deleted, also delete associated files
+      const fileIds = obj.resultFileIds;
+      await this.files.bulkDelete(fileIds);
     });
   }
 

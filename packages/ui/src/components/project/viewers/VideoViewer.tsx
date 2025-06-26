@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import type { FileBaseModel, VideoMetadata } from '@komplett/core';
 
 import { formatFileSize } from '#utils/formatters';
@@ -6,17 +8,27 @@ import type { ViewerProps } from './BaseViewer';
 import SplitView from './SplitView';
 import ZoomableView from './ZoomableView';
 
+import './VideoViewer.scss';
+
 export type VideoViewerProps = ViewerProps;
 
 function VideoViewInput({ originalFile }: { originalFile: FileBaseModel }) {
-  const videoUrl = URL.createObjectURL(originalFile.blob);
+  const [originalUrl, setOriginalUrl] = useState<string>();
+
+  useEffect(() => {
+    try {
+      setOriginalUrl(URL.createObjectURL(originalFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
+  }, [originalFile]);
 
   return (
     <div>
       <span className="base-viewer__label base-viewer__label--input">
         {originalFile.name} - {formatFileSize(originalFile.size)}
       </span>
-      <video src={videoUrl} className="preview-video" preload="metadata">
+      <video src={originalUrl} className="preview-video" preload="metadata">
         Your browser does not support the video tag.
       </video>
     </div>
@@ -24,14 +36,22 @@ function VideoViewInput({ originalFile }: { originalFile: FileBaseModel }) {
 }
 
 function VideoViewOutput({ resultFile }: { resultFile: FileBaseModel }) {
-  const videoUrl = URL.createObjectURL(resultFile.blob);
+  const [resultUrl, setResultUrl] = useState<string>();
+
+  useEffect(() => {
+    try {
+      setResultUrl(URL.createObjectURL(resultFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
+  }, [resultFile]);
 
   return (
     <div>
       <span className="base-viewer__label base-viewer__label--result">
         {resultFile.name} - {formatFileSize(resultFile.size)}
       </span>
-      <video src={videoUrl} className="preview-video" preload="metadata">
+      <video src={resultUrl} className="preview-video" preload="metadata">
         Your browser does not support the video tag.
       </video>
     </div>
@@ -39,8 +59,17 @@ function VideoViewOutput({ resultFile }: { resultFile: FileBaseModel }) {
 }
 
 function VideoViewSplit({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
-  const originalUrl = URL.createObjectURL(originalFile.blob);
-  const resultUrl = URL.createObjectURL(resultFile.blob);
+  const [originalUrl, setOriginalUrl] = useState<string>();
+  const [resultUrl, setResultUrl] = useState<string>();
+
+  useEffect(() => {
+    try {
+      setOriginalUrl(URL.createObjectURL(originalFile.blob));
+      setResultUrl(URL.createObjectURL(resultFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
+  }, [originalFile, resultFile]);
 
   return (
     <SplitView originalFile={originalFile} resultFile={resultFile}>
@@ -84,12 +113,13 @@ export default function VideoViewer({ originalFile, resultFile, mode }: VideoVie
 
   return (
     <ZoomableView
-      className="image-viewer"
+      className="video-viewer"
       zoomEnabled={true}
       contentWidth={videoMetadata.dimensions.width}
       contentHeight={videoMetadata.dimensions.height}
     >
       {viewComponent}
+      <div className="viewer__controls">test</div>
     </ZoomableView>
   );
 }

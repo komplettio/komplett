@@ -56,6 +56,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     deleteProject.mutate(project.id, {
       onSuccess: () => {
         setIsDeleteModalOpen(false);
+        void navigate('/');
       },
     });
   };

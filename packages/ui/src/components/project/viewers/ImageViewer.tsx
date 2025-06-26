@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { KeepScale } from 'react-zoom-pan-pinch';
 
 import type { FileBaseModel, ImageMetadata } from '@komplett/core';
 
@@ -13,21 +14,30 @@ import './ImageViewer.scss';
 export type ImageViewerProps = ViewerProps;
 
 function ImageViewCollage({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
-  const originalUrl = URL.createObjectURL(originalFile.blob);
-  const resultUrl = URL.createObjectURL(resultFile.blob);
+  const [originalUrl, setOriginalUrl] = useState<string>();
+  const [resultUrl, setResultUrl] = useState<string>();
+
+  useEffect(() => {
+    try {
+      setOriginalUrl(URL.createObjectURL(originalFile.blob));
+      setResultUrl(URL.createObjectURL(resultFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
+  }, [originalFile, resultFile]);
 
   return (
     <div className="collage-view">
       <div className="collage-view__item">
-        <span className="base-viewer__label base-viewer__label--input">
+        <KeepScale className="base-viewer__label base-viewer__label--input">
           {originalFile.name} - {formatFileSize(originalFile.size)}
-        </span>
+        </KeepScale>
         <img src={originalUrl} alt={originalFile.name} className="preview-image" />
       </div>
       <div className="collage-view__item">
-        <span className="base-viewer__label base-viewer__label--result">
+        <KeepScale className="base-viewer__label base-viewer__label--result">
           {resultFile.name} - {formatFileSize(resultFile.size)}
-        </span>
+        </KeepScale>
         <img src={resultUrl} alt={resultFile.name} className="preview-image" />
       </div>
     </div>
@@ -35,38 +45,58 @@ function ImageViewCollage({ originalFile, resultFile }: { originalFile: FileBase
 }
 
 function ImageViewInput({ originalFile }: { originalFile: FileBaseModel }) {
-  const imageUrl = URL.createObjectURL(originalFile.blob);
+  const [originalUrl, setOriginalUrl] = useState<string>();
+
+  useEffect(() => {
+    try {
+      setOriginalUrl(URL.createObjectURL(originalFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
+  }, [originalFile]);
 
   return (
     <div>
       <span className="base-viewer__label base-viewer__label--input">
         {originalFile.name} - {formatFileSize(originalFile.size)}
       </span>
-      <img src={imageUrl} alt={originalFile.name} className="preview-image" />
+      <img src={originalUrl} alt={originalFile.name} className="preview-image" />
     </div>
   );
 }
 
 function ImageViewOutput({ resultFile }: { resultFile: FileBaseModel }) {
-  const imageUrl = URL.createObjectURL(resultFile.blob);
+  const [resultUrl, setResultUrl] = useState<string>();
+
+  useEffect(() => {
+    try {
+      setResultUrl(URL.createObjectURL(resultFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
+  }, [resultFile]);
 
   return (
     <div>
       <span className="base-viewer__label base-viewer__label--result">
         {resultFile.name} - {formatFileSize(resultFile.size)}
       </span>
-      <img src={imageUrl} alt={resultFile.name} className="preview-image" />
+      <img src={resultUrl} alt={resultFile.name} className="preview-image" />
     </div>
   );
 }
 
 function ImageViewSplit({ originalFile, resultFile }: { originalFile: FileBaseModel; resultFile: FileBaseModel }) {
-  const [originalUrl, setOriginalUrl] = useState<string>(URL.createObjectURL(originalFile.blob));
-  const [resultUrl, setResultUrl] = useState<string>(URL.createObjectURL(resultFile.blob));
+  const [originalUrl, setOriginalUrl] = useState<string>();
+  const [resultUrl, setResultUrl] = useState<string>();
 
   useEffect(() => {
-    setOriginalUrl(URL.createObjectURL(originalFile.blob));
-    setResultUrl(URL.createObjectURL(resultFile.blob));
+    try {
+      setOriginalUrl(URL.createObjectURL(originalFile.blob));
+      setResultUrl(URL.createObjectURL(resultFile.blob));
+    } catch (error) {
+      console.error('Error creating object URLs:', error);
+    }
   }, [originalFile, resultFile]);
 
   return (
