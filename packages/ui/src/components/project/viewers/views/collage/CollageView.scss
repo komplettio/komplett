@@ -1,0 +1,16 @@
+.collage-view {
+  display: flex;
+  flex-direction: column;
+  gap: themed('size-6');
+
+  &__item {
+    position: relative;
+  }
+
+  .base-viewer__label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform: translateX(100%);
+  }
+}

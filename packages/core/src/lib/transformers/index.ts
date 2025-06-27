@@ -14,7 +14,7 @@ export async function executeTransformer(
       return executeImageTransformer(transformer, callback);
     }
     default: {
-      throw new Error(`Unsupported transformer kind: ${transformer.kind}`);
+      throw new Error(`Sorry, ${transformer.kind} files are not supported yet.`);
     }
   }
 }

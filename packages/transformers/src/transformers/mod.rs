@@ -3,8 +3,6 @@ pub mod image_transformer;
 use image::ImageFormat;
 use std::collections::VecDeque;
 
-
-
 pub struct Transformer<T, S> {
     pub kind: T,
     data: Option<S>,
@@ -34,7 +32,6 @@ impl<T, S> Transformer<T, S> {
             .expect("failed to execute transformer: No data provided");
 
         if self.actions.is_empty() {
-            
             self.data = Some(state);
             return;
         }

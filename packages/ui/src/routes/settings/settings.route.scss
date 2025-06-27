@@ -293,13 +293,13 @@
   .warning-title {
     font-size: 14px;
     font-weight: 600;
-    color: themed('color-warning');
+    color: themed('color-text-primary');
     margin: 0 0 themed('size-4') 0;
   }
 
   .warning-text {
     font-size: 13px;
-    color: themed('color-warning');
+    color: themed('color-warning-text');
     margin: 0;
     line-height: 1.4;
   }

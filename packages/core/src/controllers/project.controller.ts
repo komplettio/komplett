@@ -1,9 +1,9 @@
-import { DEFAULT_FILE_TYPE_MAP } from '#constants/file.constants.js';
+import { DEFAULT_FILE_TYPE_MAP } from '#constants/file.constants';
 import { BaseController } from '#controllers/base.controller';
 import { db } from '#db';
 import type { ProjectBaseModel, ProjectCreateModel, ProjectModel, ProjectUpdateModel } from '#models/project.models';
+import type { ProjectKind } from '#types';
 import type { UUID } from '#types/db.types';
-import type { ProjectKind } from '#types/project.types.js';
 
 import { TransformerCtrl } from './transformer.controller';
 

@@ -34,8 +34,8 @@ export function SplitViewHandle({ originalFile, resultFile }: SplitViewHandlePro
 }
 
 export interface SplitViewProps {
-  originalFile?: FileBaseModel;
-  resultFile?: FileBaseModel;
+  originalFile: FileBaseModel;
+  resultFile: FileBaseModel | undefined;
   children: [React.ReactNode, React.ReactNode];
   className?: string;
 }

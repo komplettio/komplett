@@ -19,7 +19,7 @@ import { useTransformer } from '#state/queries';
 import * as UI from '#ui';
 import { ConfirmationModal } from '#ui/ConfirmationModal';
 
-import BaseViewer from './viewers/BaseViewer';
+import BaseViewer from './viewers/base/BaseViewer';
 
 import './Project.scss';
 

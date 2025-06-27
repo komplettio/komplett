@@ -1,0 +1,34 @@
+.video-viewer {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: auto calc(themed('size-7') + themed('size-6'));
+
+  &__view {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  &__progress-bar {
+    position: absolute;
+    left: 0;
+    // 1px for the border
+    top: calc((themed('size-4') * -1) - 1px);
+    width: 100%;
+    height: themed('size-4');
+  }
+
+  &__controls {
+    background-color: themed('color-elevated');
+    border-top: 1px solid themed('color-border-light');
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

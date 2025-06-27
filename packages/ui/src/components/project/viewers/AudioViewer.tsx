@@ -1,7 +1,7 @@
 import type { FileBaseModel } from '@komplett/core';
 
-import type { ViewerProps } from './BaseViewer';
-import SplitView from './SplitView';
+import type { ViewerProps } from './base/BaseViewer';
+import SplitView from './views/split/SplitView';
 
 export type AudioViewerProps = ViewerProps;
 
