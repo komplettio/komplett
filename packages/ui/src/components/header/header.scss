@@ -33,6 +33,26 @@
   }
 }
 
+.bolt-badge {
+  height: 80px;
+  width: 80px;
+
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  padding: themed('size-4');
+  background: themed('color-surface');
+  border: 1px solid themed('color-border-light');
+  border-radius: 9999px;
+
+  @include media('<=tablet') {
+    bottom: 80px;
+    left: 16px;
+    right: inherit;
+    top: unset;
+  }
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -143,8 +163,7 @@
 // Responsive navigation adjustments
 @media (max-width: 480px) {
   .nav-button {
-    padding: themed('size-4');
-    min-width: 44px;
+    padding: 0;
     justify-content: center;
   }
 }
